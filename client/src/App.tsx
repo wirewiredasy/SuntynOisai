@@ -15,7 +15,7 @@ function AppContent() {
   const { isDarkMode, toggleDarkMode } = useTheme();
 
   return (
-    <div className="min-h-screen bg-slate-900 dark:bg-slate-950 text-white">
+    <div className="min-h-screen bg-white dark:bg-slate-900 text-black dark:text-white transition-colors duration-300">
       <MobileHeader isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode} />
       <main className="pt-16">
         <Toaster />

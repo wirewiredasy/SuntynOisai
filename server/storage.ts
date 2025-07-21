@@ -60,6 +60,11 @@ export class MemStorage implements IStorage {
       { name: "PDF Metadata Editor", slug: "pdf-metadata-editor", category: "pdf", description: "Edit PDF metadata and properties", icon: "info", isActive: true, metadata: {} },
       { name: "PDF Black & White", slug: "pdf-black-white", category: "pdf", description: "Convert PDF to black and white", icon: "circle", isActive: true, metadata: {} },
       { name: "PDF Repair", slug: "pdf-repair", category: "pdf", description: "Repair corrupted PDF files", icon: "tool", isActive: true, metadata: {} },
+      { name: "PDF Bookmark Manager", slug: "pdf-bookmark-manager", category: "pdf", description: "Add and manage PDF bookmarks", icon: "bookmark", isActive: true, metadata: {} },
+      { name: "PDF Organizer", slug: "pdf-organizer", category: "pdf", description: "Organize and reorder PDF pages", icon: "sort", isActive: true, metadata: {} },
+      { name: "PDF Annotation", slug: "pdf-annotation", category: "pdf", description: "Add comments and annotations to PDF", icon: "message-circle", isActive: true, metadata: {} },
+      { name: "PDF Table Extractor", slug: "pdf-table-extractor", category: "pdf", description: "Extract tables from PDF files", icon: "table-2", isActive: true, metadata: {} },
+      { name: "PDF Link Checker", slug: "pdf-link-checker", category: "pdf", description: "Check and validate PDF links", icon: "link", isActive: true, metadata: {} },
       
       // Image Tools (25 tools)
       { name: "Image Resizer", slug: "image-resizer", category: "image", description: "Resize images to specific dimensions", icon: "maximize", isActive: true, metadata: {} },

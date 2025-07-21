@@ -3,10 +3,16 @@ import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
+import { useEffect } from "react";
 import ToolProcessor from "@/components/tool-processor";
 
 export default function ToolPage() {
   const [, params] = useRoute("/tool/:slug");
+
+  // Scroll to top when component mounts or tool changes
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [params?.slug]);
   
   // Fetch tool data from API
   const { data: tool, isLoading } = useQuery({
@@ -45,12 +51,12 @@ export default function ToolPage() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-900 py-12">
+    <div className="min-h-screen bg-white dark:bg-slate-900 text-black dark:text-white py-12">
       <div className="container mx-auto px-4">
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
           <Link href="/tools">
-            <Button variant="ghost" className="text-slate-400 hover:text-white">
+            <Button variant="ghost" className="text-slate-600 dark:text-slate-400 hover:text-black dark:hover:text-white">
               <ArrowLeft className="w-4 h-4 mr-2" />
               Back to Tools
             </Button>

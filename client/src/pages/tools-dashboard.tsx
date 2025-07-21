@@ -64,7 +64,7 @@ export default function ToolsDashboard() {
     <>
       {/* This page now uses the global mobile header */}
 
-      <div className="pt-6 pb-20">
+      <div className="min-h-screen bg-white dark:bg-slate-900 text-black dark:text-white pt-6 pb-20">
         <div className="container mx-auto px-4 md:px-6">
           {/* Header */}
           <div className="text-center mb-12">

@@ -12,7 +12,7 @@ Preferred communication style: Simple, everyday language.
 
 ✓ **FastAPI Backend Integration**: Added comprehensive FastAPI backend with 25+ tools
 ✓ **Enhanced Tool Categories**: 
-  - PDF Tools (20): Merge, split, compress, protect/unlock, OCR, watermark, format conversion, form filling, metadata editing
+  - PDF Tools (25): Merge, split, compress, protect/unlock, OCR, watermark, format conversion, form filling, metadata editing, bookmark management
   - Image Tools (25): Resize, compress, crop, enhance, filters, background removal, watermark, editing, QR/barcode generation, meme maker
   - Audio/Video Tools (20): Convert, trim, merge, extract, boost volume, compress media, speed control, stabilization, noise removal
   - Government Tools (15): PAN validation, Aadhaar masking, GST calculator, passport photos, digital signatures, tax calculators, IFSC finder

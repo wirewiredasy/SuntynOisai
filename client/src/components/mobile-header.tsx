@@ -25,7 +25,7 @@ export default function MobileHeader({ isDarkMode, toggleDarkMode }: MobileHeade
     : [];
 
   return (
-    <header className="fixed top-0 w-full z-50 bg-slate-900/95 dark:bg-slate-950/95 backdrop-blur-lg border-b border-slate-700/50">
+    <header className="fixed top-0 w-full z-50 bg-white/95 dark:bg-slate-900/95 backdrop-blur-lg border-b border-slate-200/50 dark:border-slate-700/50">
       <div className="container mx-auto px-4 py-3">
         <div className="flex items-center justify-between">
           {/* Logo */}
@@ -33,7 +33,7 @@ export default function MobileHeader({ isDarkMode, toggleDarkMode }: MobileHeade
             <AnimatedLogo size={36} />
             <div className="hidden sm:block">
               <h1 className="text-lg font-bold gradient-text">SuntynAI</h1>
-              <p className="text-xs text-slate-400">NEURAL INTELLIGENCE</p>
+              <p className="text-xs text-slate-600 dark:text-slate-400">NEURAL INTELLIGENCE</p>
             </div>
           </Link>
 
@@ -44,7 +44,7 @@ export default function MobileHeader({ isDarkMode, toggleDarkMode }: MobileHeade
               variant="ghost"
               size="sm"
               onClick={toggleDarkMode}
-              className="p-2 text-slate-400 hover:text-white"
+              className="p-2 text-slate-600 dark:text-slate-400 hover:text-black dark:hover:text-white"
             >
               {isDarkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
             </Button>
@@ -52,7 +52,7 @@ export default function MobileHeader({ isDarkMode, toggleDarkMode }: MobileHeade
             {/* Hamburger Menu */}
             <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
               <SheetTrigger asChild>
-                <Button variant="ghost" size="sm" className="p-2 text-slate-400 hover:text-white">
+                <Button variant="ghost" size="sm" className="p-2 text-slate-600 dark:text-slate-400 hover:text-black dark:hover:text-white">
                   <Menu className="w-6 h-6" />
                 </Button>
               </SheetTrigger>
