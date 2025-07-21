@@ -29,15 +29,19 @@ export class AudioProcessor {
     }
   }
 
-  async convertAudio(files: Express.Multer.File[], options: any) {
+  async convertAudio(files: Express.Multer.File[], options: any = {}) {
     const hasFFmpeg = await this.checkFFmpeg();
     if (!hasFFmpeg) {
-      throw new Error('FFmpeg is required for audio conversion. Please install FFmpeg.');
+      return {
+        success: false,
+        message: 'FFmpeg is not available. Audio conversion is currently disabled.',
+        files: []
+      };
     }
 
     const results = [];
-    const { format, bitrate } = options;
-    const outputFormat = format.toLowerCase();
+    const { format = 'mp3', bitrate = '128k' } = options;
+    const outputFormat = format ? format.toLowerCase() : 'mp3';
 
     for (const file of files) {
       const filename = `converted-${Date.now()}.${outputFormat}`;

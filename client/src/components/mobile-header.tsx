@@ -41,12 +41,22 @@ export default function MobileHeader({ isDarkMode, toggleDarkMode }: MobileHeade
           <div className="flex items-center space-x-2">
             {/* Dark Mode Toggle */}
             <Button
-              variant="ghost"
+              variant="outline"
               size="sm"
               onClick={toggleDarkMode}
-              className="p-2 text-slate-600 dark:text-slate-400 hover:text-black dark:hover:text-white"
+              className="flex items-center gap-2 px-3 py-2 bg-white dark:bg-slate-800 border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700"
             >
-              {isDarkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+              {isDarkMode ? (
+                <>
+                  <Sun className="w-4 h-4" />
+                  <span className="hidden sm:inline text-sm font-medium">Light</span>
+                </>
+              ) : (
+                <>
+                  <Moon className="w-4 h-4" />
+                  <span className="hidden sm:inline text-sm font-medium">Dark</span>
+                </>
+              )}
             </Button>
 
             {/* Hamburger Menu */}
@@ -56,15 +66,15 @@ export default function MobileHeader({ isDarkMode, toggleDarkMode }: MobileHeade
                   <Menu className="w-6 h-6" />
                 </Button>
               </SheetTrigger>
-              <SheetContent side="right" className="w-full sm:w-80 bg-slate-900 border-slate-700">
+              <SheetContent side="right" className="w-full sm:w-80 bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700">
                 <div className="flex flex-col h-full">
                   {/* Header */}
-                  <div className="flex items-center justify-between pb-4 border-b border-slate-700">
+                  <div className="flex items-center justify-between pb-4 border-b border-slate-200 dark:border-slate-700">
                     <div className="flex items-center space-x-3">
                       <AnimatedLogo size={32} />
                       <div>
                         <h2 className="font-bold gradient-text">SuntynAI</h2>
-                        <p className="text-xs text-slate-400">80 Professional Tools</p>
+                        <p className="text-xs text-slate-600 dark:text-slate-400">85 Professional Tools</p>
                       </div>
                     </div>
                   </div>
@@ -77,7 +87,7 @@ export default function MobileHeader({ isDarkMode, toggleDarkMode }: MobileHeade
                         placeholder="Search tools..."
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
-                        className="pl-10 bg-slate-800 border-slate-600 text-white placeholder-slate-400"
+                        className="pl-10 bg-slate-100 dark:bg-slate-800 border-slate-300 dark:border-slate-600 text-black dark:text-white placeholder-slate-500 dark:placeholder-slate-400"
                       />
                     </div>
                   </div>
@@ -98,10 +108,10 @@ export default function MobileHeader({ isDarkMode, toggleDarkMode }: MobileHeade
                             >
                               <span className="text-lg mr-3">{tool.icon}</span>
                               <div className="flex-1">
-                                <div className="text-sm font-medium text-white group-hover:text-purple-400">
+                                <div className="text-sm font-medium text-black dark:text-white group-hover:text-purple-600 dark:group-hover:text-purple-400">
                                   {tool.name}
                                 </div>
-                                <div className="text-xs text-slate-400 truncate">
+                                <div className="text-xs text-slate-600 dark:text-slate-400 truncate">
                                   {tool.description}
                                 </div>
                               </div>
@@ -127,11 +137,11 @@ export default function MobileHeader({ isDarkMode, toggleDarkMode }: MobileHeade
                               <span className="text-sm">🏠</span>
                             </div>
                             <div className="flex-1">
-                              <div className="text-sm font-medium text-white group-hover:text-purple-400">
+                              <div className="text-sm font-medium text-black dark:text-white group-hover:text-purple-600 dark:group-hover:text-purple-400">
                                 All Tools Dashboard
                               </div>
-                              <div className="text-xs text-slate-400">
-                                View all 80 tools
+                              <div className="text-xs text-slate-600 dark:text-slate-400">
+                                View all 85 tools
                               </div>
                             </div>
                           </div>

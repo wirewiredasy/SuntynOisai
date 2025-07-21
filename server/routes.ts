@@ -68,7 +68,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const { slug } = req.params;
       const files = req.files as Express.Multer.File[];
-      const options = JSON.parse(req.body.options || '{}');
+      // Parse options from request body with error handling
+      let options = {};
+      try {
+        options = JSON.parse(req.body.options || '{}');
+      } catch (error) {
+        console.error('Error parsing options:', error);
+        options = {};
+      }
 
       if (!files || files.length === 0) {
         return res.status(400).json({ error: "No files uploaded" });
@@ -128,7 +135,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
           result = await governmentTools.verifyDocument(files, options);
           break;
         default:
-          return res.status(404).json({ error: "Tool not found" });
+          return res.status(200).json({ 
+            success: false, 
+            message: `Tool '${slug}' is not yet implemented`,
+            files: []
+          });
       }
 
       const processingTime = Date.now() - startTime;
