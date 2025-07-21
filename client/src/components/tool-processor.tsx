@@ -11,10 +11,11 @@ import { apiRequestFile, downloadFile } from "@/lib/queryClient";
 
 interface ToolProcessorProps {
   tool: {
-    id: string;
+    id: number;
     name: string;
+    slug: string;
     description: string;
-    route: string;
+    category: string;
   };
 }
 
@@ -25,7 +26,7 @@ export function ToolProcessor({ tool }: ToolProcessorProps) {
 
   const processMutation = useMutation({
     mutationFn: async (formData: FormData) => {
-      const response = await apiRequestFile(`/api/tools/${tool.id}/process`, formData);
+      const response = await apiRequestFile(`/api/tools/${tool.slug}/process`, formData);
       return response;
     },
     onSuccess: async (response) => {
@@ -42,7 +43,7 @@ export function ToolProcessor({ tool }: ToolProcessorProps) {
           // Handle file download
           const blob = await response.blob();
           const contentDisposition = response.headers.get('content-disposition');
-          const filename = contentDisposition?.split('filename=')[1]?.replace(/"/g, '') || `processed_${tool.id}.pdf`;
+          const filename = contentDisposition?.split('filename=')[1]?.replace(/"/g, '') || `processed_${tool.slug}.pdf`;
           
           await downloadFile(blob, filename);
           setProgress(100);

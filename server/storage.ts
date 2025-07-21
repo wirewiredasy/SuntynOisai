@@ -100,13 +100,13 @@ export class MemStorage implements IStorage {
     return Array.from(this.tools.values()).filter(tool => tool.isActive);
   }
 
+  async getToolById(id: number): Promise<Tool | null> {
+    return this.tools.get(id) || null;
+  }
+
   async getToolBySlug(slug: string): Promise<Tool | null> {
     const tool = Array.from(this.tools.values()).find(t => t.slug === slug);
     return tool || null;
-  }
-
-  async getToolById(id: number): Promise<Tool | null> {
-    return this.tools.get(id) || null;
   }
 
   async createTool(insertTool: InsertTool): Promise<Tool> {
