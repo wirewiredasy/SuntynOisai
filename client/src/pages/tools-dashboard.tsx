@@ -45,30 +45,10 @@ export default function ToolsDashboard() {
 
   return (
     <>
-      {/* Navigation */}
-      <nav className="fixed top-0 w-full z-50 bg-slate-900/80 backdrop-blur-lg border-b border-slate-700/50">
-        <div className="container mx-auto px-6 py-4">
-          <div className="flex items-center justify-between">
-            <Link href="/" className="flex items-center space-x-4">
-              <AnimatedLogo size={48} />
-              <div>
-                <h1 className="text-2xl font-bold gradient-text">SuntynAI</h1>
-                <p className="text-xs text-slate-400 font-medium">NEURAL INTELLIGENCE</p>
-              </div>
-            </Link>
+      {/* This page now uses the global mobile header */}
 
-            <Link href="/">
-              <Button variant="ghost" size="sm" className="text-slate-400 hover:text-white">
-                <ArrowLeft className="w-4 h-4 mr-2" />
-                Back to Home
-              </Button>
-            </Link>
-          </div>
-        </div>
-      </nav>
-
-      <div className="pt-24 pb-20">
-        <div className="container mx-auto px-6">
+      <div className="pt-6 pb-20">
+        <div className="container mx-auto px-4 md:px-6">
           {/* Header */}
           <div className="text-center mb-12">
             {currentCategory ? (
@@ -118,8 +98,8 @@ export default function ToolsDashboard() {
             </p>
           </div>
 
-          {/* Tools Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          {/* Tools Grid - Mobile First */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
             {filteredTools.map((tool) => (
               <ToolCard key={tool.id} tool={tool} />
             ))}

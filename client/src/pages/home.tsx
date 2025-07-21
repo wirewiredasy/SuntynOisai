@@ -53,38 +53,7 @@ export default function Home() {
 
   return (
     <>
-      {/* Navigation */}
-      <nav className="fixed top-0 w-full z-50 bg-slate-900/80 backdrop-blur-lg border-b border-slate-700/50">
-        <div className="container mx-auto px-6 py-4">
-          <div className="flex items-center justify-between">
-            <Link href="/" className="flex items-center space-x-4">
-              <AnimatedLogo size={48} />
-              <div>
-                <h1 className="text-2xl font-bold gradient-text">
-                  SuntynAI
-                </h1>
-                <p className="text-xs text-slate-400 font-medium">NEURAL INTELLIGENCE</p>
-              </div>
-            </Link>
-
-            <div className="hidden md:flex items-center space-x-8">
-              <Link href="/" className="text-slate-300 hover:text-purple-400 transition-colors">Home</Link>
-              <Link href="/tools" className="text-slate-300 hover:text-purple-400 transition-colors">All Tools</Link>
-              <Link href="#categories" className="text-slate-300 hover:text-purple-400 transition-colors">Categories</Link>
-              <Link href="#about" className="text-slate-300 hover:text-purple-400 transition-colors">About</Link>
-              <Button className="bg-gradient-to-r from-purple-600 to-amber-500 hover:from-purple-700 hover:to-amber-600">
-                Get Started
-              </Button>
-            </div>
-
-            <Button variant="ghost" size="sm" className="md:hidden">
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-              </svg>
-            </Button>
-          </div>
-        </div>
-      </nav>
+      {/* Using global mobile header */}
 
       {/* Hero Section */}
       <section className="min-h-screen flex items-center justify-center relative overflow-hidden hero-gradient">
@@ -112,15 +81,15 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="container mx-auto px-6 relative z-10 pt-20">
+        <div className="container mx-auto px-4 md:px-6 relative z-10">
           <div className="text-center max-w-4xl mx-auto">
             {/* Large Animated Logo */}
             <div className="mb-8">
-              <AnimatedLogo size={200} showRays={true} />
+              <AnimatedLogo size={150} showRays={true} />
             </div>
 
             {/* Hero Title */}
-            <h1 className="text-6xl md:text-8xl font-black mb-6 gradient-text leading-tight">
+            <h1 className="text-4xl sm:text-6xl md:text-8xl font-black mb-6 gradient-text leading-tight">
               SuntynAI
             </h1>
             
@@ -148,18 +117,18 @@ export default function Home() {
             </div>
 
             {/* Stats Counter */}
-            <div ref={statsRef} className="grid grid-cols-3 gap-8 max-w-2xl mx-auto">
+            <div ref={statsRef} className="grid grid-cols-3 gap-4 md:gap-8 max-w-2xl mx-auto">
               <div className="text-center">
-                <div className="text-4xl font-black text-amber-400 mb-2" data-count="80">0</div>
-                <div className="text-slate-400 font-semibold">Professional Tools</div>
+                <div className="text-2xl md:text-4xl font-black text-amber-400 mb-2" data-count="80">0</div>
+                <div className="text-slate-400 font-semibold text-sm md:text-base">Professional Tools</div>
               </div>
               <div className="text-center">
-                <div className="text-4xl font-black text-green-400 mb-2" data-count="100">0</div>
-                <div className="text-slate-400 font-semibold">Free to Use</div>
+                <div className="text-2xl md:text-4xl font-black text-green-400 mb-2" data-count="100">0</div>
+                <div className="text-slate-400 font-semibold text-sm md:text-base">Free to Use</div>
               </div>
               <div className="text-center">
-                <div className="text-4xl font-black text-blue-400 mb-2" data-count="24">0</div>
-                <div className="text-slate-400 font-semibold">Hours Support</div>
+                <div className="text-2xl md:text-4xl font-black text-blue-400 mb-2" data-count="24">0</div>
+                <div className="text-slate-400 font-semibold text-sm md:text-base">Hours Support</div>
               </div>
             </div>
           </div>
