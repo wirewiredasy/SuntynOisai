@@ -75,8 +75,8 @@ export default function ToolProcessor({ tool }: ToolProcessorProps) {
   };
 
   const renderToolSpecificOptions = () => {
-    switch (tool.id) {
-      case 'pdf_split':
+    switch (tool.slug) {
+      case 'pdf-splitter':
         return (
           <>
             <div>
@@ -99,7 +99,7 @@ export default function ToolProcessor({ tool }: ToolProcessorProps) {
             </div>
           </>
         );
-      case 'image_resize':
+      case 'image-resizer':
         return (
           <>
             <div>
@@ -122,7 +122,7 @@ export default function ToolProcessor({ tool }: ToolProcessorProps) {
             </div>
           </>
         );
-      case 'audio_trim':
+      case 'audio-trimmer':
         return (
           <>
             <div>
@@ -147,7 +147,7 @@ export default function ToolProcessor({ tool }: ToolProcessorProps) {
             </div>
           </>
         );
-      case 'pan_validate':
+      case 'pan-validator':
         return (
           <div>
             <Label htmlFor="pan_number">PAN Number</Label>
@@ -181,7 +181,7 @@ export default function ToolProcessor({ tool }: ToolProcessorProps) {
           <Input
             id="file-upload"
             type="file"
-            multiple={tool.id.includes('merge')}
+            multiple={tool.slug.includes('merger')}
             onChange={handleFileChange}
             className="file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary file:text-primary-foreground hover:file:bg-primary/80"
           />
