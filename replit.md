@@ -12,10 +12,10 @@ Preferred communication style: Simple, everyday language.
 
 ✓ **FastAPI Backend Integration**: Added comprehensive FastAPI backend with 25+ tools
 ✓ **Enhanced Tool Categories**: 
-  - PDF Tools: Merge, split, compress, OCR, protect/unlock, format conversion
-  - Image Tools: Resize, compress, format conversion, filters, enhancement, watermarking
-  - Audio/Video Tools: Convert, trim, merge, extract audio, video processing
-  - Government Tools: PAN validation, Aadhaar masking, passport photos, certificate generation
+  - PDF Tools (8): Merge, split, compress, protect/unlock, OCR, watermark, format conversion
+  - Image Tools (10): Resize, compress, crop, enhance, filters, background removal, watermark, editing
+  - Audio/Video Tools (8): Convert, trim, merge, extract, boost volume, compress media
+  - Government Tools (6): PAN validation, Aadhaar masking, GST calculator, passport photos, digital signatures
 ✓ **Database Integration**: Supabase PostgreSQL for analytics and user tracking
 ✓ **Advanced Processing**: OCR with Tesseract, AI-powered image enhancement
 ✓ **File Management**: Secure upload/download system with automatic cleanup
