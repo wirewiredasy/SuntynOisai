@@ -19,7 +19,7 @@ interface ToolProcessorProps {
   };
 }
 
-export function ToolProcessor({ tool }: ToolProcessorProps) {
+export default function ToolProcessor({ tool }: ToolProcessorProps) {
   const [files, setFiles] = useState<FileList | null>(null);
   const [options, setOptions] = useState<Record<string, any>>({});
   const [progress, setProgress] = useState(0);
