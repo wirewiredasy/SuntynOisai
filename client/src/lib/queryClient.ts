@@ -41,6 +41,31 @@ export const getQueryFn: <T>(options: {
     return await res.json();
   };
 
+// FastAPI backend helpers
+export const apiRequestFile = async (url: string, formData: FormData) => {
+  const response = await fetch(url, {
+    method: 'POST',
+    body: formData,
+  });
+
+  if (!response.ok) {
+    throw new Error(`API Error: ${response.status}`);
+  }
+
+  return response;
+};
+
+export const downloadFile = async (blob: Blob, filename: string) => {
+  const url = window.URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = filename;
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+  window.URL.revokeObjectURL(url);
+};
+
 export const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
