@@ -5,8 +5,11 @@ import { Input } from "@/components/ui/input";
 import AnimatedLogo from "@/components/animated-logo";
 import CategoryCard from "@/components/category-card";
 import ToolCard from "@/components/tool-card";
-import { TOOL_CATEGORIES, FEATURED_TOOLS } from "@/lib/tools-data";
+import { TOOL_CATEGORIES, ALL_80_TOOLS } from "@/lib/comprehensive-tools";
+
 import { FileText, Image, Music, Landmark, Rocket, Play } from "lucide-react";
+
+const FEATURED_TOOLS = ALL_80_TOOLS.slice(0, 8);
 
 export default function Home() {
   const statsRef = useRef<HTMLDivElement>(null);
@@ -127,7 +130,7 @@ export default function Home() {
             
             <p className="text-xl md:text-2xl text-slate-400 mb-12 max-w-3xl mx-auto leading-relaxed">
               80+ Professional AI-Powered Tools for PDF Processing, Image Editing, 
-              Audio/Video Conversion, and Government Documents
+              Audio/Video Conversion, Government Documents, and Business Tools
             </p>
 
             {/* CTA Buttons */}
@@ -204,7 +207,7 @@ export default function Home() {
           <div className="text-center mt-12">
             <Link href="/tools">
               <Button size="lg" className="bg-gradient-to-r from-purple-600 to-amber-500 hover:from-purple-700 hover:to-amber-600">
-                View All 80+ Tools
+                View All 80 Tools
               </Button>
             </Link>
           </div>

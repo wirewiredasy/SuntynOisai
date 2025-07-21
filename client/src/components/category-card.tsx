@@ -9,7 +9,7 @@ interface CategoryCardProps {
     icon: string;
     toolCount: number;
     gradient: string;
-    tools: string[];
+    subcategories: string[];
   };
 }
 
@@ -27,15 +27,15 @@ export default function CategoryCard({ category }: CategoryCardProps) {
           </div>
           
           <div className="space-y-3">
-            {category.tools.slice(0, 4).map((tool, index) => (
+            {category.subcategories.slice(0, 3).map((subcat, index) => (
               <div key={index} className="flex items-center text-sm text-slate-300">
                 <div className="w-2 h-2 rounded-full bg-purple-400 mr-3"></div>
-                <span>{tool}</span>
+                <span>{subcat}</span>
               </div>
             ))}
-            {category.tools.length > 4 && (
+            {category.subcategories.length > 3 && (
               <div className="text-center pt-4">
-                <span className="text-xs text-slate-500">+{category.tools.length - 4} more tools</span>
+                <span className="text-xs text-slate-500">+{category.subcategories.length - 3} more categories</span>
               </div>
             )}
           </div>

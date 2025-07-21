@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import AnimatedLogo from "@/components/animated-logo";
 import ToolCard from "@/components/tool-card";
 import SearchFilter from "@/components/search-filter";
-import { ALL_TOOLS, TOOL_CATEGORIES } from "@/lib/tools-data";
+import { ALL_80_TOOLS, TOOL_CATEGORIES, COMPREHENSIVE_TOOLS } from "@/lib/comprehensive-tools";
 import { ArrowLeft } from "lucide-react";
 
 export default function ToolsDashboard() {
@@ -15,11 +15,19 @@ export default function ToolsDashboard() {
   const [activeFilter, setActiveFilter] = useState(params?.category || "all");
 
   const filteredTools = useMemo(() => {
-    let filtered = ALL_TOOLS;
+    let filtered = ALL_80_TOOLS;
 
     // Apply category filter
     if (activeFilter !== "all") {
-      filtered = filtered.filter(tool => tool.category === activeFilter);
+      const categoryTools = TOOL_CATEGORIES.find(cat => cat.id === activeFilter);
+      if (categoryTools) {
+        filtered = filtered.filter(tool => 
+          categoryTools.subcategories.some(subcat => 
+            Object.keys(COMPREHENSIVE_TOOLS).includes(subcat) &&
+            COMPREHENSIVE_TOOLS[subcat as keyof typeof COMPREHENSIVE_TOOLS].some(t => t.id === tool.id)
+          )
+        );
+      }
     }
 
     // Apply search filter
@@ -85,7 +93,7 @@ export default function ToolsDashboard() {
             ) : (
               <>
                 <h1 className="text-5xl font-black mb-6 gradient-text">
-                  All 80+ Tools
+                  All 80 Tools
                 </h1>
                 <p className="text-xl text-slate-400 max-w-3xl mx-auto">
                   Every tool you need for professional document processing, media editing, and productivity
@@ -105,7 +113,7 @@ export default function ToolsDashboard() {
           {/* Results Count */}
           <div className="mb-8">
             <p className="text-slate-400">
-              Showing {filteredTools.length} of {ALL_TOOLS.length} tools
+              Showing {filteredTools.length} of {ALL_80_TOOLS.length} tools
               {searchTerm && ` for "${searchTerm}"`}
             </p>
           </div>
