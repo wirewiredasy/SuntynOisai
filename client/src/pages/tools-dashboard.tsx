@@ -23,11 +23,12 @@ export default function ToolsDashboard() {
   // Transform data structure to match expected format
   const allTools = useMemo(() => {
     if (!toolsData) return [];
+    const data = toolsData as any;
     return [
-      ...toolsData.pdf.map((tool: any) => ({ ...tool, category: 'pdf' })),
-      ...toolsData.image.map((tool: any) => ({ ...tool, category: 'image' })),
-      ...toolsData.audio.map((tool: any) => ({ ...tool, category: 'audio' })),
-      ...toolsData.government.map((tool: any) => ({ ...tool, category: 'government' })),
+      ...(data.pdf || []).map((tool: any) => ({ ...tool, category: 'pdf' })),
+      ...(data.image || []).map((tool: any) => ({ ...tool, category: 'image' })),
+      ...(data.audio || []).map((tool: any) => ({ ...tool, category: 'audio' })),
+      ...(data.government || []).map((tool: any) => ({ ...tool, category: 'government' })),
     ];
   }, [toolsData]);
 
@@ -51,10 +52,10 @@ export default function ToolsDashboard() {
   }, [allTools, activeFilter, searchTerm]);
 
   const categoryLabels = {
-    pdf: { name: "PDF Tools", icon: "📄", description: "Process and manipulate PDF documents", toolCount: toolsData?.pdf?.length || 0, gradient: "bg-gradient-to-br from-red-500/20 to-pink-600/20" },
-    image: { name: "Image Tools", icon: "🖼️", description: "Edit, convert, and enhance images", toolCount: toolsData?.image?.length || 0, gradient: "bg-gradient-to-br from-blue-500/20 to-purple-600/20" },
-    audio: { name: "Audio/Video Tools", icon: "🎵", description: "Convert and process multimedia files", toolCount: toolsData?.audio?.length || 0, gradient: "bg-gradient-to-br from-green-500/20 to-teal-600/20" },
-    government: { name: "Government Tools", icon: "🏛️", description: "Indian government document utilities", toolCount: toolsData?.government?.length || 0, gradient: "bg-gradient-to-br from-orange-500/20 to-red-600/20" }
+    pdf: { name: "PDF Tools", icon: "📄", description: "Process and manipulate PDF documents", toolCount: (toolsData as any)?.pdf?.length || 0, gradient: "bg-gradient-to-br from-red-500/20 to-pink-600/20" },
+    image: { name: "Image Tools", icon: "🖼️", description: "Edit, convert, and enhance images", toolCount: (toolsData as any)?.image?.length || 0, gradient: "bg-gradient-to-br from-blue-500/20 to-purple-600/20" },
+    audio: { name: "Audio/Video Tools", icon: "🎵", description: "Convert and process multimedia files", toolCount: (toolsData as any)?.audio?.length || 0, gradient: "bg-gradient-to-br from-green-500/20 to-teal-600/20" },
+    government: { name: "Government Tools", icon: "🏛️", description: "Indian government document utilities", toolCount: (toolsData as any)?.government?.length || 0, gradient: "bg-gradient-to-br from-orange-500/20 to-red-600/20" }
   };
 
   const currentCategory = params?.category ? categoryLabels[params.category as keyof typeof categoryLabels] : null;

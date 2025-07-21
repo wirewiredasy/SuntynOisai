@@ -7,6 +7,7 @@ interface SearchFilterProps {
   onSearchChange: (term: string) => void;
   activeFilter: string;
   onFilterChange: (filter: string) => void;
+  toolCount?: number;
 }
 
 export default function SearchFilter({
@@ -14,6 +15,7 @@ export default function SearchFilter({
   onSearchChange,
   activeFilter,
   onFilterChange,
+  toolCount,
 }: SearchFilterProps) {
   const filters = [
     { id: 'all', label: 'All Tools' },

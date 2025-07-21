@@ -11,7 +11,6 @@ import { PDFProcessor } from "./services/pdf-processor";
 import { ImageProcessor } from "./services/image-processor";
 import { AudioProcessor } from "./services/audio-processor";
 import { GovernmentTools } from "./services/government-tools";
-import fastapiProxy from "./fastapi_proxy";
 
 // Configure multer for file uploads
 const upload = multer({
@@ -34,9 +33,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
   const imageProcessor = new ImageProcessor();
   const audioProcessor = new AudioProcessor();
   const governmentTools = new GovernmentTools();
-
-  // Use FastAPI proxy for advanced tool processing
-  app.use(fastapiProxy);
 
   // Get all tools with categorized structure
   app.get("/api/tools", async (req, res) => {

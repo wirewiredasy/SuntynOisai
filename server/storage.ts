@@ -113,7 +113,9 @@ export class MemStorage implements IStorage {
     const id = this.currentToolId++;
     const tool: Tool = {
       ...insertTool,
-      id
+      id,
+      isActive: insertTool.isActive ?? true,
+      metadata: insertTool.metadata ?? {}
     };
     this.tools.set(id, tool);
     return tool;
@@ -124,6 +126,10 @@ export class MemStorage implements IStorage {
     const usage: ToolUsage = {
       ...insertUsage,
       id,
+      userId: insertUsage.userId ?? null,
+      sessionId: insertUsage.sessionId ?? null,
+      processingTime: insertUsage.processingTime ?? null,
+      success: insertUsage.success ?? true,
       timestamp: new Date()
     };
     this.toolUsages.set(id, usage);
