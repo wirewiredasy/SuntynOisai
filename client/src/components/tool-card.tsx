@@ -15,7 +15,6 @@ import {
   Palette,
   Shield,
   Zap,
-  Tool,
   Wrench
 } from "lucide-react"
 import { ArrowRight,  } from "lucide-react";
@@ -43,14 +42,14 @@ const iconMap: { [key: string]: React.ElementType } = {
   'palette': Palette,
   'shield': Shield,
   'zap': Zap,
-  'tool': Tool,
+  'tool': Wrench,
   'wrench': Wrench,
 }
 
 function getIconComponent(iconName?: string): React.ElementType {
-  if (!iconName) return Tool
+  if (!iconName) return Wrench
   const IconComponent = iconMap[iconName.toLowerCase()]
-  return IconComponent || Tool
+  return IconComponent || Wrench
 }
 
 export default function ToolCard({ tool }: ToolCardProps) {
