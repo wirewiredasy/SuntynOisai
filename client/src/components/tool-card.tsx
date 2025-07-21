@@ -1,7 +1,24 @@
 import { Link } from "wouter";
-import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { ArrowRight, Zap, Shield } from "lucide-react";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
+import { 
+  Settings, 
+  FileText, 
+  Image, 
+  Music, 
+  Video, 
+  Code, 
+  Database, 
+  Globe, 
+  Calculator,
+  Palette,
+  Shield,
+  Zap,
+  Tool,
+  Wrench
+} from "lucide-react"
+import { ArrowRight,  } from "lucide-react";
 
 interface ToolCardProps {
   tool: {
@@ -11,6 +28,29 @@ interface ToolCardProps {
     icon: string;
     route: string;
   };
+}
+
+const iconMap: { [key: string]: React.ElementType } = {
+  'settings': Settings,
+  'file-text': FileText,
+  'image': Image,
+  'music': Music,
+  'video': Video,
+  'code': Code,
+  'database': Database,
+  'globe': Globe,
+  'calculator': Calculator,
+  'palette': Palette,
+  'shield': Shield,
+  'zap': Zap,
+  'tool': Tool,
+  'wrench': Wrench,
+}
+
+function getIconComponent(iconName?: string): React.ElementType {
+  if (!iconName) return Tool
+  const IconComponent = iconMap[iconName.toLowerCase()]
+  return IconComponent || Tool
 }
 
 export default function ToolCard({ tool }: ToolCardProps) {
@@ -49,22 +89,24 @@ export default function ToolCard({ tool }: ToolCardProps) {
     business: "bg-gradient-to-r from-purple-500 to-purple-400"
   };
 
+  const IconComponent = getIconComponent(tool.icon)
+
   return (
     <Link href={tool.route}>
       <Card className={`glass-card ${hoverColors[category]} hover:shadow-xl transition-all duration-300 cursor-pointer group transform hover:-translate-y-1`}>
         <CardContent className="p-6">
           <div className="flex items-start justify-between mb-4">
             <div className={`w-12 h-12 rounded-lg flex items-center justify-center ${gradients[category]} group-hover:scale-110 transition-transform`}>
-              <span className="text-xl">{tool.icon}</span>
+              <IconComponent className="w-6 h-6 text-white" />
             </div>
             <Badge className={categoryColors[category]}>
               {category.toUpperCase()}
             </Badge>
           </div>
-          
+
           <h3 className="text-lg font-bold text-white mb-2">{tool.name}</h3>
           <p className="text-sm text-slate-400 mb-4 line-clamp-2">{tool.description}</p>
-          
+
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
               <span className="text-xs text-green-400 font-semibold flex items-center">
