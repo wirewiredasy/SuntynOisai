@@ -5,11 +5,13 @@ import { z } from "zod";
 import multer from "multer";
 import path from "path";
 import fs from "fs";
+import session from "express-session";
 import { insertToolUsageSchema } from "@shared/schema";
 import { PDFProcessor } from "./services/pdf-processor";
 import { ImageProcessor } from "./services/image-processor";
 import { AudioProcessor } from "./services/audio-processor";
 import { GovernmentTools } from "./services/government-tools";
+import fastapiProxy from "./fastapi_proxy";
 
 // Configure multer for file uploads
 const upload = multer({
@@ -20,16 +22,33 @@ const upload = multer({
 });
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  // Configure session middleware
+  app.use(session({
+    secret: 'suntynai-session-secret',
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: false, maxAge: 24 * 60 * 60 * 1000 } // 24 hours
+  }));
+
   const pdfProcessor = new PDFProcessor();
   const imageProcessor = new ImageProcessor();
   const audioProcessor = new AudioProcessor();
   const governmentTools = new GovernmentTools();
 
-  // Get all tools
+  // Use FastAPI proxy for advanced tool processing
+  app.use(fastapiProxy);
+
+  // Get all tools with categorized structure
   app.get("/api/tools", async (req, res) => {
     try {
       const tools = await storage.getAllTools();
-      res.json(tools);
+      const categorized = {
+        pdf: tools.filter(t => t.category === 'pdf'),
+        image: tools.filter(t => t.category === 'image'),
+        audio: tools.filter(t => t.category === 'audio'),
+        government: tools.filter(t => t.category === 'government')
+      };
+      res.json(categorized);
     } catch (error) {
       res.status(500).json({ error: "Failed to fetch tools" });
     }
@@ -48,7 +67,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Process PDF tools
+  // Unified tool processing endpoint
   app.post("/api/tools/:slug/process", upload.array('files'), async (req, res) => {
     try {
       const { slug } = req.params;
@@ -118,10 +137,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
       const processingTime = Date.now() - startTime;
 
+      // Get tool by slug to get the ID
+      const tool = await storage.getToolBySlug(slug);
+      
       // Log tool usage
       await storage.logToolUsage({
-        toolId: null, // We'll need to get the actual tool ID
-        sessionId: req.sessionID,
+        toolId: tool?.id || 0,
+        sessionId: req.sessionID || 'anonymous',
         processingTime,
         success: true
       });

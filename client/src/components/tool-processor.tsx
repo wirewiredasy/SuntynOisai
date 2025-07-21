@@ -29,13 +29,27 @@ export function ToolProcessor({ tool }: ToolProcessorProps) {
       return response;
     },
     onSuccess: async (response) => {
-      // Handle file download
-      const blob = await response.blob();
-      const contentDisposition = response.headers.get('content-disposition');
-      const filename = contentDisposition?.split('filename=')[1]?.replace(/"/g, '') || `processed_${tool.id}.pdf`;
-      
-      await downloadFile(blob, filename);
-      setProgress(100);
+      try {
+        // Check if response is a file or JSON
+        const contentType = response.headers.get('content-type');
+        
+        if (contentType?.includes('application/json')) {
+          // Handle JSON response (for validation tools like PAN validator)
+          const result = await response.json();
+          console.log('Processing result:', result);
+          setProgress(100);
+        } else {
+          // Handle file download
+          const blob = await response.blob();
+          const contentDisposition = response.headers.get('content-disposition');
+          const filename = contentDisposition?.split('filename=')[1]?.replace(/"/g, '') || `processed_${tool.id}.pdf`;
+          
+          await downloadFile(blob, filename);
+          setProgress(100);
+        }
+      } catch (error) {
+        console.error('Error processing response:', error);
+      }
     },
   });
 

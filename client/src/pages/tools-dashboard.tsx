@@ -3,31 +3,40 @@ import { useRoute } from "wouter";
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Skeleton } from "@/components/ui/skeleton";
 import AnimatedLogo from "@/components/animated-logo";
 import ToolCard from "@/components/tool-card";
 import SearchFilter from "@/components/search-filter";
-import { ALL_80_TOOLS, TOOL_CATEGORIES, COMPREHENSIVE_TOOLS } from "@/lib/comprehensive-tools";
 import { ArrowLeft } from "lucide-react";
+import { useQuery } from "@tanstack/react-query";
 
 export default function ToolsDashboard() {
   const [, params] = useRoute("/tools/:category");
   const [searchTerm, setSearchTerm] = useState("");
   const [activeFilter, setActiveFilter] = useState(params?.category || "all");
 
+  // Fetch tools from API
+  const { data: toolsData, isLoading } = useQuery({
+    queryKey: ['/api/tools'],
+  });
+
+  // Transform data structure to match expected format
+  const allTools = useMemo(() => {
+    if (!toolsData) return [];
+    return [
+      ...toolsData.pdf.map((tool: any) => ({ ...tool, category: 'pdf' })),
+      ...toolsData.image.map((tool: any) => ({ ...tool, category: 'image' })),
+      ...toolsData.audio.map((tool: any) => ({ ...tool, category: 'audio' })),
+      ...toolsData.government.map((tool: any) => ({ ...tool, category: 'government' })),
+    ];
+  }, [toolsData]);
+
   const filteredTools = useMemo(() => {
-    let filtered = ALL_80_TOOLS;
+    let filtered = allTools;
 
     // Apply category filter
     if (activeFilter !== "all") {
-      const categoryTools = TOOL_CATEGORIES.find(cat => cat.id === activeFilter);
-      if (categoryTools) {
-        filtered = filtered.filter(tool => 
-          categoryTools.subcategories.some(subcat => 
-            Object.keys(COMPREHENSIVE_TOOLS).includes(subcat) &&
-            COMPREHENSIVE_TOOLS[subcat as keyof typeof COMPREHENSIVE_TOOLS].some(t => t.id === tool.id)
-          )
-        );
-      }
+      filtered = filtered.filter(tool => tool.category === activeFilter);
     }
 
     // Apply search filter
@@ -39,9 +48,16 @@ export default function ToolsDashboard() {
     }
 
     return filtered;
-  }, [activeFilter, searchTerm]);
+  }, [allTools, activeFilter, searchTerm]);
 
-  const currentCategory = TOOL_CATEGORIES.find(cat => cat.id === params?.category);
+  const categoryLabels = {
+    pdf: { name: "PDF Tools", icon: "📄", description: "Process and manipulate PDF documents", toolCount: toolsData?.pdf?.length || 0, gradient: "bg-gradient-to-br from-red-500/20 to-pink-600/20" },
+    image: { name: "Image Tools", icon: "🖼️", description: "Edit, convert, and enhance images", toolCount: toolsData?.image?.length || 0, gradient: "bg-gradient-to-br from-blue-500/20 to-purple-600/20" },
+    audio: { name: "Audio/Video Tools", icon: "🎵", description: "Convert and process multimedia files", toolCount: toolsData?.audio?.length || 0, gradient: "bg-gradient-to-br from-green-500/20 to-teal-600/20" },
+    government: { name: "Government Tools", icon: "🏛️", description: "Indian government document utilities", toolCount: toolsData?.government?.length || 0, gradient: "bg-gradient-to-br from-orange-500/20 to-red-600/20" }
+  };
+
+  const currentCategory = params?.category ? categoryLabels[params.category as keyof typeof categoryLabels] : null;
 
   return (
     <>
@@ -82,28 +98,48 @@ export default function ToolsDashboard() {
             )}
           </div>
 
+          {/* Loading State */}
+          {isLoading && (
+            <div className="mb-12">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                {[...Array(12)].map((_, i) => (
+                  <Skeleton key={i} className="h-48 w-full rounded-lg" />
+                ))}
+              </div>
+            </div>
+          )}
+
           {/* Search and Filter */}
-          <SearchFilter
-            searchTerm={searchTerm}
-            onSearchChange={setSearchTerm}
-            activeFilter={activeFilter}
-            onFilterChange={setActiveFilter}
-          />
+          {!isLoading && (
+            <div className="mb-12">
+              <SearchFilter 
+                searchTerm={searchTerm}
+                onSearchChange={setSearchTerm}
+                activeFilter={activeFilter}
+                onFilterChange={setActiveFilter}
+                toolCount={filteredTools.length}
+              />
+            </div>
+          )}
 
           {/* Results Count */}
-          <div className="mb-8">
-            <p className="text-slate-400">
-              Showing {filteredTools.length} of {ALL_80_TOOLS.length} tools
-              {searchTerm && ` for "${searchTerm}"`}
-            </p>
-          </div>
+          {!isLoading && (
+            <div className="mb-8">
+              <p className="text-slate-400">
+                Showing {filteredTools.length} of {allTools.length} tools
+                {searchTerm && ` for "${searchTerm}"`}
+              </p>
+            </div>
+          )}
 
           {/* Tools Grid - Mobile First */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
-            {filteredTools.map((tool) => (
-              <ToolCard key={tool.id} tool={tool} />
-            ))}
-          </div>
+          {!isLoading && (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
+              {filteredTools.map((tool) => (
+                <ToolCard key={tool.id} tool={tool} />
+              ))}
+            </div>
+          )}
 
           {filteredTools.length === 0 && (
             <div className="text-center py-16">
