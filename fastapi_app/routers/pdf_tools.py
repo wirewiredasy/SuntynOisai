@@ -6,12 +6,16 @@ import io
 from typing import List, Optional
 from pathlib import Path
 
-# Simplified imports to avoid missing dependencies
+# Import PDF libraries
 try:
-    from PyPDF2 import PdfReader, PdfWriter
+    from pypdf import PdfReader, PdfWriter
     HAS_PDF_SUPPORT = True
 except ImportError:
-    HAS_PDF_SUPPORT = False
+    try:
+        from PyPDF2 import PdfReader, PdfWriter
+        HAS_PDF_SUPPORT = True
+    except ImportError:
+        HAS_PDF_SUPPORT = False
 
 router = APIRouter()
 

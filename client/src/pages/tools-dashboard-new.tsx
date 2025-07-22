@@ -218,7 +218,7 @@ export default function ToolsDashboardNew() {
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {popularTools.map((tool) => (
-                <Link key={tool.id} href={tool.route || `/tool/${tool.slug}`}>
+                <Link key={tool.id} href={tool.route || `/tools/${tool.slug}`}>
                   <div className="bg-white rounded-xl border border-gray-200 p-6 hover:border-blue-300 hover:shadow-lg transition-all duration-200 cursor-pointer group">
                     <div className="flex items-center space-x-3 mb-3">
                       <div className="p-2 bg-blue-50 rounded-lg group-hover:bg-blue-100 transition-colors">
@@ -263,7 +263,7 @@ export default function ToolsDashboardNew() {
                 : "grid-cols-1"
             }`}>
               {filteredTools.map((tool) => (
-                <Link key={tool.id} href={tool.route || `/tool/${tool.slug}`}>
+                <Link key={tool.id} href={tool.route || `/tools/${tool.slug}`}>
                   <div className={`bg-white rounded-xl border border-gray-200 hover:border-blue-300 hover:shadow-lg transition-all duration-200 cursor-pointer group ${
                     viewMode === "list" ? "flex items-center p-4" : "p-6"
                   }`}>
@@ -293,7 +293,7 @@ export default function ToolsDashboardNew() {
                           <Badge variant="outline" className="text-xs">
                             {tool.category}
                           </Badge>
-                          <Button size="sm" className="bg-blue-600 hover:bg-blue-700">
+                          <Button size="sm" className="bg-blue-600 hover:bg-blue-700" onClick={() => window.location.href = tool.route || `/tools/${tool.slug}`}>
                             Use Tool
                           </Button>
                         </div>

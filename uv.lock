@@ -849,6 +849,15 @@ wheels = [
 ]
 
 [[package]]
+name = "pypdf"
+version = "5.8.0"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/28/5a/139b1a3ec3789cc77a7cb9d5d3bc9e97e742e6d03708baeb7719f8ad0827/pypdf-5.8.0.tar.gz", hash = "sha256:f8332f80606913e6f0ce65488a870833c9d99ccdb988c17bb6c166f7c8e140cb", size = 5029494 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/8b/94/05d0310bfa92c26aa50a9d2dea2c6448a1febfdfcf98fb340a99d48a3078/pypdf-5.8.0-py3-none-any.whl", hash = "sha256:bfe861285cd2f79cceecefde2d46901e4ee992a9f4b42c56548c4a6e9236a0d1", size = 309718 },
+]
+
+[[package]]
 name = "pypdf2"
 version = "3.0.1"
 source = { registry = "https://pypi.org/simple" }
@@ -966,6 +975,7 @@ dependencies = [
     { name = "psycopg2-binary" },
     { name = "pydub" },
     { name = "pymupdf" },
+    { name = "pypdf" },
     { name = "pypdf2" },
     { name = "pytesseract" },
     { name = "python-decouple" },
@@ -989,6 +999,7 @@ requires-dist = [
     { name = "psycopg2-binary", specifier = ">=2.9.10" },
     { name = "pydub", specifier = ">=0.25.1" },
     { name = "pymupdf", specifier = ">=1.26.3" },
+    { name = "pypdf", specifier = ">=5.8.0" },
     { name = "pypdf2", specifier = ">=3.0.1" },
     { name = "pytesseract", specifier = ">=0.3.13" },
     { name = "python-decouple", specifier = ">=3.8" },
