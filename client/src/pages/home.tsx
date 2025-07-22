@@ -83,36 +83,157 @@ export default function Home() {
             </p>
           </div>
 
-          {/* Professional Demo Video */}
-          <div className="relative group mb-12 max-w-5xl mx-auto">
-            <div className="relative aspect-video rounded-2xl overflow-hidden shadow-2xl bg-gradient-to-br from-slate-800 to-slate-900 border border-purple-500/20">
-              
-              {/* Actual Video Implementation */}
-              <video 
-                className="w-full h-full object-cover"
-                poster="data:image/svg+xml,%3Csvg width='1200' height='675' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='100%25' height='100%25' fill='%23334155'/%3E%3Ctext x='50%25' y='50%25' font-size='48' fill='%23e2e8f0' text-anchor='middle' dy='.3em'%3ESuntynAI Demo%3C/text%3E%3C/svg%3E"
-                controls
-                preload="metadata"
-              >
-                <source src="/demo-video.mp4" type="video/mp4" />
-                <source src="/demo-video.webm" type="video/webm" />
-                Your browser does not support the video tag.
-              </video>
-              
-              {/* Video Overlay for Non-Video Fallback */}
-              <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-slate-800/90 to-slate-900/90 opacity-100 group-hover:opacity-0 transition-opacity duration-500">
-                <div className="text-center">
-                  <button className="group/play relative inline-flex items-center justify-center w-24 h-24 bg-gradient-to-r from-purple-600 to-cyan-500 rounded-full shadow-2xl hover:scale-110 transition-transform duration-300">
-                    <Play className="w-8 h-8 text-white ml-1" />
+          {/* Advanced Interactive Demo Showcase */}
+          <div className="relative mb-16 max-w-6xl mx-auto">
+            
+            {/* Demo Navigation Tabs */}
+            <div className="flex justify-center mb-8">
+              <div className="bg-slate-800/80 backdrop-blur-sm rounded-2xl p-2 border border-purple-500/20">
+                <div className="flex gap-2">
+                  <button className="px-6 py-3 bg-gradient-to-r from-purple-600 to-cyan-500 text-white rounded-xl font-semibold transition-all duration-300">
+                    PDF Tools
                   </button>
-                  <p className="text-white text-lg font-semibold mt-6 mb-2">Watch SuntynAI in Action</p>
-                  <p className="text-slate-300 text-sm">See how 85+ tools work seamlessly</p>
+                  <button className="px-6 py-3 text-slate-300 hover:text-white transition-colors duration-300">
+                    Image AI
+                  </button>
+                  <button className="px-6 py-3 text-slate-300 hover:text-white transition-colors duration-300">
+                    Audio/Video
+                  </button>
+                  <button className="px-6 py-3 text-slate-300 hover:text-white transition-colors duration-300">
+                    Gov Tools
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            {/* Interactive Demo Canvas */}
+            <div className="relative bg-gradient-to-br from-slate-900/90 to-slate-800/90 rounded-3xl border border-purple-500/20 overflow-hidden backdrop-blur-sm">
+              
+              {/* Animated Background Pattern */}
+              <div className="absolute inset-0 opacity-10">
+                <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-purple-500/20 via-transparent to-cyan-500/20"></div>
+                <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-pulse"></div>
+                <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
+              </div>
+              
+              {/* Demo Workflow Visualization */}
+              <div className="relative p-12">
+                
+                {/* Step 1: File Upload */}
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
+                  
+                  <div className="text-center lg:text-left">
+                    <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-purple-500 to-purple-600 rounded-2xl mb-6 animate-glow-pulse">
+                      <span className="text-2xl">📄</span>
+                    </div>
+                    <h3 className="text-2xl font-bold text-white mb-4">Upload Files</h3>
+                    <p className="text-slate-300 leading-relaxed">
+                      Drag & drop or click to upload your documents, images, audio, or video files. 
+                      Support for 50+ formats with instant preview.
+                    </p>
+                  </div>
+                  
+                  {/* Animated Arrow */}
+                  <div className="flex justify-center">
+                    <div className="relative">
+                      <div className="w-24 h-1 bg-gradient-to-r from-purple-500 to-cyan-500 rounded-full"></div>
+                      <div className="absolute right-0 top-1/2 transform -translate-y-1/2 w-0 h-0 border-l-[12px] border-l-cyan-500 border-t-[6px] border-t-transparent border-b-[6px] border-b-transparent"></div>
+                      <div className="absolute -top-2 w-2 h-2 bg-cyan-400 rounded-full animate-ping"></div>
+                    </div>
+                  </div>
+                  
+                  {/* Step 2: AI Processing */}
+                  <div className="text-center lg:text-right">
+                    <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-cyan-500 to-cyan-600 rounded-2xl mb-6 animate-glow-pulse delay-500">
+                      <span className="text-2xl">⚡</span>
+                    </div>
+                    <h3 className="text-2xl font-bold text-white mb-4">AI Processing</h3>
+                    <p className="text-slate-300 leading-relaxed">
+                      Advanced AI algorithms process your files with enterprise-grade security. 
+                      Real-time progress tracking and instant results.
+                    </p>
+                  </div>
+                </div>
+                
+                {/* Visual Processing Animation */}
+                <div className="my-12 flex justify-center">
+                  <div className="relative">
+                    <div className="flex space-x-4">
+                      {[1, 2, 3, 4, 5].map((i) => (
+                        <div
+                          key={i}
+                          className={`w-4 h-4 rounded-full bg-gradient-to-r from-purple-500 to-cyan-500 animate-bounce`}
+                          style={{ animationDelay: `${i * 0.2}s` }}
+                        ></div>
+                      ))}
+                    </div>
+                    <div className="absolute -inset-2 bg-gradient-to-r from-purple-500/20 to-cyan-500/20 rounded-full blur-lg animate-pulse"></div>
+                  </div>
+                </div>
+                
+                {/* Step 3: Results */}
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                  
+                  <div className="text-center lg:text-left">
+                    <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-green-500 to-green-600 rounded-2xl mb-6 animate-glow-pulse delay-1000">
+                      <span className="text-2xl">✨</span>
+                    </div>
+                    <h3 className="text-2xl font-bold text-white mb-4">Instant Results</h3>
+                    <p className="text-slate-300 leading-relaxed">
+                      Download processed files instantly or preview before download. 
+                      Share results directly or save to your preferred cloud storage.
+                    </p>
+                  </div>
+                  
+                  {/* Interactive Tool Cards */}
+                  <div className="grid grid-cols-2 gap-4">
+                    {[
+                      { icon: "📄", name: "PDF Merge", color: "from-red-500 to-red-600" },
+                      { icon: "🖼️", name: "Image AI", color: "from-blue-500 to-blue-600" },
+                      { icon: "🎵", name: "Audio Edit", color: "from-green-500 to-green-600" },
+                      { icon: "🏛️", name: "Gov Tools", color: "from-orange-500 to-orange-600" }
+                    ].map((tool, index) => (
+                      <div
+                        key={index}
+                        className="group relative p-4 bg-slate-800/50 rounded-xl border border-slate-700/50 hover:border-purple-500/30 transition-all duration-300 cursor-pointer hover:scale-105"
+                      >
+                        <div className={`w-10 h-10 bg-gradient-to-r ${tool.color} rounded-lg flex items-center justify-center mb-3 group-hover:scale-110 transition-transform duration-300`}>
+                          <span className="text-lg">{tool.icon}</span>
+                        </div>
+                        <h4 className="text-white font-semibold text-sm">{tool.name}</h4>
+                        <div className="absolute inset-0 bg-gradient-to-r from-purple-500/10 to-cyan-500/10 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+              
+              {/* Floating Action Elements */}
+              <div className="absolute top-8 right-8">
+                <div className="flex items-center space-x-2 bg-green-500/20 text-green-300 px-4 py-2 rounded-full border border-green-500/30">
+                  <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                  <span className="text-sm font-medium">Live Demo Active</span>
                 </div>
               </div>
             </div>
             
-            {/* Video Glow Effect */}
-            <div className="absolute -inset-1 bg-gradient-to-r from-purple-500/20 to-cyan-500/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+            {/* Demo Stats */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-8">
+              {[
+                { number: "85+", label: "AI Tools", icon: "🚀" },
+                { number: "50+", label: "File Formats", icon: "📁" },
+                { number: "<5s", label: "Processing Time", icon: "⚡" },
+                { number: "100%", label: "Privacy Safe", icon: "🔒" }
+              ].map((stat, index) => (
+                <div key={index} className="text-center p-6 bg-slate-800/30 rounded-2xl border border-slate-700/30 hover:border-purple-500/20 transition-all duration-300">
+                  <div className="text-3xl mb-2">{stat.icon}</div>
+                  <div className="text-3xl font-bold text-white mb-2" data-count={stat.number.replace(/[^0-9]/g, '')}>
+                    {stat.number}
+                  </div>
+                  <div className="text-slate-400 text-sm font-medium">{stat.label}</div>
+                </div>
+              ))}
+            </div>
           </div>
 
           {/* Call-to-Action Buttons */}
