@@ -1,5 +1,6 @@
 import express, { type Request, Response, NextFunction } from "express";
 import routes from "./routes";
+import fastapiProxy from "./fastapi_proxy";
 import { setupVite, serveStatic, log } from "./vite";
 
 const app = express();
@@ -37,6 +38,9 @@ app.use((req, res, next) => {
 });
 
 (async () => {
+  // Use FastAPI proxy for advanced tool processing
+  app.use(fastapiProxy);
+  
   app.use(routes);
 
   app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {

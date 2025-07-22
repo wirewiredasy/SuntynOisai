@@ -1,57 +1,94 @@
 import fs from 'fs';
 import path from 'path';
+import sharp from 'sharp';
 
 export class ImageProcessor {
   async resizeImages(files: Express.Multer.File[], options: any) {
     const results = [];
+    const startTime = Date.now();
     
-    for (let i = 0; i < files.length; i++) {
-      const outputPath = path.join(process.cwd(), 'downloads', `resized_${Date.now()}_${i}.png`);
+    try {
+      for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        const ext = path.extname(file.originalname) || '.jpg';
+        const outputPath = path.join(process.cwd(), 'downloads', `resized_${Date.now()}_${i}${ext}`);
+        
+        const width = parseInt(options.width) || 800;
+        const height = parseInt(options.height) || 600;
+        
+        await sharp(file.path)
+          .resize(width, height, { 
+            fit: options.fit || 'inside',
+            withoutEnlargement: true 
+          })
+          .toFile(outputPath);
+        
+        // Clean up uploaded file
+        fs.unlinkSync(file.path);
+        
+        const stats = fs.statSync(outputPath);
+        results.push({
+          filename: path.basename(outputPath),
+          downloadUrl: `/api/download/${path.basename(outputPath)}`,
+          size: `${(stats.size / 1024 / 1024).toFixed(2)} MB`,
+          processingTime: Date.now() - startTime
+        });
+      }
       
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      const totalProcessingTime = Date.now() - startTime;
       
-      fs.writeFileSync(outputPath, 'dummy resized image content');
-      
-      results.push({
-        filename: path.basename(outputPath),
-        downloadUrl: `/api/download/${path.basename(outputPath)}`,
-        size: '1.2 MB',
-        processingTime: 1000
-      });
+      return {
+        success: true,
+        message: 'Images resized successfully',
+        files: results,
+        processingTime: totalProcessingTime
+      };
+    } catch (error) {
+      console.error('Image resize error:', error);
+      throw new Error('Failed to resize images');
     }
-    
-    return {
-      success: true,
-      message: 'Images resized successfully',
-      files: results,
-      processingTime: 1000 * files.length
-    };
   }
 
   async compressImages(files: Express.Multer.File[], options: any) {
     const results = [];
+    const startTime = Date.now();
     
-    for (let i = 0; i < files.length; i++) {
-      const outputPath = path.join(process.cwd(), 'downloads', `compressed_${Date.now()}_${i}.jpg`);
+    try {
+      for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        const ext = path.extname(file.originalname) || '.jpg';
+        const outputPath = path.join(process.cwd(), 'downloads', `compressed_${Date.now()}_${i}${ext}`);
+        
+        const quality = parseInt(options.quality) || 80;
+        
+        await sharp(file.path)
+          .jpeg({ quality })
+          .toFile(outputPath);
+        
+        // Clean up uploaded file
+        fs.unlinkSync(file.path);
+        
+        const stats = fs.statSync(outputPath);
+        results.push({
+          filename: path.basename(outputPath),
+          downloadUrl: `/api/download/${path.basename(outputPath)}`,
+          size: `${(stats.size / 1024 / 1024).toFixed(2)} MB`,
+          processingTime: Date.now() - startTime
+        });
+      }
       
-      await new Promise(resolve => setTimeout(resolve, 800));
+      const totalProcessingTime = Date.now() - startTime;
       
-      fs.writeFileSync(outputPath, 'dummy compressed image content');
-      
-      results.push({
-        filename: path.basename(outputPath),
-        downloadUrl: `/api/download/${path.basename(outputPath)}`,
-        size: '0.5 MB',
-        processingTime: 800
-      });
+      return {
+        success: true,
+        message: 'Images compressed successfully',
+        files: results,
+        processingTime: totalProcessingTime
+      };
+    } catch (error) {
+      console.error('Image compression error:', error);
+      throw new Error('Failed to compress images');
     }
-    
-    return {
-      success: true,
-      message: 'Images compressed successfully',
-      files: results,
-      processingTime: 800 * files.length
-    };
   }
 
   async removeBackground(files: Express.Multer.File[], options: any) {

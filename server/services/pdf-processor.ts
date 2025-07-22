@@ -1,27 +1,46 @@
 import fs from 'fs';
 import path from 'path';
+import { PDFDocument } from 'pdf-lib';
 
 export class PDFProcessor {
   async mergePDFs(files: Express.Multer.File[], options: any) {
+    const startTime = Date.now();
     const outputPath = path.join(process.cwd(), 'downloads', `merged_${Date.now()}.pdf`);
     
-    // Simulate PDF processing
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    
-    // Create a dummy output file
-    fs.writeFileSync(outputPath, 'dummy pdf content');
-    
-    return {
-      success: true,
-      message: 'PDFs merged successfully',
-      files: [{
-        filename: path.basename(outputPath),
-        downloadUrl: `/api/download/${path.basename(outputPath)}`,
-        size: '2.5 MB',
-        processingTime: 2000
-      }],
-      processingTime: 2000
-    };
+    try {
+      const mergedPdf = await PDFDocument.create();
+      
+      for (const file of files) {
+        const pdfBytes = fs.readFileSync(file.path);
+        const pdf = await PDFDocument.load(pdfBytes);
+        const copiedPages = await mergedPdf.copyPages(pdf, pdf.getPageIndices());
+        copiedPages.forEach((page) => mergedPdf.addPage(page));
+      }
+      
+      const pdfBytes = await mergedPdf.save();
+      fs.writeFileSync(outputPath, pdfBytes);
+      
+      // Clean up uploaded files
+      files.forEach(file => fs.unlinkSync(file.path));
+      
+      const processingTime = Date.now() - startTime;
+      const stats = fs.statSync(outputPath);
+      
+      return {
+        success: true,
+        message: 'PDFs merged successfully',
+        files: [{
+          filename: path.basename(outputPath),
+          downloadUrl: `/api/download/${path.basename(outputPath)}`,
+          size: `${(stats.size / 1024 / 1024).toFixed(2)} MB`,
+          processingTime
+        }],
+        processingTime
+      };
+    } catch (error) {
+      console.error('PDF merge error:', error);
+      throw new Error('Failed to merge PDFs');
+    }
   }
 
   async splitPDF(file: Express.Multer.File, options: any) {

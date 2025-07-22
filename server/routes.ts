@@ -6,6 +6,8 @@ import { PDFProcessor } from "./services/pdf-processor";
 import { ImageProcessor } from "./services/image-processor";
 import { AudioProcessor } from "./services/audio-processor";
 import { GovernmentTools } from "./services/government-tools";
+import { db } from "./db";
+import { tools, toolUsage } from "@shared/schema";
 
 const router = express.Router();
 
@@ -290,7 +292,7 @@ router.post("/api/tools/:slug/process", upload.array('files'), async (req, res) 
     res.status(500).json({ 
       success: false,
       error: "Processing failed",
-      message: error.message || "An unexpected error occurred"
+      message: error instanceof Error ? error.message : "An unexpected error occurred"
     });
   }
 });
