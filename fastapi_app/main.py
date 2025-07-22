@@ -5,7 +5,7 @@ import uvicorn
 import os
 
 # Import routers
-from routers import pdf_tools, image_tools, audio_tools, government_tools
+from routers import pdf_tools, image_tools, audio_tools, government_tools, ai_business_tools
 
 app = FastAPI(
     title="SuntynAI - Multi-Purpose Tool Platform",
@@ -39,9 +39,10 @@ app.mount("/downloads", StaticFiles(directory="downloads"), name="downloads")
 
 # Include routers
 app.include_router(pdf_tools.router, prefix="/api/pdf", tags=["PDF Tools"])
-app.include_router(image_tools.router, prefix="/api/image", tags=["Image Tools"])
-app.include_router(audio_tools.router, prefix="/api/audio", tags=["Audio/Video Tools"])
+app.include_router(image_tools.router, prefix="/api/image", tags=["Image Tools"]) 
+app.include_router(audio_tools.router, prefix="/api/audio", tags=["Audio Tools"])
 app.include_router(government_tools.router, prefix="/api/government", tags=["Government Tools"])
+app.include_router(ai_business_tools.router, prefix="/api/ai", tags=["AI & Business Tools"])
 
 @app.get("/")
 async def root():
@@ -90,3 +91,4 @@ async def get_tools():
 
 if __name__ == "__main__":
     uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
+```

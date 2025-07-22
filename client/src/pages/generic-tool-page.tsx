@@ -8,7 +8,18 @@ import { Upload, Download, FileText, Image, Music, Building, Calculator, ArrowLe
 import { useToast } from "@/hooks/use-toast";
 import { Link } from "wouter";
 
-// Import all tools data from the dashboard
+import { ALL_80_TOOLS } from "@/lib/comprehensive-tools";
+
+interface ToolPageData {
+  id: string;
+  name: string;
+  description: string;
+  category: string;
+  processingTime: string;
+  acceptedFormats?: string[];
+  options?: any[];
+  features?: string[];
+}
 const ALL_TOOLS = [
   // PDF Tools (20)
   { id: 1, name: "PDF Merge", description: "Combine multiple PDF files into one", icon: "FileText", category: "pdf", popular: true, slug: "pdf-merge", route: "/tools/pdf-merge", apiEndpoint: "/api/pdf/merge", acceptedFormats: [".pdf"], maxFiles: 10 },
