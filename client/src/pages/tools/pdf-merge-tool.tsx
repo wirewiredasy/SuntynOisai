@@ -55,7 +55,6 @@ export default function PDFMergeTool() {
     setIsProcessing(true);
     setProgress(0);
 
-    // Simulate progress
     const progressInterval = setInterval(() => {
       setProgress(prev => {
         if (prev >= 90) {
@@ -110,38 +109,38 @@ export default function PDFMergeTool() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800 text-white p-6">
+    <div className="min-h-screen bg-gray-50 p-6">
       <div className="max-w-4xl mx-auto">
         {/* Header */}
         <div className="text-center mb-8">
           <div className="inline-flex items-center justify-center w-16 h-16 bg-blue-600 rounded-xl mb-4">
-            <Plus className="w-8 h-8" />
+            <Plus className="w-8 h-8 text-white" />
           </div>
-          <h1 className="text-3xl font-bold mb-2">PDF Merger</h1>
-          <p className="text-slate-400">Combine multiple PDF files into one document</p>
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">PDF Merger</h1>
+          <p className="text-gray-600">Combine multiple PDF files into one document</p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Upload Area */}
-          <Card className="bg-slate-800/50 border-slate-700 p-6">
-            <h2 className="text-xl font-semibold mb-4 flex items-center">
-              <Upload className="w-5 h-5 mr-2" />
+          <Card className="bg-white border-gray-200 p-6 shadow-lg">
+            <h2 className="text-xl font-semibold text-gray-900 mb-4 flex items-center">
+              <Upload className="w-5 h-5 mr-2 text-gray-700" />
               Upload PDF Files
             </h2>
 
             <div
               className={`border-2 border-dashed rounded-lg p-8 text-center transition-colors ${
                 dragActive 
-                  ? 'border-blue-500 bg-blue-500/10' 
-                  : 'border-slate-600 hover:border-slate-500'
+                  ? 'border-blue-500 bg-blue-50' 
+                  : 'border-gray-300 hover:border-gray-400'
               }`}
               onDrop={handleDrop}
               onDragOver={handleDragOver}
               onDragLeave={handleDragLeave}
             >
-              <FileText className="w-12 h-12 mx-auto mb-4 text-slate-400" />
-              <p className="mb-2">Drop PDF files here or click to browse</p>
-              <p className="text-sm text-slate-400 mb-4">Support for multiple PDF files</p>
+              <FileText className="w-12 h-12 mx-auto mb-4 text-gray-400" />
+              <p className="mb-2 text-gray-700">Drop PDF files here or click to browse</p>
+              <p className="text-sm text-gray-500 mb-4">Support for multiple PDF files</p>
               <input
                 type="file"
                 accept=".pdf,application/pdf"
@@ -160,19 +159,19 @@ export default function PDFMergeTool() {
             {/* Selected Files */}
             {selectedFiles.length > 0 && (
               <div className="mt-6">
-                <h3 className="font-semibold mb-3">Selected Files ({selectedFiles.length})</h3>
+                <h3 className="font-semibold text-gray-900 mb-3">Selected Files ({selectedFiles.length})</h3>
                 <div className="space-y-2 max-h-40 overflow-y-auto">
                   {selectedFiles.map((file, index) => (
-                    <div key={index} className="flex items-center justify-between bg-slate-700/30 rounded-lg p-2">
+                    <div key={index} className="flex items-center justify-between bg-gray-50 rounded-lg p-3">
                       <div className="flex items-center">
-                        <FileText className="w-4 h-4 mr-2 text-red-400" />
-                        <span className="text-sm truncate">{file.name}</span>
+                        <FileText className="w-4 h-4 mr-2 text-red-500" />
+                        <span className="text-sm text-gray-700 truncate">{file.name}</span>
                       </div>
                       <Button
                         size="sm"
                         variant="ghost"
                         onClick={() => removeFile(index)}
-                        className="text-red-400 hover:text-red-300"
+                        className="text-red-500 hover:text-red-600"
                       >
                         Remove
                       </Button>
@@ -187,7 +186,7 @@ export default function PDFMergeTool() {
               <Button
                 onClick={processFiles}
                 disabled={selectedFiles.length < 2 || isProcessing}
-                className="w-full bg-blue-600 hover:bg-blue-700"
+                className="w-full bg-blue-600 hover:bg-blue-700 text-white"
               >
                 {isProcessing ? 'Merging...' : `Merge ${selectedFiles.length} PDFs`}
               </Button>
@@ -195,17 +194,17 @@ export default function PDFMergeTool() {
           </Card>
 
           {/* Processing & Results */}
-          <Card className="bg-slate-800/50 border-slate-700 p-6">
-            <h2 className="text-xl font-semibold mb-4 flex items-center">
-              <Download className="w-5 h-5 mr-2" />
+          <Card className="bg-white border-gray-200 p-6 shadow-lg">
+            <h2 className="text-xl font-semibold text-gray-900 mb-4 flex items-center">
+              <Download className="w-5 h-5 mr-2 text-gray-700" />
               Processing & Download
             </h2>
 
             {isProcessing && (
               <div className="mb-6">
                 <div className="flex items-center justify-between mb-2">
-                  <span className="text-sm">Merging PDFs...</span>
-                  <span className="text-sm">{Math.round(progress)}%</span>
+                  <span className="text-sm text-gray-600">Merging PDFs...</span>
+                  <span className="text-sm text-gray-600">{Math.round(progress)}%</span>
                 </div>
                 <Progress value={progress} className="w-full" />
               </div>
@@ -213,15 +212,15 @@ export default function PDFMergeTool() {
 
             {result && (
               <div className="space-y-4">
-                <div className="bg-green-500/10 border border-green-500/20 rounded-lg p-4">
+                <div className="bg-green-50 border border-green-200 rounded-lg p-4">
                   <div className="flex items-center mb-2">
-                    <FileText className="w-5 h-5 mr-2 text-green-400" />
-                    <span className="font-semibold text-green-400">Merge Complete!</span>
+                    <FileText className="w-5 h-5 mr-2 text-green-600" />
+                    <span className="font-semibold text-green-800">Merge Complete!</span>
                   </div>
-                  <p className="text-sm text-slate-300 mb-4">{result.message}</p>
+                  <p className="text-sm text-green-700 mb-4">{result.message}</p>
                   <Button
                     onClick={downloadFile}
-                    className="w-full bg-green-600 hover:bg-green-700"
+                    className="w-full bg-green-600 hover:bg-green-700 text-white"
                   >
                     <Download className="w-4 h-4 mr-2" />
                     Download Merged PDF
@@ -231,7 +230,7 @@ export default function PDFMergeTool() {
             )}
 
             {!isProcessing && !result && (
-              <div className="text-center py-8 text-slate-400">
+              <div className="text-center py-8 text-gray-500">
                 <FileText className="w-16 h-16 mx-auto mb-4 opacity-50" />
                 <p>Select PDF files to begin merging</p>
               </div>
