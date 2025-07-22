@@ -1,16 +1,17 @@
 from fastapi import APIRouter, File, UploadFile, HTTPException, Form
 from fastapi.responses import FileResponse
-from PyPDF2 import PdfReader, PdfWriter
-from PIL import Image
-import fitz  # PyMuPDF
-import pytesseract
-from pdf2image import convert_from_bytes
 import os
 import uuid
-import aiofiles
-from pathlib import Path
 import io
 from typing import List, Optional
+from pathlib import Path
+
+# Simplified imports to avoid missing dependencies
+try:
+    from PyPDF2 import PdfReader, PdfWriter
+    HAS_PDF_SUPPORT = True
+except ImportError:
+    HAS_PDF_SUPPORT = False
 
 router = APIRouter()
 
@@ -23,6 +24,9 @@ async def merge_pdfs(files: List[UploadFile] = File(...)):
     """Merge multiple PDF files into one"""
     if len(files) < 2:
         raise HTTPException(status_code=400, detail="At least 2 PDF files required")
+    
+    if not HAS_PDF_SUPPORT:
+        raise HTTPException(status_code=500, detail="PDF processing not available")
     
     try:
         writer = PdfWriter()
@@ -44,12 +48,12 @@ async def merge_pdfs(files: List[UploadFile] = File(...)):
         with open(output_path, "wb") as output_file:
             writer.write(output_file)
         
-        return FileResponse(
-            output_path,
-            media_type="application/pdf",
-            filename=output_filename,
-            headers={"Content-Disposition": f"attachment; filename={output_filename}"}
-        )
+        return {
+            "success": True,
+            "message": "PDFs merged successfully",
+            "download_url": f"/downloads/{output_filename}",
+            "filename": output_filename
+        }
     
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error merging PDFs: {str(e)}")

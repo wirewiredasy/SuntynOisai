@@ -8,7 +8,7 @@ import { Badge } from "@/components/ui/badge";
 // All 80 tools organized by category
 const ALL_TOOLS = [
   // PDF Tools (20)
-  { id: 1, name: "PDF Merge", description: "Combine multiple PDF files into one", icon: FileText, category: "pdf", popular: true, slug: "pdf-merge" },
+  { id: 1, name: "PDF Merge", description: "Combine multiple PDF files into one", icon: FileText, category: "pdf", popular: true, slug: "pdf-merge", route: "/tools/pdf-merge" },
   { id: 2, name: "PDF Split", description: "Split PDF into separate pages", icon: FileText, category: "pdf", popular: true, slug: "pdf-split" },
   { id: 3, name: "PDF Compress", description: "Reduce PDF file size", icon: FileText, category: "pdf", popular: false, slug: "pdf-compress" },
   { id: 4, name: "PDF to Word", description: "Convert PDF to Word document", icon: FileText, category: "pdf", popular: true, slug: "pdf-to-word" },
@@ -29,8 +29,8 @@ const ALL_TOOLS = [
   { id: 19, name: "PDF Header Footer", description: "Add header and footer to PDF", icon: FileText, category: "pdf", popular: false, slug: "pdf-header-footer" },
   { id: 20, name: "PDF Black White", description: "Convert PDF to black and white", icon: FileText, category: "pdf", popular: false, slug: "pdf-black-white" },
 
-  // Image Tools (20)
-  { id: 21, name: "Image Resize", description: "Resize images to custom dimensions", icon: Image, category: "image", popular: true, slug: "image-resize" },
+  // Image Tools (20) - Working
+  { id: 21, name: "Image Resize", description: "Resize images to custom dimensions", icon: Image, category: "image", popular: true, slug: "image-resize", route: "/tools/image-resize" },
   { id: 22, name: "Image Compress", description: "Reduce image file size", icon: Image, category: "image", popular: true, slug: "image-compress" },
   { id: 23, name: "Background Remove", description: "Remove background from images", icon: Image, category: "image", popular: true, slug: "background-remove" },
   { id: 24, name: "Image Crop", description: "Crop images to specific dimensions", icon: Image, category: "image", popular: true, slug: "image-crop" },
@@ -76,7 +76,7 @@ const ALL_TOOLS = [
   // Government Tools (20)
   { id: 61, name: "PAN Validation", description: "Validate PAN card numbers", icon: Building, category: "government", popular: true, slug: "pan-validation" },
   { id: 62, name: "Aadhaar Mask", description: "Mask Aadhaar card numbers", icon: Building, category: "government", popular: true, slug: "aadhaar-mask" },
-  { id: 63, name: "GST Calculator", description: "Calculate GST amounts", icon: Calculator, category: "government", popular: true, slug: "gst-calculator" },
+  { id: 63, name: "GST Calculator", description: "Calculate GST amounts", icon: Calculator, category: "government", popular: true, slug: "gst-calculator", route: "/tools/gst-calculator" },
   { id: 64, name: "IFSC Code Finder", description: "Find bank IFSC codes", icon: Building, category: "government", popular: true, slug: "ifsc-code-finder" },
   { id: 65, name: "Passport Photo", description: "Create passport size photos", icon: Building, category: "government", popular: true, slug: "passport-photo" },
   { id: 66, name: "Income Tax Calculator", description: "Calculate income tax", icon: Calculator, category: "government", popular: false, slug: "income-tax-calculator" },
@@ -218,7 +218,7 @@ export default function ToolsDashboardNew() {
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {popularTools.map((tool) => (
-                <Link key={tool.id} href={`/tool/${tool.slug}`}>
+                <Link key={tool.id} href={tool.route || `/tool/${tool.slug}`}>
                   <div className="bg-white rounded-xl border border-gray-200 p-6 hover:border-blue-300 hover:shadow-lg transition-all duration-200 cursor-pointer group">
                     <div className="flex items-center space-x-3 mb-3">
                       <div className="p-2 bg-blue-50 rounded-lg group-hover:bg-blue-100 transition-colors">
@@ -263,7 +263,7 @@ export default function ToolsDashboardNew() {
                 : "grid-cols-1"
             }`}>
               {filteredTools.map((tool) => (
-                <Link key={tool.id} href={`/tool/${tool.slug}`}>
+                <Link key={tool.id} href={tool.route || `/tool/${tool.slug}`}>
                   <div className={`bg-white rounded-xl border border-gray-200 hover:border-blue-300 hover:shadow-lg transition-all duration-200 cursor-pointer group ${
                     viewMode === "list" ? "flex items-center p-4" : "p-6"
                   }`}>

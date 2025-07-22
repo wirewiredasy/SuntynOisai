@@ -17,6 +17,11 @@ import HelpCenter from "@/pages/help-center";
 import Documentation from "@/pages/documentation";
 import Security from "@/pages/security";
 
+// Import specific tool pages
+import PDFMergeTool from "@/pages/tools/pdf-merge-tool";
+import ImageResizeTool from "@/pages/tools/image-resize-tool";
+import GSTCalculatorTool from "@/pages/tools/gst-calculator-tool";
+
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
@@ -30,6 +35,12 @@ function App() {
               <Route path="/tools" component={ToolsDashboardNew} />
               <Route path="/tools/:category" component={ToolsDashboardNew} />
               <Route path="/tool/:slug" component={ToolPage} />
+              
+              {/* Specific Tool Pages */}
+              <Route path="/tools/pdf-merge" component={PDFMergeTool} />
+              <Route path="/tools/image-resize" component={ImageResizeTool} />
+              <Route path="/tools/gst-calculator" component={GSTCalculatorTool} />
+              
               <Route path="/about" component={About} />
               <Route path="/contact" component={Contact} />
               <Route path="/privacy" component={PrivacyPolicy} />

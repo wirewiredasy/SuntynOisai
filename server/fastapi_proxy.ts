@@ -1,8 +1,12 @@
 import express from 'express';
 import { spawn } from 'child_process';
 import path from 'path';
+import multer from 'multer';
+import FormData from 'form-data';
+import fetch from 'node-fetch';
 
 const router = express.Router();
+const upload = multer({ dest: 'uploads/' });
 
 // Start FastAPI server as a subprocess
 let fastapiProcess: any = null;
@@ -12,7 +16,7 @@ const startFastAPIServer = () => {
   
   const fastapiPath = path.join(process.cwd(), 'fastapi_app');
   
-  fastapiProcess = spawn('python3', ['main_simple.py'], {
+  fastapiProcess = spawn('python3', ['main.py'], {
     cwd: fastapiPath,
     stdio: 'pipe'
   });
@@ -36,23 +40,83 @@ const startFastAPIServer = () => {
   }, 3000);
 };
 
-// Proxy requests to FastAPI
-router.all('/api/fastapi/*', async (req, res) => {
+// Proxy API requests to FastAPI backend
+router.all('/api/*', upload.any(), async (req, res) => {
   try {
-    const fastapiUrl = `http://localhost:8000${req.path.replace('/api/fastapi', '')}`;
+    const fastapiUrl = `http://localhost:8000${req.path}`;
     
-    // Simple fetch proxy for now
-    const response = await fetch(fastapiUrl, {
+    let fetchOptions: any = {
       method: req.method,
-      headers: req.headers as HeadersInit,
-      body: req.method !== 'GET' ? JSON.stringify(req.body) : undefined,
-    });
+      headers: {}
+    };
     
-    const data = await response.json();
-    res.json(data);
+    // Handle file uploads with FormData
+    if (req.files && req.files.length > 0) {
+      const formData = new FormData();
+      
+      // Add files to FormData
+      (req.files as Express.Multer.File[]).forEach((file, index) => {
+        formData.append('files', require('fs').createReadStream(file.path), file.originalname);
+      });
+      
+      // Add other form fields
+      Object.keys(req.body).forEach(key => {
+        if (req.body[key]) {
+          formData.append(key, req.body[key]);
+        }
+      });
+      
+      fetchOptions.body = formData;
+    } else if (req.body && Object.keys(req.body).length > 0) {
+      if (req.is('application/json')) {
+        fetchOptions.body = JSON.stringify(req.body);
+        fetchOptions.headers['content-type'] = 'application/json';
+      } else {
+        // Handle form data
+        const formData = new FormData();
+        Object.keys(req.body).forEach(key => {
+          formData.append(key, req.body[key]);
+        });
+        fetchOptions.body = formData;
+      }
+    }
+    
+    const response = await fetch(fastapiUrl, fetchOptions);
+    
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error('FastAPI error response:', errorText);
+      return res.status(response.status).json({ 
+        error: 'FastAPI error', 
+        details: errorText,
+        status: response.status
+      });
+    }
+    
+    const contentType = response.headers.get('content-type');
+    
+    if (contentType?.includes('application/json')) {
+      const data = await response.json();
+      res.json(data);
+    } else {
+      const buffer = await response.buffer();
+      res.setHeader('content-type', contentType || 'application/octet-stream');
+      res.send(buffer);
+    }
+    
   } catch (error) {
     console.error('FastAPI proxy error:', error);
-    res.status(500).json({ error: 'FastAPI service unavailable' });
+    res.status(500).json({ 
+      error: 'FastAPI service unavailable', 
+      details: error.message 
+    });
+  } finally {
+    // Clean up uploaded files
+    if (req.files && req.files.length > 0) {
+      (req.files as Express.Multer.File[]).forEach(file => {
+        require('fs').unlinkSync(file.path);
+      });
+    }
   }
 });
 
