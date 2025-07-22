@@ -1,7 +1,20 @@
 import { useState, useEffect } from "react";
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Play, FileText, Image, Music, Building, Zap, Shield, Star } from "lucide-react";
+import { 
+  ArrowRight, 
+  Play, 
+  FileText, 
+  Image, 
+  Music, 
+  Building, 
+  Zap, 
+  Shield, 
+  Star,
+  Plus,
+  Scissors,
+  Layers
+} from "lucide-react";
 import AnimatedLogo from "@/components/animated-logo";
 
 export default function NewHome() {
@@ -194,6 +207,288 @@ export default function NewHome() {
                 />
               ))}
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Choose Your Tool Category - Exact Match to Image */}
+      <section className="py-16 bg-gradient-to-br from-gray-900 via-slate-800 to-gray-900">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Section Header */}
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold text-white mb-4">
+              Choose Your Tool Category
+            </h2>
+            <p className="text-gray-400 text-lg">
+              Professional tools for all your needs
+            </p>
+          </div>
+
+          {/* Tool Category Grid */}
+          <div className="grid md:grid-cols-2 gap-6">
+            {/* PDF Tools */}
+            <div className="bg-gray-800/60 backdrop-blur-sm rounded-2xl p-6 border border-gray-700/50 hover:border-gray-600 transition-all duration-300">
+              <div className="flex items-start justify-between mb-6">
+                <div className="flex items-center space-x-3">
+                  <div className="w-12 h-12 bg-red-500 rounded-xl flex items-center justify-center">
+                    <FileText className="h-6 w-6 text-white" />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-semibold text-white">PDF Tools</h3>
+                    <p className="text-gray-400 text-sm">25 professional tools</p>
+                  </div>
+                </div>
+                <Link href="/tools/pdf">
+                  <Button variant="outline" size="sm" className="border-gray-600 text-gray-300 hover:bg-gray-700 hover:text-white">
+                    View Tools
+                  </Button>
+                </Link>
+              </div>
+
+              <div className="grid grid-cols-2 gap-3">
+                <Link href="/tools/pdf-merge" className="bg-gray-700/50 rounded-lg p-3 hover:bg-gray-700 transition-colors group">
+                  <div className="flex items-center space-x-2 text-gray-300 group-hover:text-white">
+                    <Plus className="h-4 w-4" />
+                    <span className="text-sm">PDF Merger</span>
+                  </div>
+                </Link>
+                <Link href="/tools/pdf-split" className="bg-gray-700/50 rounded-lg p-3 hover:bg-gray-700 transition-colors group">
+                  <div className="flex items-center space-x-2 text-gray-300 group-hover:text-white">
+                    <Scissors className="h-4 w-4" />
+                    <span className="text-sm">PDF Splitter</span>
+                  </div>
+                </Link>
+                <Link href="/tools/pdf-compress" className="bg-gray-700/50 rounded-lg p-3 hover:bg-gray-700 transition-colors group">
+                  <div className="flex items-center space-x-2 text-gray-300 group-hover:text-white">
+                    <Layers className="h-4 w-4" />
+                    <span className="text-sm">PDF Compressor</span>
+                  </div>
+                </Link>
+                <Link href="/tools/pdf-to-word" className="bg-gray-700/50 rounded-lg p-3 hover:bg-gray-700 transition-colors group">
+                  <div className="flex items-center space-x-2 text-gray-300 group-hover:text-white">
+                    <FileText className="h-4 w-4" />
+                    <span className="text-sm">PDF to Word</span>
+                  </div>
+                </Link>
+                <Link href="/tools/pdf-to-excel" className="bg-gray-700/50 rounded-lg p-3 hover:bg-gray-700 transition-colors group">
+                  <div className="flex items-center space-x-2 text-gray-300 group-hover:text-white">
+                    <FileText className="h-4 w-4" />
+                    <span className="text-sm">PDF to Excel</span>
+                  </div>
+                </Link>
+                <Link href="/tools/pdf-to-powerpoint" className="bg-gray-700/50 rounded-lg p-3 hover:bg-gray-700 transition-colors group">
+                  <div className="flex items-center space-x-2 text-gray-300 group-hover:text-white">
+                    <FileText className="h-4 w-4" />
+                    <span className="text-sm">PDF to PowerPoint</span>
+                  </div>
+                </Link>
+              </div>
+              <div className="mt-4 text-center">
+                <span className="text-gray-500 text-xs">+19 more tools</span>
+              </div>
+            </div>
+
+            {/* Image Tools */}
+            <div className="bg-gray-800/60 backdrop-blur-sm rounded-2xl p-6 border border-gray-700/50 hover:border-gray-600 transition-all duration-300">
+              <div className="flex items-start justify-between mb-6">
+                <div className="flex items-center space-x-3">
+                  <div className="w-12 h-12 bg-blue-500 rounded-xl flex items-center justify-center">
+                    <Image className="h-6 w-6 text-white" />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-semibold text-white">Image Tools</h3>
+                    <p className="text-gray-400 text-sm">25 professional tools</p>
+                  </div>
+                </div>
+                <Link href="/tools/image">
+                  <Button variant="outline" size="sm" className="border-gray-600 text-gray-300 hover:bg-gray-700 hover:text-white">
+                    View Tools
+                  </Button>
+                </Link>
+              </div>
+
+              <div className="grid grid-cols-2 gap-3">
+                <Link href="/tools/image-resize" className="bg-gray-700/50 rounded-lg p-3 hover:bg-gray-700 transition-colors group">
+                  <div className="flex items-center space-x-2 text-gray-300 group-hover:text-white">
+                    <Zap className="h-4 w-4" />
+                    <span className="text-sm">Image Resizer</span>
+                  </div>
+                </Link>
+                <Link href="/tools/image-compress" className="bg-gray-700/50 rounded-lg p-3 hover:bg-gray-700 transition-colors group">
+                  <div className="flex items-center space-x-2 text-gray-300 group-hover:text-white">
+                    <Layers className="h-4 w-4" />
+                    <span className="text-sm">Image Compressor</span>
+                  </div>
+                </Link>
+                <Link href="/tools/image-to-webp" className="bg-gray-700/50 rounded-lg p-3 hover:bg-gray-700 transition-colors group">
+                  <div className="flex items-center space-x-2 text-gray-300 group-hover:text-white">
+                    <ArrowRight className="h-4 w-4" />
+                    <span className="text-sm">Convert to WebP</span>
+                  </div>
+                </Link>
+                <Link href="/tools/image-to-jpg" className="bg-gray-700/50 rounded-lg p-3 hover:bg-gray-700 transition-colors group">
+                  <div className="flex items-center space-x-2 text-gray-300 group-hover:text-white">
+                    <ArrowRight className="h-4 w-4" />
+                    <span className="text-sm">Convert to JPG</span>
+                  </div>
+                </Link>
+                <Link href="/tools/image-to-png" className="bg-gray-700/50 rounded-lg p-3 hover:bg-gray-700 transition-colors group">
+                  <div className="flex items-center space-x-2 text-gray-300 group-hover:text-white">
+                    <ArrowRight className="h-4 w-4" />
+                    <span className="text-sm">Convert to PNG</span>
+                  </div>
+                </Link>
+                <Link href="/tools/image-to-pdf" className="bg-gray-700/50 rounded-lg p-3 hover:bg-gray-700 transition-colors group">
+                  <div className="flex items-center space-x-2 text-gray-300 group-hover:text-white">
+                    <FileText className="h-4 w-4" />
+                    <span className="text-sm">Image to PDF</span>
+                  </div>
+                </Link>
+              </div>
+              <div className="mt-4 text-center">
+                <span className="text-gray-500 text-xs">+19 more tools</span>
+              </div>
+            </div>
+
+            {/* Audio & Video Tools */}
+            <div className="bg-gray-800/60 backdrop-blur-sm rounded-2xl p-6 border border-gray-700/50 hover:border-gray-600 transition-all duration-300">
+              <div className="flex items-start justify-between mb-6">
+                <div className="flex items-center space-x-3">
+                  <div className="w-12 h-12 bg-green-500 rounded-xl flex items-center justify-center">
+                    <Music className="h-6 w-6 text-white" />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-semibold text-white">Audio & Video Tools</h3>
+                    <p className="text-gray-400 text-sm">20 professional tools</p>
+                  </div>
+                </div>
+                <Link href="/tools/audio">
+                  <Button variant="outline" size="sm" className="border-gray-600 text-gray-300 hover:bg-gray-700 hover:text-white">
+                    View Tools
+                  </Button>
+                </Link>
+              </div>
+
+              <div className="grid grid-cols-2 gap-3">
+                <Link href="/tools/audio-converter" className="bg-gray-700/50 rounded-lg p-3 hover:bg-gray-700 transition-colors group">
+                  <div className="flex items-center space-x-2 text-gray-300 group-hover:text-white">
+                    <ArrowRight className="h-4 w-4" />
+                    <span className="text-sm">Audio Converter</span>
+                  </div>
+                </Link>
+                <Link href="/tools/audio-cutter" className="bg-gray-700/50 rounded-lg p-3 hover:bg-gray-700 transition-colors group">
+                  <div className="flex items-center space-x-2 text-gray-300 group-hover:text-white">
+                    <Scissors className="h-4 w-4" />
+                    <span className="text-sm">Audio Cutter</span>
+                  </div>
+                </Link>
+                <Link href="/tools/audio-joiner" className="bg-gray-700/50 rounded-lg p-3 hover:bg-gray-700 transition-colors group">
+                  <div className="flex items-center space-x-2 text-gray-300 group-hover:text-white">
+                    <Plus className="h-4 w-4" />
+                    <span className="text-sm">Audio Joiner</span>
+                  </div>
+                </Link>
+                <Link href="/tools/volume-booster" className="bg-gray-700/50 rounded-lg p-3 hover:bg-gray-700 transition-colors group">
+                  <div className="flex items-center space-x-2 text-gray-300 group-hover:text-white">
+                    <Music className="h-4 w-4" />
+                    <span className="text-sm">Volume Booster</span>
+                  </div>
+                </Link>
+                <Link href="/tools/audio-normalizer" className="bg-gray-700/50 rounded-lg p-3 hover:bg-gray-700 transition-colors group">
+                  <div className="flex items-center space-x-2 text-gray-300 group-hover:text-white">
+                    <Layers className="h-4 w-4" />
+                    <span className="text-sm">Audio Normalizer</span>
+                  </div>
+                </Link>
+                <Link href="/tools/audio-extractor" className="bg-gray-700/50 rounded-lg p-3 hover:bg-gray-700 transition-colors group">
+                  <div className="flex items-center space-x-2 text-gray-300 group-hover:text-white">
+                    <Music className="h-4 w-4" />
+                    <span className="text-sm">Audio Extractor</span>
+                  </div>
+                </Link>
+              </div>
+              <div className="mt-4 text-center">
+                <span className="text-gray-500 text-xs">+14 more tools</span>
+              </div>
+            </div>
+
+            {/* Government Tools */}
+            <div className="bg-gray-800/60 backdrop-blur-sm rounded-2xl p-6 border border-gray-700/50 hover:border-gray-600 transition-all duration-300">
+              <div className="flex items-start justify-between mb-6">
+                <div className="flex items-center space-x-3">
+                  <div className="w-12 h-12 bg-orange-500 rounded-xl flex items-center justify-center">
+                    <Building className="h-6 w-6 text-white" />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-semibold text-white">Government Tools</h3>
+                    <p className="text-gray-400 text-sm">15 professional tools</p>
+                  </div>
+                </div>
+                <Link href="/tools/government">
+                  <Button variant="outline" size="sm" className="border-gray-600 text-gray-300 hover:bg-gray-700 hover:text-white">
+                    View Tools
+                  </Button>
+                </Link>
+              </div>
+
+              <div className="grid grid-cols-2 gap-3">
+                <Link href="/tools/pan-validator" className="bg-gray-700/50 rounded-lg p-3 hover:bg-gray-700 transition-colors group">
+                  <div className="flex items-center space-x-2 text-gray-300 group-hover:text-white">
+                    <Shield className="h-4 w-4" />
+                    <span className="text-sm">PAN Validator</span>
+                  </div>
+                </Link>
+                <Link href="/tools/aadhaar-masker" className="bg-gray-700/50 rounded-lg p-3 hover:bg-gray-700 transition-colors group">
+                  <div className="flex items-center space-x-2 text-gray-300 group-hover:text-white">
+                    <Star className="h-4 w-4" />
+                    <span className="text-sm">Aadhaar Masker</span>
+                  </div>
+                </Link>
+                <Link href="/tools/voter-id-extractor" className="bg-gray-700/50 rounded-lg p-3 hover:bg-gray-700 transition-colors group">
+                  <div className="flex items-center space-x-2 text-gray-300 group-hover:text-white">
+                    <FileText className="h-4 w-4" />
+                    <span className="text-sm">Voter ID Extractor</span>
+                  </div>
+                </Link>
+                <Link href="/tools/income-certificate" className="bg-gray-700/50 rounded-lg p-3 hover:bg-gray-700 transition-colors group">
+                  <div className="flex items-center space-x-2 text-gray-300 group-hover:text-white">
+                    <FileText className="h-4 w-4" />
+                    <span className="text-sm">Income Certificate</span>
+                  </div>
+                </Link>
+                <Link href="/tools/caste-certificate" className="bg-gray-700/50 rounded-lg p-3 hover:bg-gray-700 transition-colors group">
+                  <div className="flex items-center space-x-2 text-gray-300 group-hover:text-white">
+                    <Building className="h-4 w-4" />
+                    <span className="text-sm">Caste Certificate</span>
+                  </div>
+                </Link>
+                <Link href="/tools/ration-card-status" className="bg-gray-700/50 rounded-lg p-3 hover:bg-gray-700 transition-colors group">
+                  <div className="flex items-center space-x-2 text-gray-300 group-hover:text-white">
+                    <Star className="h-4 w-4" />
+                    <span className="text-sm">Ration Card Status</span>
+                  </div>
+                </Link>
+              </div>
+              <div className="mt-4 text-center">
+                <span className="text-gray-500 text-xs">+9 more tools</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Popular Tools Section */}
+          <div className="mt-12 text-center">
+            <h3 className="text-2xl font-bold text-white mb-4">
+              Popular Tools
+            </h3>
+            <p className="text-gray-400 mb-6">
+              Most used tools across all categories
+            </p>
+            <Link href="/tools">
+              <Button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-3 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-200">
+                View All Tools
+                <ArrowRight className="h-5 w-5 ml-2" />
+              </Button>
+            </Link>
           </div>
         </div>
       </section>

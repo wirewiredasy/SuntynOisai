@@ -3,6 +3,7 @@ import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { ThemeProvider } from "@/components/theme-provider";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
 import NewHome from "@/pages/new-home";
@@ -28,7 +29,8 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
-        <div className="min-h-screen bg-white text-gray-900">
+        <ThemeProvider defaultTheme="dark" storageKey="suntyn-ui-theme">
+          <div className="min-h-screen bg-background text-foreground">
           <Header />
           <main>
             <Toaster />
@@ -57,6 +59,7 @@ function App() {
           </main>
           <Footer />
         </div>
+        </ThemeProvider>
       </TooltipProvider>
     </QueryClientProvider>
   );

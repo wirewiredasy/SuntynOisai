@@ -1,24 +1,27 @@
 import { useState } from "react";
 import { Link, useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
-import { Menu, X, Search, Star } from "lucide-react";
+import { Menu, X, Search, Star, Moon, Sun } from "lucide-react";
+import { useTheme } from "@/components/theme-provider";
 import AnimatedLogo from "@/components/animated-logo";
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [location] = useLocation();
+  const { theme, setTheme } = useTheme();
 
   const navItems = [
+    { name: "Home", href: "/", active: location === "/" },
     { name: "All Tools", href: "/tools", active: location.startsWith("/tools") },
     { name: "PDF Tools", href: "/tools/pdf", active: false },
     { name: "Image Tools", href: "/tools/image", active: false },
     { name: "Audio/Video", href: "/tools/audio", active: false },
     { name: "Gov Tools", href: "/tools/government", active: false },
-    { name: "How to Use", href: "/help", active: false },
+    { name: "Contact", href: "/contact", active: false },
   ];
 
   return (
-    <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-gray-200/60 shadow-sm">
+    <header className="sticky top-0 z-50 bg-background/95 backdrop-blur-md border-b border-border shadow-sm">
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo Section */}
@@ -51,14 +54,28 @@ export default function Header() {
 
           {/* Desktop Actions */}
           <div className="hidden lg:flex items-center space-x-4">
+            {/* Search Button */}
+            <Link href="/tools">
+              <Button
+                variant="ghost"
+                size="sm"
+                className="text-gray-700 hover:text-blue-600 hover:bg-blue-50"
+              >
+                <Search className="h-4 w-4 mr-2" />
+                Search
+              </Button>
+            </Link>
+            
+            {/* Theme Toggle Button */}
             <Button
               variant="ghost"
               size="sm"
+              onClick={() => setTheme(theme === "light" ? "dark" : "light")}
               className="text-gray-700 hover:text-blue-600 hover:bg-blue-50"
             >
-              <Search className="h-4 w-4 mr-2" />
-              Search
+              {theme === "light" ? <Moon className="h-4 w-4" /> : <Sun className="h-4 w-4" />}
             </Button>
+            
             <Button
               size="sm"
               className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-4 py-2 rounded-lg font-medium shadow-md hover:shadow-lg transition-all duration-200"
