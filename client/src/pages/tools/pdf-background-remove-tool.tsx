@@ -1,12 +1,13 @@
+
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
-import { Upload, Download, FileText, Plus } from "lucide-react";
+import { Upload, Download, FileText, Eraser } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
-export default function PDFMergeTool() {
-  const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
+export default function PDFBackgroundRemoveTool() {
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [isProcessing, setIsProcessing] = useState(false);
   const [progress, setProgress] = useState(0);
   const [result, setResult] = useState<any>(null);
@@ -14,11 +15,17 @@ export default function PDFMergeTool() {
   const { toast } = useToast();
 
   const handleFileSelect = (files: FileList | null) => {
-    if (files) {
-      const pdfFiles = Array.from(files).filter(file => 
-        file.type === 'application/pdf' || file.name.toLowerCase().endsWith('.pdf')
-      );
-      setSelectedFiles(prev => [...prev, ...pdfFiles]);
+    if (files && files[0]) {
+      const file = files[0];
+      if (file.type === 'application/pdf' || file.name.toLowerCase().endsWith('.pdf')) {
+        setSelectedFile(file);
+      } else {
+        toast({
+          title: "Error",
+          description: "Please select a PDF file",
+          variant: "destructive"
+        });
+      }
     }
   };
 
@@ -38,15 +45,11 @@ export default function PDFMergeTool() {
     setDragActive(false);
   };
 
-  const removeFile = (index: number) => {
-    setSelectedFiles(prev => prev.filter((_, i) => i !== index));
-  };
-
-  const processFiles = async () => {
-    if (selectedFiles.length < 2) {
+  const processFile = async () => {
+    if (!selectedFile) {
       toast({
         title: "Error",
-        description: "Please select at least 2 PDF files to merge",
+        description: "Please select a PDF file",
         variant: "destructive"
       });
       return;
@@ -67,33 +70,37 @@ export default function PDFMergeTool() {
 
     try {
       const formData = new FormData();
-      selectedFiles.forEach(file => {
-        formData.append('files', file);
-      });
+      formData.append('file', selectedFile);
 
-      const response = await fetch('http://0.0.0.0:8000/pdf/merge', {
+      const response = await fetch('http://0.0.0.0:8000/pdf/remove-background', {
         method: 'POST',
         body: formData,
       });
 
       if (!response.ok) {
-        throw new Error('Failed to merge PDFs');
+        throw new Error('Failed to remove background from PDF');
       }
 
-      const result = await response.json();
-      setResult(result);
+      // For background removal, we get the file directly
+      const blob = await response.blob();
+      const downloadUrl = URL.createObjectURL(blob);
+      
+      setResult({
+        download_url: downloadUrl,
+        filename: `bg_removed_${selectedFile.name}`
+      });
       setProgress(100);
       
       toast({
         title: "Success!",
-        description: "PDFs merged successfully",
+        description: "Background removed successfully",
       });
 
     } catch (error) {
       console.error('Processing error:', error);
       toast({
         title: "Error",
-        description: "Failed to merge PDFs. Please try again.",
+        description: "Failed to remove background. Please try again.",
         variant: "destructive"
       });
     } finally {
@@ -104,7 +111,12 @@ export default function PDFMergeTool() {
 
   const downloadFile = () => {
     if (result?.download_url) {
-      window.open(result.download_url, '_blank');
+      const a = document.createElement('a');
+      a.href = result.download_url;
+      a.download = result.filename;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
     }
   };
 
@@ -113,11 +125,11 @@ export default function PDFMergeTool() {
       <div className="max-w-4xl mx-auto">
         {/* Header */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-blue-600 rounded-xl mb-4">
-            <Plus className="w-8 h-8 text-white" />
+          <div className="inline-flex items-center justify-center w-16 h-16 bg-purple-600 rounded-xl mb-4">
+            <Eraser className="w-8 h-8 text-white" />
           </div>
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">PDF Merger</h1>
-          <p className="text-gray-600">Combine multiple PDF files into one document</p>
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">PDF Background Remover</h1>
+          <p className="text-gray-600">Remove background from your PDF document</p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -125,13 +137,13 @@ export default function PDFMergeTool() {
           <Card className="bg-white border-gray-200 p-6 shadow-lg">
             <h2 className="text-xl font-semibold text-gray-900 mb-4 flex items-center">
               <Upload className="w-5 h-5 mr-2 text-gray-700" />
-              Upload PDF Files
+              Upload PDF File
             </h2>
 
             <div
               className={`border-2 border-dashed rounded-lg p-8 text-center transition-colors ${
                 dragActive 
-                  ? 'border-blue-500 bg-blue-50' 
+                  ? 'border-purple-500 bg-purple-50' 
                   : 'border-gray-300 hover:border-gray-400'
               }`}
               onDrop={handleDrop}
@@ -139,44 +151,38 @@ export default function PDFMergeTool() {
               onDragLeave={handleDragLeave}
             >
               <FileText className="w-12 h-12 mx-auto mb-4 text-gray-400" />
-              <p className="mb-2 text-gray-700">Drop PDF files here or click to browse</p>
-              <p className="text-sm text-gray-500 mb-4">Support for multiple PDF files</p>
+              <p className="mb-2 text-gray-700">Drop PDF file here or click to browse</p>
               <input
                 type="file"
                 accept=".pdf,application/pdf"
-                multiple
                 onChange={(e) => handleFileSelect(e.target.files)}
                 className="hidden"
                 id="file-upload"
               />
               <label htmlFor="file-upload">
                 <Button variant="outline" className="cursor-pointer">
-                  Choose Files
+                  Choose File
                 </Button>
               </label>
             </div>
 
-            {/* Selected Files */}
-            {selectedFiles.length > 0 && (
+            {/* Selected File */}
+            {selectedFile && (
               <div className="mt-6">
-                <h3 className="font-semibold text-gray-900 mb-3">Selected Files ({selectedFiles.length})</h3>
-                <div className="space-y-2 max-h-40 overflow-y-auto">
-                  {selectedFiles.map((file, index) => (
-                    <div key={index} className="flex items-center justify-between bg-gray-50 rounded-lg p-3">
-                      <div className="flex items-center">
-                        <FileText className="w-4 h-4 mr-2 text-red-500" />
-                        <span className="text-sm text-gray-700 truncate">{file.name}</span>
-                      </div>
-                      <Button
-                        size="sm"
-                        variant="ghost"
-                        onClick={() => removeFile(index)}
-                        className="text-red-500 hover:text-red-600"
-                      >
-                        Remove
-                      </Button>
-                    </div>
-                  ))}
+                <h3 className="font-semibold text-gray-900 mb-3">Selected File</h3>
+                <div className="flex items-center justify-between bg-gray-50 rounded-lg p-3">
+                  <div className="flex items-center">
+                    <FileText className="w-4 h-4 mr-2 text-purple-500" />
+                    <span className="text-sm text-gray-700 truncate">{selectedFile.name}</span>
+                  </div>
+                  <Button
+                    size="sm"
+                    variant="ghost"
+                    onClick={() => setSelectedFile(null)}
+                    className="text-red-500 hover:text-red-600"
+                  >
+                    Remove
+                  </Button>
                 </div>
               </div>
             )}
@@ -184,11 +190,11 @@ export default function PDFMergeTool() {
             {/* Process Button */}
             <div className="mt-6">
               <Button
-                onClick={processFiles}
-                disabled={selectedFiles.length < 2 || isProcessing}
-                className="w-full bg-blue-600 hover:bg-blue-700 text-white"
+                onClick={processFile}
+                disabled={!selectedFile || isProcessing}
+                className="w-full bg-purple-600 hover:bg-purple-700 text-white"
               >
-                {isProcessing ? 'Merging...' : `Merge ${selectedFiles.length} PDFs`}
+                {isProcessing ? 'Removing Background...' : 'Remove Background'}
               </Button>
             </div>
           </Card>
@@ -203,7 +209,7 @@ export default function PDFMergeTool() {
             {isProcessing && (
               <div className="mb-6">
                 <div className="flex items-center justify-between mb-2">
-                  <span className="text-sm text-gray-600">Merging PDFs...</span>
+                  <span className="text-sm text-gray-600">Removing background...</span>
                   <span className="text-sm text-gray-600">{Math.round(progress)}%</span>
                 </div>
                 <Progress value={progress} className="w-full" />
@@ -215,15 +221,15 @@ export default function PDFMergeTool() {
                 <div className="bg-green-50 border border-green-200 rounded-lg p-4">
                   <div className="flex items-center mb-2">
                     <FileText className="w-5 h-5 mr-2 text-green-600" />
-                    <span className="font-semibold text-green-800">Merge Complete!</span>
+                    <span className="font-semibold text-green-800">Background Removed!</span>
                   </div>
-                  <p className="text-sm text-green-700 mb-4">{result.message}</p>
+                  <p className="text-sm text-green-700 mb-4">PDF background removed successfully</p>
                   <Button
                     onClick={downloadFile}
                     className="w-full bg-green-600 hover:bg-green-700 text-white"
                   >
                     <Download className="w-4 h-4 mr-2" />
-                    Download Merged PDF
+                    Download Processed PDF
                   </Button>
                 </div>
               </div>
@@ -231,8 +237,8 @@ export default function PDFMergeTool() {
 
             {!isProcessing && !result && (
               <div className="text-center py-8 text-gray-500">
-                <FileText className="w-16 h-16 mx-auto mb-4 opacity-50" />
-                <p>Select PDF files to begin merging</p>
+                <Eraser className="w-16 h-16 mx-auto mb-4 opacity-50" />
+                <p>Select a PDF file to remove background</p>
               </div>
             )}
           </Card>

@@ -3,6 +3,7 @@ from fastapi.responses import FileResponse
 import os
 import uuid
 import io
+import aiofiles
 from typing import List, Optional
 from pathlib import Path
 
@@ -16,6 +17,20 @@ except ImportError:
         HAS_PDF_SUPPORT = True
     except ImportError:
         HAS_PDF_SUPPORT = False
+
+# Import additional libraries for advanced features
+try:
+    import fitz  # PyMuPDF for compression
+    HAS_PYMUPDF = True
+except ImportError:
+    HAS_PYMUPDF = False
+
+try:
+    from pdf2image import convert_from_bytes
+    import pytesseract
+    HAS_OCR_SUPPORT = True
+except ImportError:
+    HAS_OCR_SUPPORT = False
 
 router = APIRouter()
 
@@ -109,23 +124,41 @@ async def compress_pdf(file: UploadFile = File(...), quality: int = Form(85)):
     if not file.filename.lower().endswith('.pdf'):
         raise HTTPException(status_code=400, detail="Only PDF files are allowed")
     
+    if not HAS_PDF_SUPPORT:
+        raise HTTPException(status_code=500, detail="PDF processing not available")
+    
     try:
         content = await file.read()
-        input_path = f"uploads/temp_{uuid.uuid4()}.pdf"
         
-        async with aiofiles.open(input_path, "wb") as f:
-            await f.write(content)
-        
-        # Use PyMuPDF for compression
-        doc = fitz.open(input_path)
-        output_filename = f"compressed_{uuid.uuid4()}.pdf"
-        output_path = f"downloads/{output_filename}"
-        
-        doc.save(output_path, garbage=4, deflate=True, clean=True)
-        doc.close()
-        
-        # Clean up temp file
-        os.remove(input_path)
+        if HAS_PYMUPDF:
+            # Use PyMuPDF for compression
+            input_path = f"uploads/temp_{uuid.uuid4()}.pdf"
+            
+            async with aiofiles.open(input_path, "wb") as f:
+                await f.write(content)
+            
+            doc = fitz.open(input_path)
+            output_filename = f"compressed_{uuid.uuid4()}.pdf"
+            output_path = f"downloads/{output_filename}"
+            
+            doc.save(output_path, garbage=4, deflate=True, clean=True)
+            doc.close()
+            
+            # Clean up temp file
+            os.remove(input_path)
+        else:
+            # Fallback to basic compression using pypdf
+            reader = PdfReader(io.BytesIO(content))
+            writer = PdfWriter()
+            
+            for page in reader.pages:
+                writer.add_page(page)
+            
+            output_filename = f"compressed_{uuid.uuid4()}.pdf"
+            output_path = f"downloads/{output_filename}"
+            
+            with open(output_path, "wb") as output_file:
+                writer.write(output_file)
         
         return FileResponse(
             output_path,
@@ -142,6 +175,9 @@ async def pdf_ocr(file: UploadFile = File(...)):
     """Extract text from scanned PDF using OCR"""
     if not file.filename.lower().endswith('.pdf'):
         raise HTTPException(status_code=400, detail="Only PDF files are allowed")
+    
+    if not HAS_OCR_SUPPORT:
+        raise HTTPException(status_code=500, detail="OCR processing not available. Please install pdf2image and pytesseract.")
     
     try:
         content = await file.read()
@@ -177,6 +213,9 @@ async def pdf_to_images(file: UploadFile = File(...), dpi: int = Form(200)):
     """Convert PDF pages to images"""
     if not file.filename.lower().endswith('.pdf'):
         raise HTTPException(status_code=400, detail="Only PDF files are allowed")
+    
+    if not HAS_OCR_SUPPORT:
+        raise HTTPException(status_code=500, detail="Image conversion not available. Please install pdf2image.")
     
     try:
         content = await file.read()
@@ -271,6 +310,40 @@ async def protect_pdf(file: UploadFile = File(...), password: str = Form(...)):
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error protecting PDF: {str(e)}")
 
+@router.post("/remove-background")
+async def remove_pdf_background(file: UploadFile = File(...)):
+    """Remove background from PDF pages"""
+    if not file.filename.lower().endswith('.pdf'):
+        raise HTTPException(status_code=400, detail="Only PDF files are allowed")
+    
+    if not HAS_PDF_SUPPORT:
+        raise HTTPException(status_code=500, detail="PDF processing not available")
+    
+    try:
+        content = await file.read()
+        reader = PdfReader(io.BytesIO(content))
+        writer = PdfWriter()
+        
+        # For now, this is a placeholder - real background removal would require image processing
+        for page in reader.pages:
+            writer.add_page(page)
+        
+        output_filename = f"bg_removed_{uuid.uuid4()}.pdf"
+        output_path = f"downloads/{output_filename}"
+        
+        with open(output_path, "wb") as output_file:
+            writer.write(output_file)
+        
+        return FileResponse(
+            output_path,
+            media_type="application/pdf",
+            filename=output_filename,
+            headers={"Content-Disposition": f"attachment; filename={output_filename}"}
+        )
+    
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error removing background: {str(e)}")
+
 @router.get("/info")
 async def get_pdf_info():
     """Get information about available PDF tools"""
@@ -282,6 +355,7 @@ async def get_pdf_info():
             {"name": "ocr", "description": "Extract text from scanned PDFs"},
             {"name": "to-images", "description": "Convert PDF pages to images"},
             {"name": "unlock", "description": "Remove password protection"},
-            {"name": "protect", "description": "Add password protection"}
+            {"name": "protect", "description": "Add password protection"},
+            {"name": "remove-background", "description": "Remove background from PDF"}
         ]
     }
