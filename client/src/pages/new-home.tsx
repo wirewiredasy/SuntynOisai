@@ -151,43 +151,79 @@ export default function NewHome() {
             </div>
           </div>
 
-          {/* Interactive Slides Showcase */}
-          <div className="relative bg-white dark:bg-gray-800 rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700 overflow-hidden">
-            <div className="relative h-96">
+          {/* Interactive Slides Showcase - Mobile Optimized Square Layout */}
+          <div className="relative bg-white dark:bg-gray-800 rounded-2xl shadow-2xl border border-gray-200 dark:border-gray-700 overflow-hidden">
+            <div className="relative h-96 md:h-[500px]">
               {slides.map((slide, index) => (
                 <div
                   key={index}
-                  className={`absolute inset-0 transition-all duration-500 ${
-                    index === currentSlide ? "opacity-100 translate-x-0" : "opacity-0 translate-x-full"
+                  className={`absolute inset-0 transition-all duration-700 ease-in-out ${
+                    index === currentSlide 
+                      ? "opacity-100 translate-x-0 scale-100" 
+                      : "opacity-0 translate-x-full scale-95"
                   }`}
                 >
-                  <div className={`h-full bg-gradient-to-br ${slide.color} p-8 text-white flex items-center`}>
-                    <div className="w-1/2">
-                      <div className="flex items-center space-x-4 mb-6">
-                        <div className="p-3 bg-white/20 rounded-xl backdrop-blur-sm">
-                          {slide.icon}
-                        </div>
-                        <h3 className="text-3xl font-bold">{slide.title}</h3>
-                      </div>
-                      <p className="text-lg opacity-90 mb-8 leading-relaxed">
-                        {slide.description}
-                      </p>
-                      <div className="grid grid-cols-2 gap-3">
-                        {slide.tools.map((tool, toolIndex) => (
-                          <div key={toolIndex} className="bg-white/20 backdrop-blur-sm rounded-lg p-3 text-sm font-medium">
-                            {tool}
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                    <div className="w-1/2 flex justify-center items-center">
-                      <div className="relative">
-                        <div className="w-64 h-64 bg-white/20 rounded-3xl backdrop-blur-sm border border-white/30 flex items-center justify-center">
-                          <div className="text-6xl opacity-50">
+                  <div className={`h-full bg-gradient-to-br ${slide.color} p-4 md:p-8 text-white`}>
+                    {/* Mobile-First Square Layout */}
+                    <div className="h-full flex flex-col md:flex-row items-center justify-center">
+                      
+                      {/* Content Section */}
+                      <div className="w-full md:w-1/2 text-center md:text-left mb-6 md:mb-0">
+                        <div className="flex items-center justify-center md:justify-start space-x-3 md:space-x-4 mb-4 md:mb-6">
+                          <div className="p-2 md:p-3 bg-white/25 rounded-xl md:rounded-2xl backdrop-blur-sm shadow-lg">
                             {slide.icon}
                           </div>
+                          <h3 className="text-xl md:text-3xl font-black tracking-tight">{slide.title}</h3>
                         </div>
-                        <div className="absolute -inset-4 bg-white/10 rounded-3xl blur-xl"></div>
+                        
+                        <p className="text-sm md:text-lg opacity-95 mb-4 md:mb-8 leading-relaxed max-w-md mx-auto md:mx-0">
+                          {slide.description}
+                        </p>
+                        
+                        {/* Tools Grid - Square Layout for Mobile */}
+                        <div className="grid grid-cols-2 gap-2 md:gap-3 max-w-sm mx-auto md:mx-0">
+                          {slide.tools.map((tool, toolIndex) => (
+                            <div 
+                              key={toolIndex} 
+                              className="bg-white/25 backdrop-blur-sm rounded-lg p-2 md:p-3 text-xs md:text-sm font-semibold shadow-sm hover:bg-white/35 transition-all duration-300 hover:scale-105 cursor-pointer"
+                            >
+                              {tool}
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                      
+                      {/* Visual Section - Square Design */}
+                      <div className="w-full md:w-1/2 flex justify-center items-center">
+                        <div className="relative">
+                          {/* Main Square */}
+                          <div className="w-32 h-32 md:w-64 md:h-64 bg-white/25 rounded-2xl md:rounded-3xl backdrop-blur-md border border-white/40 flex items-center justify-center shadow-2xl transform hover:rotate-3 transition-all duration-500">
+                            <div className="text-3xl md:text-6xl opacity-80 transform hover:scale-110 transition-transform duration-300">
+                              {slide.icon}
+                            </div>
+                          </div>
+                          
+                          {/* Floating Elements for Mobile */}
+                          <div className="absolute -top-2 -right-2 w-8 h-8 md:w-12 md:h-12 bg-white/20 rounded-lg backdrop-blur-sm animate-bounce delay-300">
+                            <div className="w-full h-full flex items-center justify-center text-lg md:text-2xl opacity-70">✨</div>
+                          </div>
+                          <div className="absolute -bottom-2 -left-2 w-6 h-6 md:w-10 md:h-10 bg-white/20 rounded-lg backdrop-blur-sm animate-bounce delay-700">
+                            <div className="w-full h-full flex items-center justify-center text-sm md:text-xl opacity-70">⚡</div>
+                          </div>
+                          
+                          {/* Glow Effect */}
+                          <div className="absolute -inset-2 md:-inset-4 bg-white/10 rounded-2xl md:rounded-3xl blur-xl animate-pulse"></div>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    {/* Progress Bar */}
+                    <div className="absolute bottom-16 md:bottom-20 left-4 right-4 md:left-8 md:right-8">
+                      <div className="w-full bg-white/20 rounded-full h-1">
+                        <div 
+                          className="bg-white rounded-full h-1 transition-all duration-300"
+                          style={{ width: `${((index + 1) / slides.length) * 100}%` }}
+                        ></div>
                       </div>
                     </div>
                   </div>
@@ -195,18 +231,39 @@ export default function NewHome() {
               ))}
             </div>
 
-            {/* Slide Indicators */}
-            <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
+            {/* Enhanced Slide Indicators */}
+            <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-3">
               {slides.map((_, index) => (
                 <button
                   key={index}
                   onClick={() => setCurrentSlide(index)}
-                  className={`w-3 h-3 rounded-full transition-all duration-200 ${
-                    index === currentSlide ? "bg-white" : "bg-white/50"
+                  className={`transition-all duration-300 rounded-full ${
+                    index === currentSlide 
+                      ? "w-8 h-3 bg-white shadow-lg" 
+                      : "w-3 h-3 bg-white/50 hover:bg-white/70"
                   }`}
                 />
               ))}
             </div>
+            
+            {/* Navigation Arrows - Hidden on Mobile */}
+            <button
+              onClick={() => setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length)}
+              className="hidden md:flex absolute left-4 top-1/2 transform -translate-y-1/2 w-12 h-12 bg-black/20 hover:bg-black/40 rounded-full items-center justify-center text-white transition-all duration-300 backdrop-blur-sm"
+            >
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              </svg>
+            </button>
+            
+            <button
+              onClick={() => setCurrentSlide((prev) => (prev + 1) % slides.length)}
+              className="hidden md:flex absolute right-4 top-1/2 transform -translate-y-1/2 w-12 h-12 bg-black/20 hover:bg-black/40 rounded-full items-center justify-center text-white transition-all duration-300 backdrop-blur-sm"
+            >
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
           </div>
         </div>
       </section>
