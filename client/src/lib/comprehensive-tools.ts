@@ -187,6 +187,6 @@ export const getToolsByCategory = (categoryId: string) => {
   if (!category) return [];
   
   return category.subcategories.reduce((tools: any[], subcategory) => {
-    return tools.concat(COMPREHENSIVE_TOOLS[subcategory] || []);
+    return tools.concat(COMPREHENSIVE_TOOLS[subcategory as keyof typeof COMPREHENSIVE_TOOLS] || []);
   }, []);
 };

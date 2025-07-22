@@ -55,81 +55,188 @@ export default function Home() {
     <>
       {/* Using global mobile header */}
 
-      {/* Hero Section */}
-      <section className="min-h-screen flex items-center justify-center relative overflow-hidden hero-gradient">
-        {/* Floating Elements */}
+      {/* Advanced AI Hero Section - Toolora Style */}
+      <section className="min-h-screen flex items-center justify-center relative overflow-hidden bg-gradient-to-br from-slate-900 via-purple-900/20 to-slate-900">
+        
+        {/* 3D Background Grid */}
+        <div className="absolute inset-0 overflow-hidden opacity-30">
+          <div className="absolute inset-0" style={{
+            backgroundImage: `
+              linear-gradient(rgba(139, 92, 246, 0.1) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(139, 92, 246, 0.1) 1px, transparent 1px)
+            `,
+            backgroundSize: '60px 60px',
+            transform: 'perspective(500px) rotateX(45deg)',
+            transformOrigin: 'center bottom'
+          }}></div>
+        </div>
+
+        {/* AI Particle Field */}
         <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-1/4 left-1/4 animate-float">
-            <div className="w-16 h-16 bg-red-500/20 rounded-full flex items-center justify-center">
-              <FileText className="text-red-400 w-8 h-8" />
+          <div className="absolute top-20 left-20 animate-ping">
+            <div className="w-2 h-2 bg-cyan-400 rounded-full opacity-60"></div>
+          </div>
+          <div className="absolute top-32 right-32 animate-pulse">
+            <div className="w-1 h-1 bg-purple-400 rounded-full"></div>
+          </div>
+          <div className="absolute bottom-40 left-40 animate-bounce">
+            <div className="w-1.5 h-1.5 bg-yellow-400 rounded-full opacity-80"></div>
+          </div>
+          <div className="absolute top-1/2 right-20 animate-ping">
+            <div className="w-1 h-1 bg-pink-400 rounded-full"></div>
+          </div>
+          <div className="absolute bottom-32 right-40 animate-pulse">
+            <div className="w-2 h-2 bg-blue-400 rounded-full opacity-50"></div>
+          </div>
+        </div>
+
+        {/* Floating AI Tool Windows */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          {/* PDF Tool Window */}
+          <div className="absolute top-1/4 left-1/6 animate-float-slow">
+            <div className="bg-gradient-to-br from-red-500/10 to-red-600/5 backdrop-blur-sm border border-red-500/20 rounded-2xl p-4 w-48 h-32 shadow-2xl">
+              <div className="flex items-center gap-2 mb-2">
+                <FileText className="text-red-400 w-5 h-5" />
+                <span className="text-red-300 text-sm font-medium">PDF Compressor</span>
+              </div>
+              <div className="space-y-2">
+                <div className="h-2 bg-red-500/20 rounded-full overflow-hidden">
+                  <div className="h-full bg-red-400 rounded-full animate-pulse" style={{width: '75%'}}></div>
+                </div>
+                <div className="text-xs text-red-200/80">Size reduced: 8.5MB → 2.1MB</div>
+              </div>
             </div>
           </div>
-          <div className="absolute top-1/3 right-1/4 animate-float" style={{animationDelay: '1s'}}>
-            <div className="w-20 h-20 bg-blue-500/20 rounded-full flex items-center justify-center">
-              <Image className="text-blue-400 w-10 h-10" />
+
+          {/* Image Tool Window */}
+          <div className="absolute top-1/3 right-1/6 animate-float-slow" style={{animationDelay: '1s'}}>
+            <div className="bg-gradient-to-br from-blue-500/10 to-blue-600/5 backdrop-blur-sm border border-blue-500/20 rounded-2xl p-4 w-52 h-36 shadow-2xl">
+              <div className="flex items-center gap-2 mb-2">
+                <Image className="text-blue-400 w-5 h-5" />
+                <span className="text-blue-300 text-sm font-medium">BG Remover AI</span>
+              </div>
+              <div className="space-y-2">
+                <div className="h-16 bg-blue-500/10 rounded-lg flex items-center justify-center">
+                  <div className="text-blue-300/60 text-xs">✨ Background Removed</div>
+                </div>
+                <div className="text-xs text-blue-200/80">Processing complete</div>
+              </div>
             </div>
           </div>
-          <div className="absolute bottom-1/3 left-1/6 animate-float" style={{animationDelay: '2s'}}>
-            <div className="w-12 h-12 bg-green-500/20 rounded-full flex items-center justify-center">
-              <Music className="text-green-400 w-6 h-6" />
+
+          {/* Government Tool Window */}
+          <div className="absolute bottom-1/3 left-1/5 animate-float-slow" style={{animationDelay: '2s'}}>
+            <div className="bg-gradient-to-br from-green-500/10 to-green-600/5 backdrop-blur-sm border border-green-500/20 rounded-2xl p-4 w-44 h-28 shadow-2xl">
+              <div className="flex items-center gap-2 mb-2">
+                <Landmark className="text-green-400 w-5 h-5" />
+                <span className="text-green-300 text-sm font-medium">PAN Validator</span>
+              </div>
+              <div className="text-xs text-green-200/80">ABCDE1234F - ✅ Valid</div>
             </div>
           </div>
-          <div className="absolute top-1/2 right-1/6 animate-float" style={{animationDelay: '0.5s'}}>
-            <div className="w-14 h-14 bg-yellow-500/20 rounded-full flex items-center justify-center">
-              <Landmark className="text-yellow-400 w-7 h-7" />
+
+          {/* Audio Tool Window */}
+          <div className="absolute bottom-1/4 right-1/4 animate-float-slow" style={{animationDelay: '0.5s'}}>
+            <div className="bg-gradient-to-br from-purple-500/10 to-purple-600/5 backdrop-blur-sm border border-purple-500/20 rounded-2xl p-4 w-46 h-30 shadow-2xl">
+              <div className="flex items-center gap-2 mb-2">
+                <Music className="text-purple-400 w-5 h-5" />
+                <span className="text-purple-300 text-sm font-medium">Audio Enhancer</span>
+              </div>
+              <div className="flex gap-1">
+                <div className="w-1 h-6 bg-purple-400/60 rounded animate-pulse"></div>
+                <div className="w-1 h-8 bg-purple-400/80 rounded animate-pulse" style={{animationDelay: '0.1s'}}></div>
+                <div className="w-1 h-4 bg-purple-400/40 rounded animate-pulse" style={{animationDelay: '0.2s'}}></div>
+                <div className="w-1 h-7 bg-purple-400/70 rounded animate-pulse" style={{animationDelay: '0.3s'}}></div>
+              </div>
             </div>
           </div>
         </div>
 
+        {/* Central Hero Content */}
+
         <div className="container mx-auto px-4 md:px-6 relative z-10">
-          <div className="text-center max-w-4xl mx-auto">
-            {/* Large Animated Logo */}
-            <div className="mb-8">
-              <AnimatedLogo size={150} showRays={true} />
+          <div className="text-center max-w-6xl mx-auto">
+            
+            {/* AI Chip Logo with Glow */}
+            <div className="mb-8 relative">
+              <div className="absolute inset-0 animate-ping">
+                <AnimatedLogo size={120} showRays={true} className="opacity-20" />
+              </div>
+              <AnimatedLogo size={120} showRays={true} className="relative z-10" />
+              
+              {/* Floating Sparkles */}
+              <div className="absolute -top-4 -right-4 animate-bounce">
+                <div className="text-2xl">✨</div>
+              </div>
+              <div className="absolute -bottom-2 -left-6 animate-pulse">
+                <div className="text-lg opacity-60">💫</div>
+              </div>
             </div>
 
-            {/* Hero Title */}
-            <h1 className="text-4xl sm:text-6xl md:text-8xl font-black mb-6 gradient-text leading-tight">
-              SuntynAI
-            </h1>
+            {/* Premium Hero Title - SuntynAI */}
+            <div className="mb-6">
+              <h1 className="text-6xl sm:text-7xl md:text-8xl font-black mb-2 bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent leading-tight">
+                SuntynAI
+              </h1>
+              <div className="text-lg md:text-xl font-medium text-cyan-300/80 tracking-wider">
+                BHARAT'S ALL-IN-ONE SMART TOOLKIT
+              </div>
+            </div>
             
-            <p className="text-2xl md:text-3xl font-bold text-slate-300 mb-4">
-              NEURAL INTELLIGENCE
+            {/* Modern Tagline */}
+            <p className="text-2xl md:text-3xl font-bold text-slate-200 mb-4 leading-tight">
+              Unlock 80+ AI Tools in One Suite
             </p>
             
-            <p className="text-xl md:text-2xl text-slate-400 mb-12 max-w-3xl mx-auto leading-relaxed">
-              80+ Professional AI-Powered Tools for PDF Processing, Image Editing, 
-              Audio/Video Conversion, Government Documents, and Business Tools
+            <p className="text-lg md:text-xl text-slate-300/90 mb-12 max-w-4xl mx-auto leading-relaxed">
+              Built for Creators, Students, and Bharat's Digital Work. 
+              <span className="text-cyan-300"> PDF • Image • Audio • Video • Government Forms</span> — 
+              All powered by AI, zero learning curve.
             </p>
 
-            {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16">
+            {/* Premium CTA Buttons */}
+            <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-16">
               <Link href="/tools">
-                <Button size="lg" className="bg-gradient-to-r from-purple-600 to-amber-500 hover:from-purple-700 hover:to-amber-600 px-12 py-4 text-lg font-bold hover:shadow-2xl hover:shadow-purple-500/30 transform hover:scale-105 transition-all duration-300">
-                  <Rocket className="w-5 h-5 mr-3" />
-                  Explore All Tools
+                <Button 
+                  size="lg" 
+                  className="bg-gradient-to-r from-cyan-500 to-purple-600 hover:from-cyan-600 hover:to-purple-700 px-16 py-6 text-xl font-bold rounded-2xl hover:shadow-2xl hover:shadow-cyan-500/30 transform hover:scale-105 transition-all duration-300 border-2 border-cyan-400/20"
+                >
+                  <Rocket className="w-6 h-6 mr-3" />
+                  Start Free
                 </Button>
               </Link>
-              <Button variant="outline" size="lg" className="border-2 border-purple-600 text-purple-400 hover:bg-purple-600 hover:text-white px-12 py-4 text-lg font-bold transition-all duration-300">
-                <Play className="w-5 h-5 mr-3" />
+              <Button 
+                variant="outline" 
+                size="lg" 
+                className="border-2 border-purple-400 text-purple-300 hover:bg-purple-500/20 hover:text-purple-100 px-16 py-6 text-xl font-bold rounded-2xl backdrop-blur-sm transition-all duration-300"
+              >
+                <Play className="w-6 h-6 mr-3" />
                 Watch Demo
               </Button>
             </div>
 
-            {/* Stats Counter */}
-            <div ref={statsRef} className="grid grid-cols-3 gap-4 md:gap-8 max-w-2xl mx-auto">
-              <div className="text-center">
-                <div className="text-2xl md:text-4xl font-black text-amber-400 mb-2" data-count="80">0</div>
-                <div className="text-slate-400 font-semibold text-sm md:text-base">Professional Tools</div>
+            {/* Advanced Stats with Glow Effect */}
+            <div ref={statsRef} className="grid grid-cols-3 gap-8 md:gap-12 max-w-3xl mx-auto">
+              <div className="text-center group">
+                <div className="text-3xl md:text-5xl font-black bg-gradient-to-r from-yellow-400 to-orange-400 bg-clip-text text-transparent mb-3 group-hover:scale-110 transition-transform duration-300" data-count="80">0</div>
+                <div className="text-slate-300 font-semibold text-sm md:text-base">AI-Powered Tools</div>
               </div>
-              <div className="text-center">
-                <div className="text-2xl md:text-4xl font-black text-green-400 mb-2" data-count="100">0</div>
-                <div className="text-slate-400 font-semibold text-sm md:text-base">Free to Use</div>
+              <div className="text-center group">
+                <div className="text-3xl md:text-5xl font-black bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent mb-3 group-hover:scale-110 transition-transform duration-300" data-count="100">0</div>
+                <div className="text-slate-300 font-semibold text-sm md:text-base">Always Free</div>
               </div>
-              <div className="text-center">
-                <div className="text-2xl md:text-4xl font-black text-blue-400 mb-2" data-count="24">0</div>
-                <div className="text-slate-400 font-semibold text-sm md:text-base">Hours Support</div>
+              <div className="text-center group">
+                <div className="text-3xl md:text-5xl font-black bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent mb-3 group-hover:scale-110 transition-transform duration-300" data-count="24">0</div>
+                <div className="text-slate-300 font-semibold text-sm md:text-base">Support Available</div>
               </div>
+            </div>
+
+            {/* Trust Indicators */}
+            <div className="mt-16 flex flex-wrap justify-center items-center gap-8 opacity-60">
+              <div className="text-slate-400 text-sm font-medium">✅ No Signup Required</div>
+              <div className="text-slate-400 text-sm font-medium">🔒 Privacy First</div>
+              <div className="text-slate-400 text-sm font-medium">🚀 Instant Processing</div>
+              <div className="text-slate-400 text-sm font-medium">🇮🇳 Made in India</div>
             </div>
           </div>
         </div>
@@ -168,8 +275,16 @@ export default function Home() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {FEATURED_TOOLS.map((tool) => (
-              <ToolCard key={tool.id} tool={tool} />
+            {FEATURED_TOOLS.map((tool, index) => (
+              <ToolCard key={index} tool={{
+                id: index,
+                name: tool.name,
+                slug: tool.id,
+                description: tool.description,
+                icon: tool.icon.toLowerCase(),
+                category: "featured",
+                isActive: true
+              }} />
             ))}
           </div>
 
