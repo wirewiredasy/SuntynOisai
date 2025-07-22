@@ -72,7 +72,7 @@ export default function PDFBackgroundRemoveTool() {
       const formData = new FormData();
       formData.append('file', selectedFile);
 
-      const response = await fetch('http://0.0.0.0:8000/pdf/remove-background', {
+      const response = await fetch('http://0.0.0.0:8000/api/pdf/remove-background', {
         method: 'POST',
         body: formData,
       });

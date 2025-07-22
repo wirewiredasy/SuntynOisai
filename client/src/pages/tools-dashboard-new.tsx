@@ -9,7 +9,7 @@ import { Badge } from "@/components/ui/badge";
 const ALL_TOOLS = [
   // PDF Tools (20)
   { id: 1, name: "PDF Merge", description: "Combine multiple PDF files into one", icon: FileText, category: "pdf", popular: true, slug: "pdf-merge", route: "/tools/pdf-merge" },
-  { id: 2, name: "PDF Split", description: "Split PDF into separate pages", icon: FileText, category: "pdf", popular: true, slug: "pdf-split" },
+  { id: 2, name: "PDF Split", description: "Split PDF into separate pages", icon: FileText, category: "pdf", popular: true, slug: "pdf-split", route: "/tools/pdf-split" },
   { id: 3, name: "PDF Compress", description: "Reduce PDF file size", icon: FileText, category: "pdf", popular: false, slug: "pdf-compress" },
   { id: 4, name: "PDF to Word", description: "Convert PDF to Word document", icon: FileText, category: "pdf", popular: true, slug: "pdf-to-word" },
   { id: 5, name: "PDF to Excel", description: "Convert PDF to Excel spreadsheet", icon: FileText, category: "pdf", popular: false, slug: "pdf-to-excel" },
@@ -24,7 +24,7 @@ const ALL_TOOLS = [
   { id: 14, name: "PDF Metadata Edit", description: "Edit PDF properties and metadata", icon: FileText, category: "pdf", popular: false, slug: "pdf-metadata-edit" },
   { id: 15, name: "PDF Bookmark Add", description: "Add bookmarks to PDF", icon: FileText, category: "pdf", popular: false, slug: "pdf-bookmark-add" },
   { id: 16, name: "PDF Page Numbers", description: "Add page numbers to PDF", icon: FileText, category: "pdf", popular: false, slug: "pdf-page-numbers" },
-  { id: 17, name: "PDF Background Remove", description: "Remove background from PDF", icon: FileText, category: "pdf", popular: false, slug: "pdf-background-remove" },
+  { id: 17, name: "PDF Background Remove", description: "Remove background from PDF", icon: FileText, category: "pdf", popular: false, slug: "pdf-background-remove", route: "/tools/pdf-background-remove" },
   { id: 18, name: "PDF Signature Add", description: "Add digital signature to PDF", icon: FileText, category: "pdf", popular: false, slug: "pdf-signature-add" },
   { id: 19, name: "PDF Header Footer", description: "Add header and footer to PDF", icon: FileText, category: "pdf", popular: false, slug: "pdf-header-footer" },
   { id: 20, name: "PDF Black White", description: "Convert PDF to black and white", icon: FileText, category: "pdf", popular: false, slug: "pdf-black-white" },

@@ -80,7 +80,7 @@ export default function PDFSplitTool() {
         formData.append('end_page', endPage.toString());
       }
 
-      const response = await fetch('http://0.0.0.0:8000/pdf/split', {
+      const response = await fetch('http://0.0.0.0:8000/api/pdf/split', {
         method: 'POST',
         body: formData,
       });

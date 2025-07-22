@@ -19,6 +19,8 @@ import Security from "@/pages/security";
 
 // Import specific tool pages
 import PDFMergeTool from "@/pages/tools/pdf-merge-tool";
+import PDFSplitTool from "@/pages/tools/pdf-split-tool";
+import PDFBackgroundRemoveTool from "@/pages/tools/pdf-background-remove-tool";
 import ImageResizeTool from "@/pages/tools/image-resize-tool";
 import GSTCalculatorTool from "@/pages/tools/gst-calculator-tool";
 
@@ -35,12 +37,14 @@ function App() {
               <Route path="/tools" component={ToolsDashboardNew} />
               <Route path="/tools/:category" component={ToolsDashboardNew} />
               <Route path="/tool/:slug" component={ToolPage} />
-              
+
               {/* Specific Tool Pages */}
               <Route path="/tools/pdf-merge" component={PDFMergeTool} />
+              <Route path="/tools/pdf-split" component={PDFSplitTool} />
+              <Route path="/tools/pdf-background-remove" component={PDFBackgroundRemoveTool} />
               <Route path="/tools/image-resize" component={ImageResizeTool} />
               <Route path="/tools/gst-calculator" component={GSTCalculatorTool} />
-              
+
               <Route path="/about" component={About} />
               <Route path="/contact" component={Contact} />
               <Route path="/privacy" component={PrivacyPolicy} />

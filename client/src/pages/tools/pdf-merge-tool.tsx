@@ -71,7 +71,7 @@ export default function PDFMergeTool() {
         formData.append('files', file);
       });
 
-      const response = await fetch('http://0.0.0.0:8000/pdf/merge', {
+      const response = await fetch('http://0.0.0.0:8000/api/pdf/merge', {
         method: 'POST',
         body: formData,
       });
