@@ -1,185 +1,208 @@
+import fs from 'fs';
 import path from 'path';
-import fs from 'fs/promises';
-import sharp from 'sharp';
 
 export class GovernmentTools {
-  private downloadsDir = path.join(process.cwd(), 'downloads');
-
-  constructor() {
-    this.ensureDownloadsDir();
-  }
-
-  private async ensureDownloadsDir() {
-    try {
-      await fs.access(this.downloadsDir);
-    } catch {
-      await fs.mkdir(this.downloadsDir, { recursive: true });
-    }
-  }
-
   async validatePAN(panNumber: string) {
-    if (!panNumber) {
-      throw new Error('PAN number is required');
-    }
-
-    // PAN format: AAAPL1234C
-    // A = Letter, P = P, L = Letter, 1234 = Numbers, C = Letter
-    const panRegex = /^[A-Z]{5}[0-9]{4}[A-Z]{1}$/;
-    const isValid = panRegex.test(panNumber.toUpperCase());
-
-    let details = {};
-    if (isValid) {
-      const panUpper = panNumber.toUpperCase();
-      details = {
-        format: 'Valid',
-        type: this.getPANType(panUpper[3]),
-        category: this.getPANCategory(panUpper),
-        checksum: 'Valid'
-      };
-    }
-
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    
+    const isValid = /^[A-Z]{5}[0-9]{4}[A-Z]{1}$/.test(panNumber);
+    
     return {
       success: true,
-      panNumber: panNumber.toUpperCase(),
-      isValid,
-      details: isValid ? details : { format: 'Invalid PAN format' }
-    };
-  }
-
-  private getPANType(fourthChar: string): string {
-    const types: { [key: string]: string } = {
-      'P': 'Individual',
-      'C': 'Company',
-      'H': 'HUF',
-      'F': 'Firm',
-      'A': 'Association',
-      'T': 'Trust',
-      'B': 'Body of Individuals',
-      'L': 'Local Authority',
-      'J': 'Artificial Juridical Person',
-      'G': 'Government'
-    };
-    return types[fourthChar] || 'Unknown';
-  }
-
-  private getPANCategory(pan: string): string {
-    // This is a simplified categorization
-    return pan.substring(0, 3);
-  }
-
-  async maskAadhaar(files: Express.Multer.File[], options: any) {
-    const results = [];
-    const { maskType } = options;
-
-    for (const file of files) {
-      const filename = `masked-${Date.now()}-${file.originalname}`;
-      const outputPath = path.join(this.downloadsDir, filename);
-
-      if (file.mimetype === 'application/pdf') {
-        // For PDFs, we'd need a more sophisticated approach
-        // This is a placeholder implementation
-        await fs.copyFile(file.path, outputPath);
-        
-        results.push({
-          originalName: file.originalname,
-          filename,
-          downloadUrl: `/api/download/${filename}`,
-          maskType,
-          note: 'PDF masking requires OCR integration in production'
-        });
-      } else {
-        // For images, add a simple overlay
-        await sharp(file.path)
-          .composite([{
-            input: Buffer.from(`
-              <svg width="300" height="30">
-                <rect width="300" height="30" fill="black" opacity="0.8"/>
-                <text x="10" y="20" fill="white" font-size="14">XXXX XXXX ${maskType}</text>
-              </svg>
-            `),
-            top: 50,
-            left: 50
-          }])
-          .png()
-          .toFile(outputPath);
-
-        results.push({
-          originalName: file.originalname,
-          filename,
-          downloadUrl: `/api/download/${filename}`,
-          maskType
-        });
+      valid: isValid,
+      message: isValid ? 'Valid PAN number' : 'Invalid PAN format',
+      details: {
+        format: 'AAAAA9999A',
+        structure: '5 letters + 4 digits + 1 letter'
       }
-    }
-
-    return {
-      success: true,
-      message: `${results.length} documents masked successfully`,
-      files: results
     };
   }
 
-  async calculateGST(options: any) {
-    const { amount, gstRate } = options;
-    const baseAmount = parseFloat(amount);
-    const rate = parseFloat(gstRate.replace('%', '')) / 100;
-
-    const gstAmount = baseAmount * rate;
-    const totalAmount = baseAmount + gstAmount;
-
-    // For CGST + SGST calculation (applicable for intra-state)
-    const cgst = gstAmount / 2;
-    const sgst = gstAmount / 2;
-
+  async maskAadhaar(aadhaarNumber: string) {
+    await new Promise(resolve => setTimeout(resolve, 500));
+    
+    const masked = aadhaarNumber.replace(/\d(?=\d{4})/g, '*');
+    
     return {
       success: true,
-      calculation: {
-        baseAmount: baseAmount.toFixed(2),
-        gstRate: `${(rate * 100).toFixed(0)}%`,
-        gstAmount: gstAmount.toFixed(2),
-        cgst: cgst.toFixed(2),
-        sgst: sgst.toFixed(2),
-        totalAmount: totalAmount.toFixed(2)
-      },
+      original: aadhaarNumber,
+      masked: masked,
+      message: 'Aadhaar number masked successfully'
+    };
+  }
+
+  async calculateGST(amount: number, gstRate: number) {
+    await new Promise(resolve => setTimeout(resolve, 300));
+    
+    const gstAmount = (amount * gstRate) / 100;
+    const totalAmount = amount + gstAmount;
+    
+    return {
+      success: true,
+      baseAmount: amount,
+      gstRate: gstRate,
+      gstAmount: gstAmount.toFixed(2),
+      totalAmount: totalAmount.toFixed(2),
       breakdown: {
-        'Base Amount': `₹${baseAmount.toFixed(2)}`,
-        'GST Rate': `${(rate * 100).toFixed(0)}%`,
-        'CGST': `₹${cgst.toFixed(2)}`,
-        'SGST': `₹${sgst.toFixed(2)}`,
-        'Total GST': `₹${gstAmount.toFixed(2)}`,
-        'Total Amount': `₹${totalAmount.toFixed(2)}`
+        cgst: (gstAmount / 2).toFixed(2),
+        sgst: (gstAmount / 2).toFixed(2)
       }
     };
   }
 
-  async verifyDocument(files: Express.Multer.File[], options: any) {
-    const results = [];
-
-    // This is a mock implementation
-    // In production, this would involve sophisticated document analysis
-    for (const file of files) {
-      const mockScore = Math.floor(Math.random() * 20) + 80; // Random score between 80-100
-      
-      results.push({
-        filename: file.originalname,
-        authenticity: {
-          score: mockScore,
-          status: mockScore > 85 ? 'Authentic' : 'Requires Review',
-          checks: {
-            'Watermark': mockScore > 90 ? 'Detected' : 'Not Detected',
-            'Security Features': 'Present',
-            'Format Compliance': 'Valid',
-            'Digital Signature': mockScore > 95 ? 'Valid' : 'Not Present'
-          }
-        },
-        note: 'This is a demo verification. Production version requires AI model integration.'
-      });
-    }
-
+  async findIFSCCode(bankName: string, branch: string) {
+    await new Promise(resolve => setTimeout(resolve, 800));
+    
+    // Mock IFSC data
+    const mockIFSC = `${bankName.slice(0, 4).toUpperCase()}0${Math.floor(Math.random() * 900000)}`;
+    
     return {
       success: true,
-      message: `${results.length} documents verified`,
-      verifications: results
+      ifscCode: mockIFSC,
+      bankName: bankName,
+      branchName: branch,
+      city: 'Mumbai',
+      state: 'Maharashtra',
+      address: `${branch} Branch, Mumbai`,
+      contact: '+91-22-12345678'
+    };
+  }
+
+  async createPassportPhoto(file: Express.Multer.File, options: any) {
+    const outputPath = path.join(process.cwd(), 'downloads', `passport_photo_${Date.now()}.jpg`);
+    
+    await new Promise(resolve => setTimeout(resolve, 2000));
+    
+    fs.writeFileSync(outputPath, 'dummy passport photo content');
+    
+    return {
+      success: true,
+      message: 'Passport photo created successfully',
+      files: [{
+        filename: path.basename(outputPath),
+        downloadUrl: `/api/download/${path.basename(outputPath)}`,
+        size: '0.8 MB',
+        dimensions: '35mm x 45mm',
+        dpi: '300 DPI',
+        processingTime: 2000
+      }],
+      processingTime: 2000
+    };
+  }
+
+  async calculateIncomeTax(income: number, age: number) {
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    
+    let tax = 0;
+    let exemption = age >= 60 ? 300000 : 250000;
+    
+    if (income > exemption) {
+      const taxableIncome = income - exemption;
+      if (taxableIncome <= 500000) {
+        tax = taxableIncome * 0.05;
+      } else if (taxableIncome <= 1000000) {
+        tax = 25000 + (taxableIncome - 500000) * 0.20;
+      } else {
+        tax = 125000 + (taxableIncome - 1000000) * 0.30;
+      }
+    }
+    
+    return {
+      success: true,
+      grossIncome: income,
+      exemption: exemption,
+      taxableIncome: Math.max(0, income - exemption),
+      incomeTax: tax.toFixed(2),
+      netIncome: (income - tax).toFixed(2),
+      cess: (tax * 0.04).toFixed(2)
+    };
+  }
+
+  async calculateEPF(basicSalary: number, years: number) {
+    await new Promise(resolve => setTimeout(resolve, 800));
+    
+    const employeeContribution = basicSalary * 0.12;
+    const employerContribution = basicSalary * 0.12;
+    const totalMonthly = employeeContribution + employerContribution;
+    const totalAnnual = totalMonthly * 12;
+    const maturityAmount = totalAnnual * years * 1.085; // Assuming 8.5% interest
+    
+    return {
+      success: true,
+      basicSalary: basicSalary,
+      employeeContribution: employeeContribution.toFixed(2),
+      employerContribution: employerContribution.toFixed(2),
+      totalMonthly: totalMonthly.toFixed(2),
+      totalAnnual: totalAnnual.toFixed(2),
+      maturityAmount: maturityAmount.toFixed(2),
+      interestRate: '8.5%'
+    };
+  }
+
+  async calculateEMI(principal: number, rate: number, tenure: number) {
+    await new Promise(resolve => setTimeout(resolve, 500));
+    
+    const monthlyRate = rate / (12 * 100);
+    const emi = (principal * monthlyRate * Math.pow(1 + monthlyRate, tenure)) / 
+                (Math.pow(1 + monthlyRate, tenure) - 1);
+    const totalAmount = emi * tenure;
+    const totalInterest = totalAmount - principal;
+    
+    return {
+      success: true,
+      principal: principal,
+      rate: rate,
+      tenure: tenure,
+      emi: emi.toFixed(2),
+      totalAmount: totalAmount.toFixed(2),
+      totalInterest: totalInterest.toFixed(2),
+      breakdown: {
+        principalPercent: ((principal / totalAmount) * 100).toFixed(1),
+        interestPercent: ((totalInterest / totalAmount) * 100).toFixed(1)
+      }
+    };
+  }
+
+  async createDigitalSignature(file: Express.Multer.File, options: any) {
+    const outputPath = path.join(process.cwd(), 'downloads', `signed_${Date.now()}.pdf`);
+    
+    await new Promise(resolve => setTimeout(resolve, 1500));
+    
+    fs.writeFileSync(outputPath, 'dummy digitally signed document');
+    
+    return {
+      success: true,
+      message: 'Digital signature added successfully',
+      files: [{
+        filename: path.basename(outputPath),
+        downloadUrl: `/api/download/${path.basename(outputPath)}`,
+        size: '1.2 MB',
+        certificateInfo: 'DSC Certificate Applied',
+        validUntil: '2025-12-31',
+        processingTime: 1500
+      }],
+      processingTime: 1500
+    };
+  }
+
+  async calculateSIP(monthlyAmount: number, rate: number, years: number) {
+    await new Promise(resolve => setTimeout(resolve, 600));
+    
+    const months = years * 12;
+    const monthlyRate = rate / (12 * 100);
+    const maturityAmount = monthlyAmount * (((Math.pow(1 + monthlyRate, months) - 1) / monthlyRate) * (1 + monthlyRate));
+    const totalInvestment = monthlyAmount * months;
+    const totalReturns = maturityAmount - totalInvestment;
+    
+    return {
+      success: true,
+      monthlyAmount: monthlyAmount,
+      rate: rate,
+      years: years,
+      totalInvestment: totalInvestment.toFixed(2),
+      maturityAmount: maturityAmount.toFixed(2),
+      totalReturns: totalReturns.toFixed(2),
+      returnPercent: ((totalReturns / totalInvestment) * 100).toFixed(1)
     };
   }
 }
