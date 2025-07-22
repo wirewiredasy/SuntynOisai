@@ -15,6 +15,7 @@ import PrivacyPolicy from "@/pages/privacy-policy";
 import TermsOfService from "@/pages/terms-of-service";
 import NotFound from "@/pages/not-found";
 import HelpCenter from "@/pages/help-center";
+import HowToUse from "@/pages/how-to-use";
 import Documentation from "@/pages/documentation";
 import Security from "@/pages/security";
 import { useEffect } from "react";
@@ -65,6 +66,7 @@ function App() {
               <Route path="/privacy" component={PrivacyPolicy} />
               <Route path="/terms" component={TermsOfService} />
               <Route path="/help" component={HelpCenter} />
+              <Route path="/how-to-use" component={HowToUse} />
               <Route path="/documentation" component={Documentation} />
               <Route path="/security" component={Security} />
               <Route component={NotFound} />
