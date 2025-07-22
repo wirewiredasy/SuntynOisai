@@ -1,4 +1,4 @@
-import { Switch, Route } from "wouter";
+import { Switch, Route, useLocation } from "wouter";
 import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
@@ -17,6 +17,7 @@ import NotFound from "@/pages/not-found";
 import HelpCenter from "@/pages/help-center";
 import Documentation from "@/pages/documentation";
 import Security from "@/pages/security";
+import { useEffect } from "react";
 
 // Import specific tool pages
 import PDFMergeTool from "@/pages/tools/pdf-merge-tool";
@@ -25,6 +26,17 @@ import PDFBackgroundRemoveTool from "@/pages/tools/pdf-background-remove-tool";
 import ImageResizeTool from "@/pages/tools/image-resize-tool";
 import GSTCalculatorTool from "@/pages/tools/gst-calculator-tool";
 
+// Component to handle scroll to top on route changes
+function ScrollToTop() {
+  const [location] = useLocation();
+  
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [location]);
+  
+  return null;
+}
+
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
@@ -32,6 +44,7 @@ function App() {
         <ThemeProvider defaultTheme="light" storageKey="suntyn-ui-theme">
           <div className="min-h-screen bg-background text-foreground">
           <Header />
+          <ScrollToTop />
           <main>
             <Toaster />
             <Switch>
