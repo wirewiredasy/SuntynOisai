@@ -13,7 +13,8 @@ Preferred communication style: Simple, everyday language.
 ✅ **Project Migration Complete (January 22, 2025)**: Successfully migrated from Replit Agent to standard Replit environment
 ✅ **Hybrid Architecture Verified**: Express.js (port 5000) + FastAPI (port 8000) both operational
 ✅ **Python Dependencies Installed**: All required libraries (uvicorn, fastapi, pillow, etc.) working
-✅ **API Endpoints Confirmed**: 35+ tools responding across all categories
+✅ **Core 4 Categories Focus**: Removed AI/Business tools, focusing on PDF, Image, Audio/Video, Government tools
+✅ **API Endpoints Confirmed**: 27 core tools responding across 4 categories
 ✅ **Database Ready**: PostgreSQL connected and configured
 ✅ **Development Environment**: Full stack ready for continued development
 
@@ -23,12 +24,11 @@ Preferred communication style: Simple, everyday language.
 ✅ **API Connectivity Resolved**: All CORS issues fixed, proper request proxying, and endpoint routing
 ✅ **FastAPI Backend Operational**: Python server running with 27 core tools across all categories
 ✅ **Frontend-Backend Connected**: React components properly integrated with API endpoints
-✅ **Expanded Tool Categories (35 tools total)**:
+✅ **Core Tool Categories (27 tools total)**:
   - **PDF Tools (8)**: Merge, split, compress, OCR, to-word, to-excel, unlock, protect
   - **Image Tools (8)**: Resize, compress, bg-remove, crop, convert, watermark, enhance, filter  
   - **Audio/Video Tools (6)**: Convert, trim, merge, extract, video-convert, enhance
   - **Government Tools (5)**: PAN validate, Aadhaar mask, income cert, rent agreement, passport photo
-  - **AI/Business Tools (8)**: QR generator, barcode, password generator, hash generator, Base64 encoder/decoder, URL shortener, JSON formatter, Lorem generator
 ✅ **Real FFmpeg Integration**: Audio/video processing now uses actual FFmpeg commands with fallback to demo mode  
 ✅ **End-to-End Testing Verified**: PDF merge, government calculators, and all tool endpoints responding
 ✅ **Production Ready**: Optimized for Replit deployment with proper error handling and file processing
@@ -78,11 +78,11 @@ The server-side application follows:
 - **ToolCard**: Individual tool representation with processing indicators
 - **SearchFilter**: Advanced filtering and search functionality
 
-### Tool Categories
-- **PDF Tools**: Merge, split, compress, protect, convert PDFs
-- **Image Tools**: Resize, compress, format conversion, background removal
-- **Audio/Video**: Format conversion, compression, extraction
-- **Government**: Document validation, form processing
+### Tool Categories (4 Core Categories)
+- **PDF Tools**: Merge, split, compress, protect, convert PDFs with OCR capabilities
+- **Image Tools**: Resize, compress, format conversion, background removal, watermarks
+- **Audio/Video**: Format conversion, compression, extraction, trimming, merging
+- **Government**: Indian document validation, form processing, calculators
 
 ## Data Flow
 

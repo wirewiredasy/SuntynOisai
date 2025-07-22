@@ -5,7 +5,7 @@ import uvicorn
 import os
 
 # Import routers
-from routers import pdf_tools, image_tools, audio_tools, government_tools, ai_business_tools
+from routers import pdf_tools, image_tools, audio_tools, government_tools
 
 app = FastAPI(
     title="SuntynAI - Multi-Purpose Tool Platform",
@@ -42,7 +42,6 @@ app.include_router(pdf_tools.router, prefix="/api/pdf", tags=["PDF Tools"])
 app.include_router(image_tools.router, prefix="/api/image", tags=["Image Tools"]) 
 app.include_router(audio_tools.router, prefix="/api/audio", tags=["Audio Tools"])
 app.include_router(government_tools.router, prefix="/api/government", tags=["Government Tools"])
-app.include_router(ai_business_tools.router, prefix="/api/ai", tags=["AI & Business Tools"])
 
 @app.get("/")
 async def root():
@@ -87,16 +86,7 @@ async def get_tools():
             {"id": "rent_agreement", "name": "Rent Agreement", "route": "/api/government/rent-agreement", "description": "Create legal rent agreement"},
             {"id": "passport_photo", "name": "Passport Photo", "route": "/api/government/passport-photo", "description": "Crop photo to passport size"},
         ],
-        "ai_tools": [
-            {"id": "qr_generate", "name": "QR Generator", "route": "/api/ai/qr-generate", "description": "Generate QR codes from text"},
-            {"id": "barcode_generate", "name": "Barcode Generator", "route": "/api/ai/barcode-generate", "description": "Generate barcodes in various formats"},
-            {"id": "password_generator", "name": "Password Generator", "route": "/api/ai/password-generator", "description": "Generate secure passwords"},
-            {"id": "hash_generator", "name": "Hash Generator", "route": "/api/ai/hash-generator", "description": "Generate MD5, SHA256 hashes"},
-            {"id": "base64_encode", "name": "Base64 Encoder", "route": "/api/ai/base64-encode", "description": "Encode text to Base64"},
-            {"id": "url_shortener", "name": "URL Shortener", "route": "/api/ai/url-shortener", "description": "Create shortened URLs"},
-            {"id": "json_formatter", "name": "JSON Formatter", "route": "/api/ai/json-formatter", "description": "Format and validate JSON"},
-            {"id": "lorem_generator", "name": "Lorem Generator", "route": "/api/ai/lorem-generator", "description": "Generate Lorem Ipsum text"},
-        ]
+
     }
 
 if __name__ == "__main__":
