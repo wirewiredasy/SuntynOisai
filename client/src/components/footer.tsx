@@ -36,7 +36,7 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="bg-gray-50 border-t border-gray-200">
+    <footer className="bg-muted/30 dark:bg-muted/10 border-t border-border transition-colors duration-300">
       {/* Main Footer Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
@@ -48,7 +48,7 @@ export default function Footer() {
                 SuntynAI
               </span>
             </Link>
-            <p className="text-gray-600 text-sm leading-relaxed mb-6 max-w-md">
+            <p className="text-muted-foreground text-sm leading-relaxed mb-6 max-w-md">
               Professional AI-powered tools for document processing, image editing, audio/video conversion, and government services. Free, secure, and easy to use.
             </p>
             

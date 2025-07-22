@@ -84,9 +84,9 @@ export default function NewHome() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-background transition-colors duration-300">
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-gray-50 via-blue-50/30 to-purple-50/30 pt-20 pb-16">
+      <section className="relative overflow-hidden bg-gradient-to-br from-gray-50 via-blue-50/30 to-purple-50/30 dark:from-gray-900 dark:via-gray-800/30 dark:to-purple-900/20 pt-20 pb-16 transition-colors duration-300">
         {/* Background Pattern */}
         <div className="absolute inset-0 opacity-5">
           <div className="absolute inset-0" style={{
@@ -103,14 +103,14 @@ export default function NewHome() {
 
             {/* Main Heading */}
             <h1 className="text-5xl md:text-7xl font-black mb-6">
-              <span className="text-gray-900">Professional </span>
+              <span className="text-foreground">Professional </span>
               <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-blue-600 bg-clip-text text-transparent">
                 {typedText}
                 <span className="animate-pulse">|</span>
               </span>
             </h1>
 
-            <p className="text-xl md:text-2xl text-gray-600 mb-8 max-w-4xl mx-auto leading-relaxed">
+            <p className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-4xl mx-auto leading-relaxed">
               80 free AI-powered tools for PDF processing, image editing, audio/video conversion, and government services. No registration required.
             </p>
 
@@ -133,26 +133,26 @@ export default function NewHome() {
             {/* Trust Indicators */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-2xl mx-auto">
               <div className="text-center">
-                <div className="text-2xl font-bold text-gray-900">80+</div>
-                <div className="text-sm text-gray-600">AI Tools</div>
+                <div className="text-2xl font-bold text-foreground">80+</div>
+                <div className="text-sm text-muted-foreground">AI Tools</div>
               </div>
               <div className="text-center">
-                <div className="text-2xl font-bold text-gray-900">100%</div>
-                <div className="text-sm text-gray-600">Free</div>
+                <div className="text-2xl font-bold text-foreground">100%</div>
+                <div className="text-sm text-muted-foreground">Free</div>
               </div>
               <div className="text-center">
-                <div className="text-2xl font-bold text-gray-900">&lt;5s</div>
-                <div className="text-sm text-gray-600">Processing</div>
+                <div className="text-2xl font-bold text-foreground">&lt;5s</div>
+                <div className="text-sm text-muted-foreground">Processing</div>
               </div>
               <div className="text-center">
-                <div className="text-2xl font-bold text-gray-900">Privacy</div>
-                <div className="text-sm text-gray-600">Secured</div>
+                <div className="text-2xl font-bold text-foreground">Privacy</div>
+                <div className="text-sm text-muted-foreground">Secured</div>
               </div>
             </div>
           </div>
 
           {/* Interactive Slides Showcase */}
-          <div className="relative bg-white rounded-2xl shadow-xl border border-gray-200 overflow-hidden">
+          <div className="relative bg-card rounded-2xl shadow-xl border border-border overflow-hidden">
             <div className="relative h-96">
               {slides.map((slide, index) => (
                 <div
@@ -494,13 +494,13 @@ export default function NewHome() {
       </section>
 
       {/* Features Section */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-20 bg-muted/30 dark:bg-muted/10 transition-colors duration-300">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+            <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
               Why Choose SuntynAI?
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
               Professional-grade tools with enterprise security, completely free for everyone
             </p>
           </div>
@@ -526,12 +526,12 @@ export default function NewHome() {
                 color: "from-purple-500 to-pink-500"
               }
             ].map((feature, index) => (
-              <div key={index} className="group relative bg-white rounded-xl p-8 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
+              <div key={index} className="group relative bg-card rounded-xl p-8 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
                 <div className={`inline-flex p-3 rounded-xl bg-gradient-to-r ${feature.color} text-white mb-6 group-hover:scale-110 transition-transform duration-300`}>
                   {feature.icon}
                 </div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-4">{feature.title}</h3>
-                <p className="text-gray-600 leading-relaxed">{feature.description}</p>
+                <h3 className="text-2xl font-bold text-foreground mb-4">{feature.title}</h3>
+                <p className="text-muted-foreground leading-relaxed">{feature.description}</p>
               </div>
             ))}
           </div>
@@ -539,13 +539,13 @@ export default function NewHome() {
       </section>
 
       {/* How It Works Section */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-background transition-colors duration-300">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+            <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
               How It Works
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
               Three simple steps to process your files with professional AI tools
             </p>
           </div>
