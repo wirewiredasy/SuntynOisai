@@ -17,6 +17,55 @@ export interface IStorage {
   logToolUsage(usage: InsertToolUsage): Promise<ToolUsage>;
 }
 
+import { db } from "./db";
+import { eq } from "drizzle-orm";
+
+export class DatabaseStorage implements IStorage {
+  async getUser(id: number): Promise<User | undefined> {
+    const [user] = await db.select().from(users).where(eq(users.id, id));
+    return user || undefined;
+  }
+
+  async getUserByUsername(username: string): Promise<User | undefined> {
+    const [user] = await db.select().from(users).where(eq(users.username, username));
+    return user || undefined;
+  }
+
+  async getUserByEmail(email: string): Promise<User | undefined> {
+    const [user] = await db.select().from(users).where(eq(users.email, email));
+    return user || undefined;
+  }
+
+  async createUser(insertUser: InsertUser): Promise<User> {
+    const [user] = await db.insert(users).values(insertUser).returning();
+    return user;
+  }
+
+  async getAllTools(): Promise<Tool[]> {
+    return await db.select().from(tools);
+  }
+
+  async getToolBySlug(slug: string): Promise<Tool | null> {
+    const [tool] = await db.select().from(tools).where(eq(tools.slug, slug));
+    return tool || null;
+  }
+
+  async getToolById(id: number): Promise<Tool | null> {
+    const [tool] = await db.select().from(tools).where(eq(tools.id, id));
+    return tool || null;
+  }
+
+  async createTool(insertTool: InsertTool): Promise<Tool> {
+    const [tool] = await db.insert(tools).values(insertTool).returning();
+    return tool;
+  }
+
+  async logToolUsage(insertUsage: InsertToolUsage): Promise<ToolUsage> {
+    const [usage] = await db.insert(toolUsage).values(insertUsage).returning();
+    return usage;
+  }
+}
+
 export class MemStorage implements IStorage {
   private users: Map<number, User>;
   private tools: Map<number, Tool>;
@@ -206,4 +255,4 @@ export class MemStorage implements IStorage {
   }
 }
 
-export const storage = new MemStorage();
+export const storage = new DatabaseStorage();

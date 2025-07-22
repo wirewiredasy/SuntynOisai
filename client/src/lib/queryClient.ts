@@ -42,14 +42,44 @@ export const getQueryFn: <T>(options: {
   };
 
 // FastAPI backend helpers
-export const apiRequestFile = async (url: string, formData: FormData) => {
+export const API_BASE_URL = window.location.origin; // Use same origin since Express proxies to FastAPI
+
+export const apiRequestFile = async (endpoint: string, formData: FormData) => {
+  const url = `${API_BASE_URL}/api${endpoint}`;
+  console.log('API Request:', url);
+  
   const response = await fetch(url, {
     method: 'POST',
     body: formData,
+    credentials: 'include',
   });
 
   if (!response.ok) {
-    throw new Error(`API Error: ${response.status}`);
+    const errorText = await response.text();
+    console.error('API Error Response:', errorText);
+    throw new Error(`API Error: ${response.status} - ${errorText}`);
+  }
+
+  return response;
+};
+
+export const apiRequestJson = async (endpoint: string, data: any) => {
+  const url = `${API_BASE_URL}/api${endpoint}`;
+  console.log('API Request JSON:', url, data);
+  
+  const response = await fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+    credentials: 'include',
+  });
+
+  if (!response.ok) {
+    const errorText = await response.text();
+    console.error('API Error Response:', errorText);
+    throw new Error(`API Error: ${response.status} - ${errorText}`);
   }
 
   return response;

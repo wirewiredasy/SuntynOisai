@@ -74,10 +74,17 @@ export default function GenericToolPage() {
         requestData = data as FormData;
       }
 
-      const response = await fetch(tool.apiEndpoint, {
+      const apiUrl = tool.apiEndpoint.startsWith('/api/') 
+        ? tool.apiEndpoint 
+        : `/api${tool.apiEndpoint}`;
+      
+      console.log('Making API request to:', apiUrl);
+      
+      const response = await fetch(apiUrl, {
         method: 'POST',
         headers,
         body: requestData,
+        credentials: 'include',
       });
 
       if (!response.ok) {

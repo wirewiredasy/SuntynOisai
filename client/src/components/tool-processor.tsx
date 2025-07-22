@@ -26,7 +26,26 @@ export default function ToolProcessor({ tool }: ToolProcessorProps) {
 
   const processMutation = useMutation({
     mutationFn: async (formData: FormData) => {
-      const response = await apiRequestFile(`/api/tools/${tool.slug}/process`, formData);
+      // Map tool category to correct API endpoint
+      let endpoint = '';
+      switch (tool.category) {
+        case 'pdf':
+          endpoint = `/pdf/${tool.slug.replace('pdf-', '')}`;
+          break;
+        case 'image':
+          endpoint = `/image/${tool.slug.replace('image-', '')}`;
+          break;
+        case 'audio':
+          endpoint = `/audio/${tool.slug.replace('audio-', '')}`;
+          break;
+        case 'government':
+          endpoint = `/government/${tool.slug.replace('government-', '')}`;
+          break;
+        default:
+          endpoint = `/${tool.category}/${tool.slug}`;
+      }
+      
+      const response = await apiRequestFile(endpoint, formData);
       return response;
     },
     onSuccess: async (response) => {
