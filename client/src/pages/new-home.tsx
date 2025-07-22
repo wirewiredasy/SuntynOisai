@@ -58,7 +58,7 @@ export default function NewHome() {
   useEffect(() => {
     const currentWord = heroWords[currentWordIndex];
     let charIndex = 0;
-    
+
     const typeTimer = setInterval(() => {
       if (charIndex <= currentWord.length) {
         setTypedText(currentWord.slice(0, charIndex));
@@ -123,7 +123,7 @@ export default function NewHome() {
                   <ArrowRight className="h-5 w-5 ml-2" />
                 </Button>
               </Link>
-              
+
               <Button variant="outline" className="border-2 border-gray-300 text-gray-700 hover:border-blue-500 hover:text-blue-600 px-8 py-4 text-lg font-semibold rounded-xl transition-all duration-200 hover:scale-105 min-w-[200px]">
                 <Play className="h-5 w-5 mr-2" />
                 Watch Demo
@@ -289,19 +289,19 @@ export default function NewHome() {
             </div>
 
             {/* Image Tools */}
-            <div className="bg-gray-800/60 backdrop-blur-sm rounded-2xl p-6 border border-gray-700/50 hover:border-gray-600 transition-all duration-300">
+            <div className="bg-gray-800/60 backdrop-blur-sm rounded-2xl p-6 border border-gray-700/50 hover:border-blue-500/50 hover:shadow-2xl hover:shadow-blue-500/20 transition-all duration-500 transform hover:-translate-y-2 hover:scale-105 group cursor-pointer">
               <div className="flex items-start justify-between mb-6">
                 <div className="flex items-center space-x-3">
-                  <div className="w-12 h-12 bg-blue-500 rounded-xl flex items-center justify-center">
-                    <Image className="h-6 w-6 text-white" />
+                  <div className="w-12 h-12 bg-blue-500 rounded-xl flex items-center justify-center group-hover:rotate-12 group-hover:scale-110 transition-all duration-300">
+                    <Image className="h-6 w-6 text-white group-hover:animate-bounce" />
                   </div>
                   <div>
-                    <h3 className="text-xl font-semibold text-white">Image Tools</h3>
-                    <p className="text-gray-400 text-sm">25 professional tools</p>
+                    <h3 className="text-xl font-semibold text-white group-hover:text-blue-400 transition-colors duration-300">Image Tools</h3>
+                    <p className="text-gray-400 text-sm group-hover:text-gray-300">20 professional tools</p>
                   </div>
                 </div>
                 <Link href="/tools">
-                  <Button variant="outline" size="sm" className="border-gray-600 text-gray-300 hover:bg-gray-700 hover:text-white">
+                  <Button variant="outline" size="sm" className="border-gray-600 text-gray-300 hover:bg-blue-500 hover:text-white hover:border-blue-500 transition-all duration-300">
                     View Tools
                   </Button>
                 </Link>
@@ -351,19 +351,19 @@ export default function NewHome() {
             </div>
 
             {/* Audio & Video Tools */}
-            <div className="bg-gray-800/60 backdrop-blur-sm rounded-2xl p-6 border border-gray-700/50 hover:border-gray-600 transition-all duration-300">
+            <div className="bg-gray-800/60 backdrop-blur-sm rounded-2xl p-6 border border-gray-700/50 hover:border-green-500/50 hover:shadow-2xl hover:shadow-green-500/20 transition-all duration-500 transform hover:-translate-y-2 hover:scale-105 group cursor-pointer">
               <div className="flex items-start justify-between mb-6">
                 <div className="flex items-center space-x-3">
-                  <div className="w-12 h-12 bg-green-500 rounded-xl flex items-center justify-center">
-                    <Music className="h-6 w-6 text-white" />
+                  <div className="w-12 h-12 bg-green-500 rounded-xl flex items-center justify-center group-hover:rotate-12 group-hover:scale-110 transition-all duration-300">
+                    <Music className="h-6 w-6 text-white group-hover:animate-spin" />
                   </div>
                   <div>
-                    <h3 className="text-xl font-semibold text-white">Audio & Video Tools</h3>
-                    <p className="text-gray-400 text-sm">20 professional tools</p>
+                    <h3 className="text-xl font-semibold text-white group-hover:text-green-400 transition-colors duration-300">Audio & Video Tools</h3>
+                    <p className="text-gray-400 text-sm group-hover:text-gray-300">15 professional tools</p>
                   </div>
                 </div>
                 <Link href="/tools">
-                  <Button variant="outline" size="sm" className="border-gray-600 text-gray-300 hover:bg-gray-700 hover:text-white">
+                  <Button variant="outline" size="sm" className="border-gray-600 text-gray-300 hover:bg-green-500 hover:text-white hover:border-green-500 transition-all duration-300">
                     View Tools
                   </Button>
                 </Link>
@@ -413,19 +413,19 @@ export default function NewHome() {
             </div>
 
             {/* Government Tools */}
-            <div className="bg-gray-800/60 backdrop-blur-sm rounded-2xl p-6 border border-gray-700/50 hover:border-gray-600 transition-all duration-300">
+            <div className="bg-gray-800/60 backdrop-blur-sm rounded-2xl p-6 border border-gray-700/50 hover:border-yellow-500/50 hover:shadow-2xl hover:shadow-yellow-500/20 transition-all duration-500 transform hover:-translate-y-2 hover:scale-105 group cursor-pointer">
               <div className="flex items-start justify-between mb-6">
                 <div className="flex items-center space-x-3">
-                  <div className="w-12 h-12 bg-orange-500 rounded-xl flex items-center justify-center">
-                    <Building className="h-6 w-6 text-white" />
+                  <div className="w-12 h-12 bg-orange-500 rounded-xl flex items-center justify-center group-hover:rotate-12 group-hover:scale-110 transition-all duration-300">
+                    <Building className="h-6 w-6 text-white group-hover:animate-pulse" />
                   </div>
                   <div>
-                    <h3 className="text-xl font-semibold text-white">Government Tools</h3>
-                    <p className="text-gray-400 text-sm">15 professional tools</p>
+                    <h3 className="text-xl font-semibold text-white group-hover:text-yellow-400 transition-colors duration-300">Government Tools</h3>
+                    <p className="text-gray-400 text-sm group-hover:text-gray-300">15 professional tools</p>
                   </div>
                 </div>
                 <Link href="/tools">
-                  <Button variant="outline" size="sm" className="border-gray-600 text-gray-300 hover:bg-gray-700 hover:text-white">
+                  <Button variant="outline" size="sm" className="border-gray-600 text-gray-300 hover:bg-yellow-500 hover:text-white hover:border-yellow-500 transition-all duration-300">
                     View Tools
                   </Button>
                 </Link>
@@ -580,7 +580,7 @@ export default function NewHome() {
                 </div>
                 <h3 className="text-2xl font-bold text-gray-900 mb-4">{step.title}</h3>
                 <p className="text-gray-600 leading-relaxed max-w-sm mx-auto">{step.description}</p>
-                
+
                 {/* Arrow for desktop */}
                 {index < 2 && (
                   <div className="hidden md:block absolute top-1/2 -right-4 transform -translate-y-1/2">

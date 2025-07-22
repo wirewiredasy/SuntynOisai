@@ -53,18 +53,18 @@ export default function Footer() {
             </p>
             
             {/* Blue Animation Support Section */}
-            <div className="relative mb-6">
-              <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg p-4 border border-blue-200/50">
+            <div className="relative mb-6 group">
+              <div className="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 rounded-lg p-4 border border-blue-200/50 dark:border-blue-700/50 hover:shadow-lg hover:shadow-blue-500/20 transition-all duration-300 hover:-translate-y-1 cursor-pointer">
                 <div className="flex items-center space-x-3">
                   <div className="relative">
-                    <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center">
-                      <Heart className="h-4 w-4 text-white" />
+                    <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                      <Heart className="h-4 w-4 text-white animate-pulse group-hover:animate-bounce" />
                     </div>
-                    <div className="absolute -inset-1 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full opacity-30 animate-ping"></div>
+                    <div className="absolute -inset-1 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full opacity-30 animate-ping group-hover:opacity-50"></div>
                   </div>
                   <div>
-                    <p className="text-sm font-semibold text-gray-800">Support SuntynAI</p>
-                    <p className="text-xs text-gray-600">Help us keep the tools free</p>
+                    <p className="text-sm font-semibold text-gray-800 dark:text-gray-200 group-hover:text-blue-600 transition-colors duration-300">Support SuntynAI</p>
+                    <p className="text-xs text-gray-600 dark:text-gray-400 group-hover:text-gray-700 dark:group-hover:text-gray-300">Help us keep the tools free</p>
                   </div>
                 </div>
                 
@@ -74,12 +74,12 @@ export default function Footer() {
                     {[1, 2, 3, 4, 5].map((i) => (
                       <div
                         key={i}
-                        className="w-6 h-6 bg-gradient-to-r from-blue-400 to-purple-400 rounded-full border-2 border-white animate-pulse"
+                        className="w-6 h-6 bg-gradient-to-r from-blue-400 to-purple-400 rounded-full border-2 border-white animate-bounce group-hover:animate-spin"
                         style={{ animationDelay: `${i * 0.2}s` }}
                       ></div>
                     ))}
                   </div>
-                  <span className="text-xs text-gray-500 font-medium">10,000+ users supported</span>
+                  <span className="text-xs text-gray-500 dark:text-gray-400 font-medium group-hover:text-blue-600 transition-colors duration-300">10,000+ users supported</span>
                 </div>
               </div>
             </div>
@@ -88,21 +88,21 @@ export default function Footer() {
             <div className="flex space-x-4">
               <a
                 href="#"
-                className="w-10 h-10 bg-gray-200 hover:bg-blue-500 rounded-lg flex items-center justify-center transition-colors duration-200 group"
+                className="w-10 h-10 bg-gray-200 dark:bg-gray-700 hover:bg-blue-500 rounded-lg flex items-center justify-center transition-all duration-300 group transform hover:scale-110 hover:rotate-6 hover:shadow-lg hover:shadow-blue-500/30"
               >
-                <Twitter className="h-5 w-5 text-gray-600 group-hover:text-white" />
+                <Twitter className="h-5 w-5 text-gray-600 group-hover:text-white transition-all duration-300 group-hover:animate-bounce" />
               </a>
               <a
                 href="#"
-                className="w-10 h-10 bg-gray-200 hover:bg-gray-800 rounded-lg flex items-center justify-center transition-colors duration-200 group"
+                className="w-10 h-10 bg-gray-200 dark:bg-gray-700 hover:bg-gray-800 rounded-lg flex items-center justify-center transition-all duration-300 group transform hover:scale-110 hover:rotate-6 hover:shadow-lg hover:shadow-gray-800/30"
               >
-                <Github className="h-5 w-5 text-gray-600 group-hover:text-white" />
+                <Github className="h-5 w-5 text-gray-600 group-hover:text-white transition-all duration-300 group-hover:animate-pulse" />
               </a>
               <a
                 href="#"
-                className="w-10 h-10 bg-gray-200 hover:bg-blue-600 rounded-lg flex items-center justify-center transition-colors duration-200 group"
+                className="w-10 h-10 bg-gray-200 dark:bg-gray-700 hover:bg-blue-600 rounded-lg flex items-center justify-center transition-all duration-300 group transform hover:scale-110 hover:rotate-6 hover:shadow-lg hover:shadow-blue-600/30"
               >
-                <Mail className="h-5 w-5 text-gray-600 group-hover:text-white" />
+                <Mail className="h-5 w-5 text-gray-600 group-hover:text-white transition-all duration-300 group-hover:animate-bounce" />
               </a>
             </div>
           </div>
@@ -144,12 +144,15 @@ export default function Footer() {
               </div>
             </div>
             
-            <div className="flex items-center space-x-6 text-sm text-gray-600">
-              <span className="flex items-center space-x-2">
-                <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                <span>All Systems Operational</span>
+            <div className="flex items-center space-x-6 text-sm text-gray-600 dark:text-gray-400">
+              <span className="flex items-center space-x-2 group">
+                <div className="relative">
+                  <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse group-hover:animate-bounce"></div>
+                  <div className="absolute -inset-1 bg-green-500 rounded-full opacity-30 animate-ping"></div>
+                </div>
+                <span className="group-hover:text-green-600 transition-colors duration-300">All Systems Operational</span>
               </span>
-              <Link href="/status" className="hover:text-blue-600 transition-colors duration-200">
+              <Link href="/status" className="hover:text-blue-600 transition-all duration-300 hover:underline hover:scale-105">
                 Status
               </Link>
             </div>
