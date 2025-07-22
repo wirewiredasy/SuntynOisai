@@ -27,7 +27,8 @@ export default function Header() {
           {/* Logo Section */}
           <Link href="/" className="flex items-center space-x-3 group">
             <div className="relative">
-              <AnimatedLogo size={32} showRays={false} className="group-hover:rotate-6 group-hover:scale-110 transition-all duration-300" />
+              <div className="absolute -inset-2 bg-gradient-to-r from-blue-600 via-purple-600 to-blue-600 rounded-full opacity-20 animate-pulse blur-lg group-hover:opacity-40 transition-all duration-300"></div>
+              <AnimatedLogo size={32} showRays={false} className="relative group-hover:rotate-6 group-hover:scale-110 transition-all duration-300 drop-shadow-lg" />
             </div>
             <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent group-hover:from-purple-600 group-hover:to-blue-600 transition-all duration-300">
               SuntynAI
