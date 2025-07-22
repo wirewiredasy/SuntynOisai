@@ -37,6 +37,43 @@ export default function MobileHeader({ isDarkMode, toggleDarkMode }: MobileHeade
             </div>
           </Link>
 
+          {/* Navigation Links - Desktop */}
+          <div className="hidden md:flex items-center space-x-8">
+            <Link href="/" className="text-slate-700 dark:text-slate-300 hover:text-purple-600 dark:hover:text-purple-400 font-medium transition-colors duration-300">
+              Home
+            </Link>
+            <Link href="/tools" className="text-slate-700 dark:text-slate-300 hover:text-purple-600 dark:hover:text-purple-400 font-medium transition-colors duration-300">
+              All Tools
+            </Link>
+            <div className="relative group">
+              <button className="text-slate-700 dark:text-slate-300 hover:text-purple-600 dark:hover:text-purple-400 font-medium transition-colors duration-300 flex items-center space-x-1">
+                <span>Categories</span>
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+              
+              {/* Dropdown Menu */}
+              <div className="absolute top-full left-0 mt-2 w-64 bg-white dark:bg-slate-800 rounded-xl shadow-xl border border-slate-200 dark:border-slate-700 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+                <div className="p-2">
+                  {TOOL_CATEGORIES.slice(0, 4).map((category) => (
+                    <Link key={category.id} href={`/tools/${category.id}`}>
+                      <div className="flex items-center p-3 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors duration-300">
+                        <div className={`w-8 h-8 rounded-lg ${category.gradient} flex items-center justify-center mr-3`}>
+                          <span className="text-sm">{category.icon}</span>
+                        </div>
+                        <div>
+                          <div className="text-sm font-medium text-slate-900 dark:text-slate-100">{category.name}</div>
+                          <div className="text-xs text-slate-500 dark:text-slate-400">{category.toolCount} tools</div>
+                        </div>
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+
           {/* Right Side - Dark Mode & Menu */}
           <div className="flex items-center space-x-2">
             {/* Dark Mode Toggle */}
