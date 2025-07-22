@@ -71,14 +71,20 @@ export default function PDFMergeTool() {
         formData.append('files', file);
       });
 
+      console.log('Sending files to API:', selectedFiles.map(f => f.name));
+      
       const response = await fetch('/api/pdf/merge', {
         method: 'POST',
         body: formData,
         credentials: 'include',
       });
+      
+      console.log('API Response:', response.status, response.statusText);
 
       if (!response.ok) {
-        throw new Error('Failed to merge PDFs');
+        const errorText = await response.text();
+        console.error('API Error:', errorText);
+        throw new Error(`Failed to merge PDFs: ${errorText}`);
       }
 
       const result = await response.json();
@@ -90,11 +96,11 @@ export default function PDFMergeTool() {
         description: "PDFs merged successfully",
       });
 
-    } catch (error) {
+    } catch (error: any) {
       console.error('Processing error:', error);
       toast({
         title: "Error",
-        description: "Failed to merge PDFs. Please try again.",
+        description: error?.message || "Failed to merge PDFs. Please try again.",
         variant: "destructive"
       });
     } finally {

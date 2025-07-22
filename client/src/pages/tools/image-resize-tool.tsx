@@ -71,13 +71,20 @@ export default function ImageResizeTool() {
       formData.append('width', width.toString());
       formData.append('height', height.toString());
 
+      console.log('Sending image to API:', selectedFile?.name);
+      
       const response = await fetch('/api/image/resize', {
         method: 'POST',
         body: formData,
+        credentials: 'include',
       });
+      
+      console.log('API Response:', response.status, response.statusText);
 
       if (!response.ok) {
-        throw new Error('Failed to resize image');
+        const errorText = await response.text();
+        console.error('API Error:', errorText);
+        throw new Error(`Failed to resize image: ${errorText}`);
       }
 
       const result = await response.json();
@@ -89,11 +96,11 @@ export default function ImageResizeTool() {
         description: `Image resized to ${width}x${height}`,
       });
 
-    } catch (error) {
+    } catch (error: any) {
       console.error('Processing error:', error);
       toast({
         title: "Error",
-        description: "Failed to resize image. Please try again.",
+        description: error?.message || "Failed to resize image. Please try again.",
         variant: "destructive"
       });
     } finally {
