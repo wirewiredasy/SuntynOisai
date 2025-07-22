@@ -489,7 +489,7 @@ export default function Home() {
             <div className="flex flex-col md:flex-row justify-between items-center">
               <div className="flex items-center space-x-6 mb-4 md:mb-0">
                 <p className="text-slate-400 text-sm">
-                  © 2025 SuntynAI Technologies Pvt. Ltd. All rights reserved.
+                  © 2025 SuntynAI Technologies. All rights reserved.
                 </p>
                 <div className="flex items-center space-x-2 text-slate-500">
                   <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>

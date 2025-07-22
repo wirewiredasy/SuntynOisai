@@ -69,12 +69,12 @@ export default function Contact() {
                 
                 <div className="flex items-start space-x-4">
                   <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-cyan-500 rounded-lg flex items-center justify-center">
-                    <span className="text-xl">🏢</span>
+                    <span className="text-xl">🌐</span>
                   </div>
                   <div>
-                    <h4 className="text-lg font-semibold text-white">Headquarters</h4>
-                    <p className="text-slate-300">Bangalore, Karnataka, India</p>
-                    <p className="text-slate-400 text-sm">Global AI Innovation Hub</p>
+                    <h4 className="text-lg font-semibold text-white">Global Operations</h4>
+                    <p className="text-slate-300">Worldwide AI Technology Services</p>
+                    <p className="text-slate-400 text-sm">Neural Intelligence Platform</p>
                   </div>
                 </div>
               </div>
