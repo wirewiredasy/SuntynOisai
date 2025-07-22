@@ -7,7 +7,7 @@ import Header from "@/components/header";
 import Footer from "@/components/footer";
 import NewHome from "@/pages/new-home";
 import ToolsDashboardNew from "@/pages/tools-dashboard-new";
-import ToolPage from "@/pages/tool-page";
+import GenericToolPage from "@/pages/generic-tool-page";
 import About from "@/pages/about";
 import Contact from "@/pages/contact";
 import PrivacyPolicy from "@/pages/privacy-policy";
@@ -36,7 +36,7 @@ function App() {
               <Route path="/" component={NewHome} />
               <Route path="/tools" component={ToolsDashboardNew} />
               <Route path="/tools/:category" component={ToolsDashboardNew} />
-              <Route path="/tool/:slug" component={ToolPage} />
+              <Route path="/tool/:slug" component={GenericToolPage} />
 
               {/* Specific Tool Pages */}
               <Route path="/tools/pdf-merge" component={PDFMergeTool} />

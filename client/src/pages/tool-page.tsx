@@ -27,14 +27,42 @@ export default function ToolPage() {
   const [results, setResults] = useState<any>(null);
   const [dragActive, setDragActive] = useState(false);
 
-  const { data: tool, isLoading } = useQuery({
-    queryKey: [`/api/tools/${params?.slug}`],
-    enabled: !!params?.slug,
-  });
+  // Get tool data from local tools data instead of API
+  const getAllTools = () => {
+    const ALL_TOOLS = [
+      // PDF Tools (20)
+      { id: 1, name: "PDF Merge", description: "Combine multiple PDF files into one", icon: "FileText", category: "pdf", popular: true, slug: "pdf-merge", route: "/tools/pdf-merge" },
+      { id: 2, name: "PDF Split", description: "Split PDF into separate pages", icon: "FileText", category: "pdf", popular: true, slug: "pdf-split", route: "/tools/pdf-split" },
+      { id: 3, name: "PDF Compress", description: "Reduce PDF file size", icon: "FileText", category: "pdf", popular: false, slug: "pdf-compress" },
+      { id: 4, name: "PDF to Word", description: "Convert PDF to Word document", icon: "FileText", category: "pdf", popular: true, slug: "pdf-to-word" },
+      { id: 61, name: "PAN Validation", description: "Validate PAN card numbers", icon: "Building", category: "government", popular: true, slug: "pan-validation" },
+      { id: 62, name: "Aadhaar Mask", description: "Mask Aadhaar card numbers", icon: "Building", category: "government", popular: true, slug: "aadhaar-mask" },
+      { id: 63, name: "GST Calculator", description: "Calculate GST amounts", icon: "Calculator", category: "government", popular: true, slug: "gst-calculator", route: "/tools/gst-calculator" },
+      { id: 64, name: "IFSC Code Finder", description: "Find bank IFSC codes", icon: "Building", category: "government", popular: true, slug: "ifsc-code-finder" },
+      { id: 21, name: "Image Resize", description: "Resize images to custom dimensions", icon: "Image", category: "image", popular: true, slug: "image-resize", route: "/tools/image-resize" },
+    ];
+    return ALL_TOOLS;
+  };
+
+  const tool = getAllTools().find(t => t.slug === params?.slug);
+  const isLoading = false;
 
   const processFilesMutation = useMutation({
     mutationFn: async (formData: FormData) => {
-      const response = await fetch(`/api/tools/${params?.slug}/process`, {
+      // Map tool slugs to their actual API endpoints
+      const apiEndpoints = {
+        'pdf-merge': '/api/pdf/merge',
+        'pdf-split': '/api/pdf/split',
+        'pdf-compress': '/api/pdf/compress',
+        'image-resize': '/api/image/resize',
+        'image-compress': '/api/image/compress',
+        'pan-validation': '/api/government/pan-validate',
+        'gst-calculator': '/api/government/gst-calculate'
+      };
+      
+      const endpoint = apiEndpoints[params?.slug] || `/api/tools/${params?.slug}/process`;
+      
+      const response = await fetch(endpoint, {
         method: 'POST',
         body: formData,
       });
