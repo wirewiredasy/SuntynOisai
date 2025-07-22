@@ -51,171 +51,113 @@ export default function Home() {
 
   return (
     <>
-      {/* World-Class Demo Video Section */}
-      <section className="min-h-screen flex items-center justify-center relative overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
+      {/* World-Class Hero Section */}
+      <section className="min-h-screen flex items-center justify-center relative overflow-hidden bg-gradient-to-br from-slate-900 via-purple-900/30 to-slate-900">
         
-        {/* Subtle Premium Background */}
-        <div className="absolute inset-0 opacity-20">
-          <div className="absolute inset-0" 
-               style={{
-                 backgroundImage: `radial-gradient(circle at 25% 25%, rgba(139, 92, 246, 0.06) 0%, transparent 50%),
-                                 radial-gradient(circle at 75% 75%, rgba(59, 130, 246, 0.06) 0%, transparent 50%)`
-               }}>
-          </div>
+        {/* Premium Background Effects */}
+        <div className="absolute inset-0">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(139,92,246,0.1),transparent_50%)]"></div>
+          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-500/5 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-cyan-500/5 rounded-full blur-3xl"></div>
         </div>
         
-        {/* Main Content Container */}
-        <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 text-center">
+        {/* Main Hero Content */}
+        <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6">
           
-          {/* Enhanced SuntynAI Logo */}
-          <div className="mb-16 flex justify-center">
-            <div className="relative">
-              <AnimatedLogo size={180} showRays={true} className="drop-shadow-2xl" />
-              <div className="absolute -inset-8 bg-gradient-to-r from-cyan-500/10 via-purple-500/10 to-pink-500/10 rounded-full blur-3xl animate-pulse"></div>
+          {/* Hero Headlines */}
+          <div className="text-center mb-12">
+            <div className="mb-8">
+              <AnimatedLogo size={120} showRays={false} className="mx-auto drop-shadow-2xl" />
             </div>
+            
+            <h1 className="text-6xl md:text-8xl font-black mb-8 bg-gradient-to-r from-white via-purple-200 to-cyan-200 bg-clip-text text-transparent leading-tight">
+              SuntynAI
+            </h1>
+            
+            <h2 className="text-2xl md:text-4xl font-bold text-slate-200 mb-6 max-w-4xl mx-auto leading-relaxed">
+              85+ Professional AI Tools in One Platform
+            </h2>
+            
+            <p className="text-lg md:text-xl text-slate-400 max-w-3xl mx-auto mb-12 leading-relaxed">
+              Transform documents, images, audio, and videos with enterprise-grade AI processing. No registration, completely free, privacy-first.
+            </p>
           </div>
 
-          {/* Premium Demo Video Player */}
-          <div className="relative group mb-12">
-            <div className="relative aspect-video max-w-6xl mx-auto rounded-3xl overflow-hidden shadow-2xl bg-gradient-to-br from-slate-800 to-slate-900 border border-slate-700/50">
+          {/* Professional Demo Video */}
+          <div className="relative group mb-12 max-w-5xl mx-auto">
+            <div className="relative aspect-video rounded-2xl overflow-hidden shadow-2xl bg-gradient-to-br from-slate-800 to-slate-900 border border-purple-500/20">
               
-              {/* Video Thumbnail/Hero Content */}
-              <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-slate-800 via-slate-700 to-slate-800">
-                <div className="text-center space-y-8 px-8">
-                  
-                  {/* Play Button with Premium Effects */}
-                  <button className="group/play relative inline-flex items-center justify-center w-32 h-32 bg-gradient-to-r from-cyan-500 to-purple-600 rounded-full shadow-2xl hover:shadow-cyan-500/50 transition-all duration-700 hover:scale-110 transform">
-                    <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 to-purple-500 rounded-full opacity-0 group-hover/play:opacity-100 transition-opacity duration-500 animate-pulse"></div>
-                    <div className="absolute -inset-4 bg-gradient-to-r from-cyan-500/20 to-purple-600/20 rounded-full blur-xl opacity-0 group-hover/play:opacity-100 transition-opacity duration-500"></div>
-                    <svg className="relative z-10 w-12 h-12 text-white ml-2" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M8 5v14l11-7z"/>
-                    </svg>
+              {/* Actual Video Implementation */}
+              <video 
+                className="w-full h-full object-cover"
+                poster="data:image/svg+xml,%3Csvg width='1200' height='675' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='100%25' height='100%25' fill='%23334155'/%3E%3Ctext x='50%25' y='50%25' font-size='48' fill='%23e2e8f0' text-anchor='middle' dy='.3em'%3ESuntynAI Demo%3C/text%3E%3C/svg%3E"
+                controls
+                preload="metadata"
+              >
+                <source src="/demo-video.mp4" type="video/mp4" />
+                <source src="/demo-video.webm" type="video/webm" />
+                Your browser does not support the video tag.
+              </video>
+              
+              {/* Video Overlay for Non-Video Fallback */}
+              <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-slate-800/90 to-slate-900/90 opacity-100 group-hover:opacity-0 transition-opacity duration-500">
+                <div className="text-center">
+                  <button className="group/play relative inline-flex items-center justify-center w-24 h-24 bg-gradient-to-r from-purple-600 to-cyan-500 rounded-full shadow-2xl hover:scale-110 transition-transform duration-300">
+                    <Play className="w-8 h-8 text-white ml-1" />
                   </button>
-                  
-                  {/* Video Title and Description */}
-                  <div className="space-y-4">
-                    <h2 className="text-3xl md:text-5xl font-black text-white mb-4 bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
-                      SuntynAI Demo Experience
-                    </h2>
-                    <p className="text-slate-300 text-lg md:text-xl max-w-3xl mx-auto leading-relaxed">
-                      Discover how 85+ AI-powered tools transform your productivity workflow in under 3 minutes
-                    </p>
-                    
-                    {/* Feature Pills */}
-                    <div className="flex flex-wrap justify-center gap-3 mt-8">
-                      <span className="px-4 py-2 bg-red-500/20 border border-red-500/30 rounded-full text-red-300 text-sm font-medium">
-                        📄 PDF Tools
-                      </span>
-                      <span className="px-4 py-2 bg-green-500/20 border border-green-500/30 rounded-full text-green-300 text-sm font-medium">
-                        🖼️ Image Tools
-                      </span>
-                      <span className="px-4 py-2 bg-blue-500/20 border border-blue-500/30 rounded-full text-blue-300 text-sm font-medium">
-                        🎵 Audio/Video
-                      </span>
-                      <span className="px-4 py-2 bg-yellow-500/20 border border-yellow-500/30 rounded-full text-yellow-300 text-sm font-medium">
-                        🏛️ Government
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Professional Video Controls Overlay */}
-              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 via-black/60 to-transparent p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                <div className="flex items-center justify-between text-white">
-                  <div className="flex items-center gap-6">
-                    <button className="hover:text-cyan-400 transition-colors p-2">
-                      <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M8 5v14l11-7z"/>
-                      </svg>
-                    </button>
-                    <div className="text-sm font-medium">0:00 / 2:45</div>
-                  </div>
-                  <div className="flex items-center gap-6">
-                    <button className="hover:text-cyan-400 transition-colors p-2">
-                      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 14.142"/>
-                      </svg>
-                    </button>
-                    <button className="hover:text-cyan-400 transition-colors p-2">
-                      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"/>
-                      </svg>
-                    </button>
-                  </div>
-                </div>
-                {/* Progress Bar */}
-                <div className="w-full bg-slate-600/50 rounded-full h-2 mt-4">
-                  <div className="bg-gradient-to-r from-cyan-500 to-purple-600 h-2 rounded-full w-1/4 transition-all duration-500"></div>
+                  <p className="text-white text-lg font-semibold mt-6 mb-2">Watch SuntynAI in Action</p>
+                  <p className="text-slate-300 text-sm">See how 85+ tools work seamlessly</p>
                 </div>
               </div>
             </div>
             
-            {/* Premium Glow Effect */}
-            <div className="absolute -inset-2 bg-gradient-to-r from-cyan-500/20 via-purple-500/20 to-pink-500/20 rounded-3xl blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+            {/* Video Glow Effect */}
+            <div className="absolute -inset-1 bg-gradient-to-r from-purple-500/20 to-cyan-500/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
           </div>
 
-          {/* Premium Action Buttons */}
+          {/* Call-to-Action Buttons */}
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-16">
-            <button className="group relative px-12 py-5 bg-gradient-to-r from-cyan-500 to-purple-600 rounded-full font-bold text-xl text-white shadow-2xl hover:shadow-cyan-500/50 transition-all duration-500 hover:scale-105 transform min-w-[250px] overflow-hidden">
-              <span className="relative z-10 flex items-center justify-center gap-3">
-                <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M8 5v14l11-7z"/>
-                </svg>
-                Watch Demo
-              </span>
-              <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 to-purple-500 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-              <div className="absolute -inset-1 bg-gradient-to-r from-cyan-500/50 to-purple-600/50 rounded-full blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-            </button>
-            
             <Link to="/tools-dashboard">
-              <button className="px-12 py-5 border-2 border-purple-400/50 text-purple-300 rounded-full font-bold text-xl hover:bg-purple-400/10 hover:border-purple-400 hover:text-purple-200 transition-all duration-500 hover:scale-105 transform min-w-[250px] backdrop-blur-sm">
-                Explore 85+ Tools
-              </button>
+              <Button className="relative group px-10 py-6 bg-gradient-to-r from-purple-600 to-cyan-500 hover:from-purple-700 hover:to-cyan-600 text-white font-bold text-lg rounded-xl shadow-2xl hover:shadow-purple-500/25 transition-all duration-300 hover:scale-105 min-w-[280px] overflow-hidden">
+                <span className="relative z-10">Start Using Tools Free</span>
+                <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-cyan-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              </Button>
             </Link>
+            
+            <button className="px-10 py-6 border-2 border-purple-400/40 text-purple-200 rounded-xl font-bold text-lg hover:bg-purple-400/10 hover:border-purple-400/60 transition-all duration-300 hover:scale-105 min-w-[280px] backdrop-blur-sm">
+              Watch Demo Video
+            </button>
           </div>
 
-          {/* Tool Categories Grid */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-5xl mx-auto">
-            <div className="text-center group">
-              <div className="w-20 h-20 mx-auto mb-6 bg-gradient-to-br from-red-500/20 to-red-600/20 rounded-3xl flex items-center justify-center text-4xl border border-red-500/30 group-hover:scale-110 transition-transform duration-500 group-hover:shadow-red-500/30 group-hover:shadow-xl">
-                📄
+          {/* Key Features */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
+            <div className="text-center">
+              <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-purple-500/20 to-purple-600/20 rounded-2xl flex items-center justify-center border border-purple-500/30">
+                <span className="text-2xl">⚡</span>
               </div>
-              <div className="text-red-400 font-bold text-lg mb-2">PDF Tools</div>
-              <div className="text-slate-400 text-sm">25+ Features</div>
+              <div className="text-purple-200 font-semibold">Instant Processing</div>
             </div>
             
-            <div className="text-center group">
-              <div className="w-20 h-20 mx-auto mb-6 bg-gradient-to-br from-green-500/20 to-green-600/20 rounded-3xl flex items-center justify-center text-4xl border border-green-500/30 group-hover:scale-110 transition-transform duration-500 group-hover:shadow-green-500/30 group-hover:shadow-xl">
-                🖼️
+            <div className="text-center">
+              <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-cyan-500/20 to-cyan-600/20 rounded-2xl flex items-center justify-center border border-cyan-500/30">
+                <span className="text-2xl">🔒</span>
               </div>
-              <div className="text-green-400 font-bold text-lg mb-2">Image Tools</div>
-              <div className="text-slate-400 text-sm">25+ Features</div>
+              <div className="text-cyan-200 font-semibold">Privacy First</div>
             </div>
             
-            <div className="text-center group">
-              <div className="w-20 h-20 mx-auto mb-6 bg-gradient-to-br from-blue-500/20 to-blue-600/20 rounded-3xl flex items-center justify-center text-4xl border border-blue-500/30 group-hover:scale-110 transition-transform duration-500 group-hover:shadow-blue-500/30 group-hover:shadow-xl">
-                🎵
+            <div className="text-center">
+              <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-green-500/20 to-green-600/20 rounded-2xl flex items-center justify-center border border-green-500/30">
+                <span className="text-2xl">🆓</span>
               </div>
-              <div className="text-blue-400 font-bold text-lg mb-2">Audio/Video</div>
-              <div className="text-slate-400 text-sm">20+ Features</div>
+              <div className="text-green-200 font-semibold">Always Free</div>
             </div>
             
-            <div className="text-center group">
-              <div className="w-20 h-20 mx-auto mb-6 bg-gradient-to-br from-yellow-500/20 to-yellow-600/20 rounded-3xl flex items-center justify-center text-4xl border border-yellow-500/30 group-hover:scale-110 transition-transform duration-500 group-hover:shadow-yellow-500/30 group-hover:shadow-xl">
-                🏛️
+            <div className="text-center">
+              <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-orange-500/20 to-orange-600/20 rounded-2xl flex items-center justify-center border border-orange-500/30">
+                <span className="text-2xl">🚀</span>
               </div>
-              <div className="text-yellow-400 font-bold text-lg mb-2">Government</div>
-              <div className="text-slate-400 text-sm">15+ Features</div>
+              <div className="text-orange-200 font-semibold">85+ AI Tools</div>
             </div>
-          </div>
-          
-          {/* Trust Indicators */}
-          <div className="mt-16 flex flex-wrap justify-center items-center gap-8 opacity-70">
-            <div className="text-slate-400 text-sm font-medium">✅ No Registration</div>
-            <div className="text-slate-400 text-sm font-medium">🔒 Privacy First</div>
-            <div className="text-slate-400 text-sm font-medium">⚡ Instant Processing</div>
-            <div className="text-slate-400 text-sm font-medium">🆓 Always Free</div>
           </div>
         </div>
       </section>
@@ -225,14 +167,14 @@ export default function Home() {
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-black mb-6 bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
-              Tool Categories
+              Professional Tool Categories
             </h2>
-            <p className="text-xl text-slate-400 max-w-2xl mx-auto">
-              Choose from our comprehensive collection of professional-grade tools
+            <p className="text-xl text-slate-400 max-w-3xl mx-auto">
+              Enterprise-grade AI tools organized by category for maximum productivity
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {TOOL_CATEGORIES.map((category) => (
               <CategoryCard key={category.id} category={category} />
             ))}
