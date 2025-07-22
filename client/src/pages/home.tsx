@@ -374,9 +374,9 @@ export default function Home() {
                 description: "All 85+ tools are completely free to use. No hidden fees, subscriptions, or registration required."
               },
               {
-                icon: "🇮🇳",
-                title: "Made in India",
-                description: "Proudly built in India with a focus on solving real problems for Indian users and businesses."
+                icon: "🌟",
+                title: "Premium Quality",
+                description: "Built with cutting-edge technology and best practices to deliver exceptional performance and reliability."
               },
               {
                 icon: "🚀",
@@ -501,8 +501,8 @@ export default function Home() {
                 <Link to="/sitemap" className="hover:text-purple-400 transition-colors duration-300">Sitemap</Link>
                 <Link to="/status" className="hover:text-purple-400 transition-colors duration-300">System Status</Link>
                 <div className="flex items-center space-x-2">
-                  <span>🇮🇳</span>
-                  <span>Made in India</span>
+                  <span>⚡</span>
+                  <span>Powered by AI</span>
                 </div>
               </div>
             </div>
