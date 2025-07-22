@@ -166,7 +166,7 @@ export default function NewHome() {
                   <div className={`h-full bg-gradient-to-br ${slide.color} p-4 md:p-8 text-white`}>
                     {/* Mobile-First Square Layout */}
                     <div className="h-full flex flex-col md:flex-row items-center justify-center">
-
+                      
                       {/* Content Section */}
                       <div className="w-full md:w-1/2 text-center md:text-left mb-6 md:mb-0">
                         <div className="flex items-center justify-center md:justify-start space-x-3 md:space-x-4 mb-4 md:mb-6">
@@ -175,11 +175,11 @@ export default function NewHome() {
                           </div>
                           <h3 className="text-xl md:text-3xl font-black tracking-tight">{slide.title}</h3>
                         </div>
-
+                        
                         <p className="text-sm md:text-lg opacity-95 mb-4 md:mb-8 leading-relaxed max-w-md mx-auto md:mx-0">
                           {slide.description}
                         </p>
-
+                        
                         {/* Tools Grid - Square Layout for Mobile */}
                         <div className="grid grid-cols-2 gap-2 md:gap-3 max-w-sm mx-auto md:mx-0">
                           {slide.tools.map((tool, toolIndex) => (
@@ -192,7 +192,7 @@ export default function NewHome() {
                           ))}
                         </div>
                       </div>
-
+                      
                       {/* Visual Section - Square Design */}
                       <div className="w-full md:w-1/2 flex justify-center items-center">
                         <div className="relative">
@@ -202,7 +202,7 @@ export default function NewHome() {
                               {slide.icon}
                             </div>
                           </div>
-
+                          
                           {/* Floating Elements for Mobile */}
                           <div className="absolute -top-2 -right-2 w-8 h-8 md:w-12 md:h-12 bg-white/20 rounded-lg backdrop-blur-sm animate-bounce delay-300">
                             <div className="w-full h-full flex items-center justify-center text-lg md:text-2xl opacity-70">✨</div>
@@ -210,13 +210,13 @@ export default function NewHome() {
                           <div className="absolute -bottom-2 -left-2 w-6 h-6 md:w-10 md:h-10 bg-white/20 rounded-lg backdrop-blur-sm animate-bounce delay-700">
                             <div className="w-full h-full flex items-center justify-center text-sm md:text-xl opacity-70">⚡</div>
                           </div>
-
+                          
                           {/* Glow Effect */}
                           <div className="absolute -inset-2 md:-inset-4 bg-white/10 rounded-2xl md:rounded-3xl blur-xl animate-pulse"></div>
                         </div>
                       </div>
                     </div>
-
+                    
                     {/* Progress Bar */}
                     <div className="absolute bottom-16 md:bottom-20 left-4 right-4 md:left-8 md:right-8">
                       <div className="w-full bg-white/20 rounded-full h-1">
@@ -245,7 +245,7 @@ export default function NewHome() {
                 />
               ))}
             </div>
-
+            
             {/* Navigation Arrows - Hidden on Mobile */}
             <button
               onClick={() => setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length)}
@@ -255,7 +255,7 @@ export default function NewHome() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
               </svg>
             </button>
-
+            
             <button
               onClick={() => setCurrentSlide((prev) => (prev + 1) % slides.length)}
               className="hidden md:flex absolute right-4 top-1/2 transform -translate-y-1/2 w-12 h-12 bg-black/20 hover:bg-black/40 rounded-full items-center justify-center text-white transition-all duration-300 backdrop-blur-sm"
@@ -295,7 +295,7 @@ export default function NewHome() {
                     <p className="text-gray-400 text-sm">25 professional tools</p>
                   </div>
                 </div>
-                <Link href="/tools/pdf">
+                <Link href="/tools">
                   <Button variant="outline" size="sm" className="border-gray-600 text-gray-300 hover:bg-gray-700 hover:text-white">
                     View Tools
                   </Button>
@@ -346,61 +346,190 @@ export default function NewHome() {
             </div>
 
             {/* Image Tools */}
-            <Link href="/tools/image">
-              <div className="bg-gray-800/60 backdrop-blur-sm rounded-2xl p-6 border border-gray-700/50 hover:border-gray-600 transition-all duration-300 cursor-pointer">
-                <div className="flex items-start justify-between mb-6">
-                  <div className="flex items-center space-x-3">
-                    <div className="w-12 h-12 bg-blue-500 rounded-xl flex items-center justify-center">
-                      <Image className="h-6 w-6 text-white" />
-                    </div>
-                    <div>
-                      <h3 className="text-xl font-semibold text-white">Image Tools</h3>
-                      <p className="text-gray-400 text-sm">20 professional tools</p>
-                    </div>
+            <div className="bg-gray-800/60 backdrop-blur-sm rounded-2xl p-6 border border-gray-700/50 hover:border-blue-500/50 hover:shadow-2xl hover:shadow-blue-500/20 transition-all duration-500 transform hover:-translate-y-2 hover:scale-105 group cursor-pointer">
+              <div className="flex items-start justify-between mb-6">
+                <div className="flex items-center space-x-3">
+                  <div className="w-12 h-12 bg-blue-500 rounded-xl flex items-center justify-center group-hover:rotate-12 group-hover:scale-110 transition-all duration-300">
+                    <Image className="h-6 w-6 text-white group-hover:animate-bounce" />
                   </div>
-                  <Button variant="outline" size="sm" className="border-gray-600 text-gray-300 hover:bg-gray-700 hover:text-white">
+                  <div>
+                    <h3 className="text-xl font-semibold text-white group-hover:text-blue-400 transition-colors duration-300">Image Tools</h3>
+                    <p className="text-gray-400 text-sm group-hover:text-gray-300">20 professional tools</p>
+                  </div>
+                </div>
+                <Link href="/tools">
+                  <Button variant="outline" size="sm" className="border-gray-600 text-gray-300 hover:bg-blue-500 hover:text-white hover:border-blue-500 transition-all duration-300">
                     View Tools
                   </Button>
-                </div></div>
-            </Link>
+                </Link>
+              </div>
+
+              <div className="grid grid-cols-2 gap-3">
+                <Link href="/tools/image-resize" className="bg-gray-700/50 rounded-lg p-3 hover:bg-gray-700 transition-colors group">
+                  <div className="flex items-center space-x-2 text-gray-300 group-hover:text-white">
+                    <Zap className="h-4 w-4" />
+                    <span className="text-sm">Image Resizer</span>
+                  </div>
+                </Link>
+                <Link href="/tools/image-compress" className="bg-gray-700/50 rounded-lg p-3 hover:bg-gray-700 transition-colors group">
+                  <div className="flex items-center space-x-2 text-gray-300 group-hover:text-white">
+                    <Layers className="h-4 w-4" />
+                    <span className="text-sm">Image Compressor</span>
+                  </div>
+                </Link>
+                <Link href="/tools/image-to-webp" className="bg-gray-700/50 rounded-lg p-3 hover:bg-gray-700 transition-colors group">
+                  <div className="flex items-center space-x-2 text-gray-300 group-hover:text-white">
+                    <ArrowRight className="h-4 w-4" />
+                    <span className="text-sm">Convert to WebP</span>
+                  </div>
+                </Link>
+                <Link href="/tools/image-to-jpg" className="bg-gray-700/50 rounded-lg p-3 hover:bg-gray-700 transition-colors group">
+                  <div className="flex items-center space-x-2 text-gray-300 group-hover:text-white">
+                    <ArrowRight className="h-4 w-4" />
+                    <span className="text-sm">Convert to JPG</span>
+                  </div>
+                </Link>
+                <Link href="/tools/image-to-png" className="bg-gray-700/50 rounded-lg p-3 hover:bg-gray-700 transition-colors group">
+                  <div className="flex items-center space-x-2 text-gray-300 group-hover:text-white">
+                    <ArrowRight className="h-4 w-4" />
+                    <span className="text-sm">Convert to PNG</span>
+                  </div>
+                </Link>
+                <Link href="/tools/image-to-pdf" className="bg-gray-700/50 rounded-lg p-3 hover:bg-gray-700 transition-colors group">
+                  <div className="flex items-center space-x-2 text-gray-300 group-hover:text-white">
+                    <FileText className="h-4 w-4" />
+                    <span className="text-sm">Image to PDF</span>
+                  </div>
+                </Link>
+              </div>
+              <div className="mt-4 text-center">
+                <span className="text-gray-500 text-xs">+19 more tools</span>
+              </div>
+            </div>
 
             {/* Audio & Video Tools */}
-            <Link href="/tools/audio">
-              <div className="bg-gray-800/60 backdrop-blur-sm rounded-2xl p-6 border border-gray-700/50 hover:border-gray-600 transition-all duration-300 cursor-pointer">
-                <div className="flex items-start justify-between mb-6">
-                  <div className="flex items-center space-x-3">
-                    <div className="w-12 h-12 bg-green-500 rounded-xl flex items-center justify-center">
-                      <Music className="h-6 w-6 text-white" />
-                    </div>
-                    <div>
-                      <h3 className="text-xl font-semibold text-white">Audio & Video Tools</h3>
-                      <p className="text-gray-400 text-sm">15 professional tools</p>
-                    </div>
+            <div className="bg-gray-800/60 backdrop-blur-sm rounded-2xl p-6 border border-gray-700/50 hover:border-green-500/50 hover:shadow-2xl hover:shadow-green-500/20 transition-all duration-500 transform hover:-translate-y-2 hover:scale-105 group cursor-pointer">
+              <div className="flex items-start justify-between mb-6">
+                <div className="flex items-center space-x-3">
+                  <div className="w-12 h-12 bg-green-500 rounded-xl flex items-center justify-center group-hover:rotate-12 group-hover:scale-110 transition-all duration-300">
+                    <Music className="h-6 w-6 text-white group-hover:animate-spin" />
                   </div>
-                  <Button variant="outline" size="sm" className="border-gray-600 text-gray-300 hover:bg-gray-700 hover:text-white">
+                  <div>
+                    <h3 className="text-xl font-semibold text-white group-hover:text-green-400 transition-colors duration-300">Audio & Video Tools</h3>
+                    <p className="text-gray-400 text-sm group-hover:text-gray-300">15 professional tools</p>
+                  </div>
+                </div>
+                <Link href="/tools">
+                  <Button variant="outline" size="sm" className="border-gray-600 text-gray-300 hover:bg-green-500 hover:text-white hover:border-green-500 transition-all duration-300">
                     View Tools
                   </Button>
-                </div></div>
-            </Link>
+                </Link>
+              </div>
+
+              <div className="grid grid-cols-2 gap-3">
+                <Link href="/tools/audio-converter" className="bg-gray-700/50 rounded-lg p-3 hover:bg-gray-700 transition-colors group">
+                  <div className="flex items-center space-x-2 text-gray-300 group-hover:text-white">
+                    <ArrowRight className="h-4 w-4" />
+                    <span className="text-sm">Audio Converter</span>
+                  </div>
+                </Link>
+                <Link href="/tools/audio-cutter" className="bg-gray-700/50 rounded-lg p-3 hover:bg-gray-700 transition-colors group">
+                  <div className="flex items-center space-x-2 text-gray-300 group-hover:text-white">
+                    <Scissors className="h-4 w-4" />
+                    <span className="text-sm">Audio Cutter</span>
+                  </div>
+                </Link>
+                <Link href="/tools/audio-joiner" className="bg-gray-700/50 rounded-lg p-3 hover:bg-gray-700 transition-colors group">
+                  <div className="flex items-center space-x-2 text-gray-300 group-hover:text-white">
+                    <Plus className="h-4 w-4" />
+                    <span className="text-sm">Audio Joiner</span>
+                  </div>
+                </Link>
+                <Link href="/tools/volume-booster" className="bg-gray-700/50 rounded-lg p-3 hover:bg-gray-700 transition-colors group">
+                  <div className="flex items-center space-x-2 text-gray-300 group-hover:text-white">
+                    <Music className="h-4 w-4" />
+                    <span className="text-sm">Volume Booster</span>
+                  </div>
+                </Link>
+                <Link href="/tools/audio-normalizer" className="bg-gray-700/50 rounded-lg p-3 hover:bg-gray-700 transition-colors group">
+                  <div className="flex items-center space-x-2 text-gray-300 group-hover:text-white">
+                    <Layers className="h-4 w-4" />
+                    <span className="text-sm">Audio Normalizer</span>
+                  </div>
+                </Link>
+                <Link href="/tools/audio-extractor" className="bg-gray-700/50 rounded-lg p-3 hover:bg-gray-700 transition-colors group">
+                  <div className="flex items-center space-x-2 text-gray-300 group-hover:text-white">
+                    <Music className="h-4 w-4" />
+                    <span className="text-sm">Audio Extractor</span>
+                  </div>
+                </Link>
+              </div>
+              <div className="mt-4 text-center">
+                <span className="text-gray-500 text-xs">+14 more tools</span>
+              </div>
+            </div>
 
             {/* Government Tools */}
-            <Link href="/tools/government">
-              <div className="bg-gray-800/60 backdrop-blur-sm rounded-2xl p-6 border border-gray-700/50 hover:border-gray-600 transition-all duration-300 cursor-pointer">
-                <div className="flex items-start justify-between mb-6">
-                  <div className="flex items-center space-x-3">
-                    <div className="w-12 h-12 bg-orange-500 rounded-xl flex items-center justify-center">
-                      <Building className="h-6 w-6 text-white" />
-                    </div>
-                    <div>
-                      <h3 className="text-xl font-semibold text-white">Government Tools</h3>
-                      <p className="text-gray-400 text-sm">15 professional tools</p>
-                    </div>
+            <div className="bg-gray-800/60 backdrop-blur-sm rounded-2xl p-6 border border-gray-700/50 hover:border-yellow-500/50 hover:shadow-2xl hover:shadow-yellow-500/20 transition-all duration-500 transform hover:-translate-y-2 hover:scale-105 group cursor-pointer">
+              <div className="flex items-start justify-between mb-6">
+                <div className="flex items-center space-x-3">
+                  <div className="w-12 h-12 bg-orange-500 rounded-xl flex items-center justify-center group-hover:rotate-12 group-hover:scale-110 transition-all duration-300">
+                    <Building className="h-6 w-6 text-white group-hover:animate-pulse" />
                   </div>
-                  <Button variant="outline" size="sm" className="border-gray-600 text-gray-300 hover:bg-gray-700 hover:text-white">
+                  <div>
+                    <h3 className="text-xl font-semibold text-white group-hover:text-yellow-400 transition-colors duration-300">Government Tools</h3>
+                    <p className="text-gray-400 text-sm group-hover:text-gray-300">15 professional tools</p>
+                  </div>
+                </div>
+                <Link href="/tools">
+                  <Button variant="outline" size="sm" className="border-gray-600 text-gray-300 hover:bg-yellow-500 hover:text-white hover:border-yellow-500 transition-all duration-300">
                     View Tools
                   </Button>
-                </div></div>
-            </Link>
+                </Link>
+              </div>
+
+              <div className="grid grid-cols-2 gap-3">
+                <Link href="/tools/pan-validator" className="bg-gray-700/50 rounded-lg p-3 hover:bg-gray-700 transition-colors group">
+                  <div className="flex items-center space-x-2 text-gray-300 group-hover:text-white">
+                    <Shield className="h-4 w-4" />
+                    <span className="text-sm">PAN Validator</span>
+                  </div>
+                </Link>
+                <Link href="/tools/aadhaar-masker" className="bg-gray-700/50 rounded-lg p-3 hover:bg-gray-700 transition-colors group">
+                  <div className="flex items-center space-x-2 text-gray-300 group-hover:text-white">
+                    <Star className="h-4 w-4" />
+                    <span className="text-sm">Aadhaar Masker</span>
+                  </div>
+                </Link>
+                <Link href="/tools/voter-id-extractor" className="bg-gray-700/50 rounded-lg p-3 hover:bg-gray-700 transition-colors group">
+                  <div className="flex items-center space-x-2 text-gray-300 group-hover:text-white">
+                    <FileText className="h-4 w-4" />
+                    <span className="text-sm">Voter ID Extractor</span>
+                  </div>
+                </Link>
+                <Link href="/tools/income-certificate" className="bg-gray-700/50 rounded-lg p-3 hover:bg-gray-700 transition-colors group">
+                  <div className="flex items-center space-x-2 text-gray-300 group-hover:text-white">
+                    <FileText className="h-4 w-4" />
+                    <span className="text-sm">Income Certificate</span>
+                  </div>
+                </Link>
+                <Link href="/tools/caste-certificate" className="bg-gray-700/50 rounded-lg p-3 hover:bg-gray-700 transition-colors group">
+                  <div className="flex items-center space-x-2 text-gray-300 group-hover:text-white">
+                    <Building className="h-4 w-4" />
+                    <span className="text-sm">Caste Certificate</span>
+                  </div>
+                </Link>
+                <Link href="/tools/ration-card-status" className="bg-gray-700/50 rounded-lg p-3 hover:bg-gray-700 transition-colors group">
+                  <div className="flex items-center space-x-2 text-gray-300 group-hover:text-white">
+                    <Star className="h-4 w-4" />
+                    <span className="text-sm">Ration Card Status</span>
+                  </div>
+                </Link>
+              </div>
+              <div className="mt-4 text-center">
+                <span className="text-gray-500 text-xs">+9 more tools</span>
+              </div>
+            </div>
           </div>
 
           {/* Popular Tools Section */}

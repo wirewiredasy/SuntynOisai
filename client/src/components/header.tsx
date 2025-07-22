@@ -12,12 +12,12 @@ export default function Header() {
 
   const navItems = [
     { name: "Home", href: "/", active: location === "/" },
-    { name: "All Tools", href: "/tools", active: location === "/tools" },
-    { name: "PDF Tools", href: "/tools/pdf", active: location === "/tools/pdf" },
-    { name: "Image Tools", href: "/tools/image", active: location === "/tools/image" },
-    { name: "Audio/Video", href: "/tools/audio", active: location === "/tools/audio" },
-    { name: "Gov Tools", href: "/tools/government", active: location === "/tools/government" },
-    { name: "Contact", href: "/contact", active: location === "/contact" },
+    { name: "All Tools", href: "/tools", active: location.startsWith("/tools") },
+    { name: "PDF Tools", href: "/tools/pdf", active: false },
+    { name: "Image Tools", href: "/tools/image", active: false },
+    { name: "Audio/Video", href: "/tools/audio", active: false },
+    { name: "Gov Tools", href: "/tools/government", active: false },
+    { name: "Contact", href: "/contact", active: false },
   ];
 
   return (
