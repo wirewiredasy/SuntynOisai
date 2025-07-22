@@ -29,7 +29,7 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
-        <ThemeProvider defaultTheme="dark" storageKey="suntyn-ui-theme">
+        <ThemeProvider defaultTheme="light" storageKey="suntyn-ui-theme">
           <div className="min-h-screen bg-background text-foreground">
           <Header />
           <main>

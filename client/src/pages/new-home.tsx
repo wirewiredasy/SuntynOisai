@@ -238,7 +238,7 @@ export default function NewHome() {
                     <p className="text-gray-400 text-sm">25 professional tools</p>
                   </div>
                 </div>
-                <Link href="/tools/pdf">
+                <Link href="/tools">
                   <Button variant="outline" size="sm" className="border-gray-600 text-gray-300 hover:bg-gray-700 hover:text-white">
                     View Tools
                   </Button>
@@ -300,7 +300,7 @@ export default function NewHome() {
                     <p className="text-gray-400 text-sm">25 professional tools</p>
                   </div>
                 </div>
-                <Link href="/tools/image">
+                <Link href="/tools">
                   <Button variant="outline" size="sm" className="border-gray-600 text-gray-300 hover:bg-gray-700 hover:text-white">
                     View Tools
                   </Button>
@@ -362,7 +362,7 @@ export default function NewHome() {
                     <p className="text-gray-400 text-sm">20 professional tools</p>
                   </div>
                 </div>
-                <Link href="/tools/audio">
+                <Link href="/tools">
                   <Button variant="outline" size="sm" className="border-gray-600 text-gray-300 hover:bg-gray-700 hover:text-white">
                     View Tools
                   </Button>
@@ -424,7 +424,7 @@ export default function NewHome() {
                     <p className="text-gray-400 text-sm">15 professional tools</p>
                   </div>
                 </div>
-                <Link href="/tools/government">
+                <Link href="/tools">
                   <Button variant="outline" size="sm" className="border-gray-600 text-gray-300 hover:bg-gray-700 hover:text-white">
                     View Tools
                   </Button>

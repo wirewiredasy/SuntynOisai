@@ -44,7 +44,7 @@ export default function Header() {
                 className={`px-3 py-2 text-sm font-medium transition-colors duration-200 hover:text-blue-600 ${
                   item.active
                     ? "text-blue-600 border-b-2 border-blue-600"
-                    : "text-gray-700 hover:text-blue-600"
+                    : "text-foreground hover:text-blue-600"
                 }`}
               >
                 {item.name}
@@ -59,7 +59,7 @@ export default function Header() {
               <Button
                 variant="ghost"
                 size="sm"
-                className="text-gray-700 hover:text-blue-600 hover:bg-blue-50"
+                className="text-foreground hover:text-blue-600 hover:bg-muted"
               >
                 <Search className="h-4 w-4 mr-2" />
                 Search
@@ -71,7 +71,7 @@ export default function Header() {
               variant="ghost"
               size="sm"
               onClick={() => setTheme(theme === "light" ? "dark" : "light")}
-              className="text-gray-700 hover:text-blue-600 hover:bg-blue-50"
+              className="text-foreground hover:text-blue-600 hover:bg-muted"
             >
               {theme === "light" ? <Moon className="h-4 w-4" /> : <Sun className="h-4 w-4" />}
             </Button>
@@ -88,7 +88,7 @@ export default function Header() {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="lg:hidden p-2 rounded-md text-gray-700 hover:text-blue-600 hover:bg-gray-100 transition-colors duration-200"
+            className="lg:hidden p-2 rounded-md text-foreground hover:text-blue-600 hover:bg-muted transition-colors duration-200"
           >
             {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </button>
@@ -96,7 +96,7 @@ export default function Header() {
 
         {/* Mobile Menu */}
         {isMenuOpen && (
-          <div className="lg:hidden py-4 border-t border-gray-200">
+          <div className="lg:hidden py-4 border-t border-border">
             <div className="flex flex-col space-y-2">
               {navItems.map((item) => (
                 <Link
@@ -105,22 +105,33 @@ export default function Header() {
                   onClick={() => setIsMenuOpen(false)}
                   className={`px-3 py-3 text-base font-medium transition-colors duration-200 rounded-lg ${
                     item.active
-                      ? "text-blue-600 bg-blue-50"
-                      : "text-gray-700 hover:text-blue-600 hover:bg-gray-50"
+                      ? "text-blue-600 bg-blue-50 dark:bg-blue-900/20"
+                      : "text-foreground hover:text-blue-600 hover:bg-muted"
                   }`}
                 >
                   {item.name}
                 </Link>
               ))}
-              <div className="pt-4 border-t border-gray-200 flex flex-col space-y-2">
+              <div className="pt-4 border-t border-border flex flex-col space-y-2">
+                <Link href="/tools">
+                  <Button
+                    variant="ghost"
+                    className="w-full justify-start text-foreground hover:text-blue-600 hover:bg-muted"
+                  >
+                    <Search className="h-4 w-4 mr-2" />
+                    Search Tools
+                  </Button>
+                </Link>
                 <Button
                   variant="ghost"
-                  className="justify-start text-gray-700 hover:text-blue-600 hover:bg-blue-50"
+                  size="sm"
+                  onClick={() => setTheme(theme === "light" ? "dark" : "light")}
+                  className="w-full justify-start text-foreground hover:text-blue-600 hover:bg-muted"
                 >
-                  <Search className="h-4 w-4 mr-2" />
-                  Search Tools
+                  {theme === "light" ? <Moon className="h-4 w-4 mr-2" /> : <Sun className="h-4 w-4 mr-2" />}
+                  {theme === "light" ? "Dark Mode" : "Light Mode"}
                 </Button>
-                <Button className="justify-start bg-gradient-to-r from-blue-600 to-purple-600 text-white">
+                <Button className="w-full justify-start bg-gradient-to-r from-blue-600 to-purple-600 text-white">
                   <Star className="h-4 w-4 mr-2" />
                   Favorites
                 </Button>
