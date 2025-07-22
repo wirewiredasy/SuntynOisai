@@ -4,6 +4,7 @@ import path from 'path';
 import multer from 'multer';
 import FormData from 'form-data';
 import fetch from 'node-fetch';
+import fs from 'fs';
 
 const router = express.Router();
 const upload = multer({ dest: 'uploads/' });
@@ -16,9 +17,10 @@ const startFastAPIServer = () => {
   
   const fastapiPath = path.join(process.cwd(), 'fastapi_app');
   
-  fastapiProcess = spawn('python3', ['main.py'], {
+  fastapiProcess = spawn('python3', ['-m', 'uvicorn', 'main:app', '--host', '0.0.0.0', '--port', '8000', '--reload'], {
     cwd: fastapiPath,
-    stdio: 'pipe'
+    stdio: 'pipe',
+    env: { ...process.env, PYTHONPATH: fastapiPath }
   });
   
   fastapiProcess.stdout.on('data', (data: Buffer) => {
@@ -51,12 +53,12 @@ router.all('/api/*', upload.any(), async (req, res) => {
     };
     
     // Handle file uploads with FormData
-    if (req.files && req.files.length > 0) {
+    if (req.files && Array.isArray(req.files) && req.files.length > 0) {
       const formData = new FormData();
       
       // Add files to FormData
       (req.files as Express.Multer.File[]).forEach((file, index) => {
-        formData.append('files', require('fs').createReadStream(file.path), file.originalname);
+        formData.append('files', fs.createReadStream(file.path), file.originalname);
       });
       
       // Add other form fields
@@ -104,17 +106,17 @@ router.all('/api/*', upload.any(), async (req, res) => {
       res.send(buffer);
     }
     
-  } catch (error) {
+  } catch (error: any) {
     console.error('FastAPI proxy error:', error);
     res.status(500).json({ 
       error: 'FastAPI service unavailable', 
-      details: error.message 
+      details: error?.message || 'Unknown error'
     });
   } finally {
     // Clean up uploaded files
-    if (req.files && req.files.length > 0) {
+    if (req.files && Array.isArray(req.files) && req.files.length > 0) {
       (req.files as Express.Multer.File[]).forEach(file => {
-        require('fs').unlinkSync(file.path);
+        fs.unlinkSync(file.path);
       });
     }
   }
